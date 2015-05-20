@@ -173,6 +173,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="logo_icon.ico" />
+    <None Include="OSIRiS_logo\logo_splash.png" />
+    <None Include="OSIRiS_logo\logo_splash.fw.png" />
     <None Include="OSIRiS_logo\logo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

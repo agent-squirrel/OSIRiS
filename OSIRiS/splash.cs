@@ -14,9 +14,9 @@ namespace OSIRiS
 
         public splash()
         {
+
             InitializeComponent();
-            this.BackColor = Color.White;
-            this.TransparencyKey = Color.White;
+
         }
 
     }

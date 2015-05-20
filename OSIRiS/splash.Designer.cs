@@ -35,9 +35,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Cyan;
-            this.BackgroundImage = global::OSIRiS.Properties.Resources.logo;
-            this.ClientSize = new System.Drawing.Size(235, 157);
+            this.BackColor = System.Drawing.Color.White;
+            this.BackgroundImage = global::OSIRiS.Properties.Resources.logo_splash;
+            this.ClientSize = new System.Drawing.Size(275, 180);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
