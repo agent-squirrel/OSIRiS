@@ -29,28 +29,16 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(splash));
-            this.splashimage = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.splashimage)).BeginInit();
             this.SuspendLayout();
-            // 
-            // splashimage
-            // 
-            this.splashimage.BackColor = System.Drawing.SystemColors.Window;
-            this.splashimage.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splashimage.Image = global::OSIRiS.Properties.Resources.logo;
-            this.splashimage.Location = new System.Drawing.Point(0, 0);
-            this.splashimage.Name = "splashimage";
-            this.splashimage.Size = new System.Drawing.Size(235, 157);
-            this.splashimage.TabIndex = 0;
-            this.splashimage.TabStop = false;
             // 
             // splash
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.BackColor = System.Drawing.Color.Cyan;
+            this.BackgroundImage = global::OSIRiS.Properties.Resources.logo;
             this.ClientSize = new System.Drawing.Size(235, 157);
-            this.Controls.Add(this.splashimage);
+            this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "splash";
@@ -62,6 +50,6 @@
 
         #endregion
 
-        private System.Windows.Forms.PictureBox splashimage;
+
     }
 }
