@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OSIRiSmainwindow));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.setuppage = new System.Windows.Forms.TabPage();
             this.consolecheck = new System.Windows.Forms.CheckBox();
@@ -614,6 +615,7 @@
             this.Controls.Add(this.tabControl1);
             this.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.Name = "OSIRiSmainwindow";
