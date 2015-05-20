@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using System.IO;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,6 +15,8 @@ using OSIRiS;
 namespace OSIRiS
 {
     //Declare the main form called OSIRiSmainwindow and run dinfo.
+    //Sleep the form so that the splash screen can show while disks
+    //are being polled.
 
     public partial class OSIRiSmainwindow : Form
     {
@@ -21,6 +24,7 @@ namespace OSIRiS
         {
             InitializeComponent();
             dinfo();
+            Thread.Sleep(2000);
         }
 
         //Declare dinfo and have it poll for disks
@@ -46,6 +50,8 @@ namespace OSIRiS
             }
             catch { MessageBox.Show("Error Fetching Drive Info", "Error"); }
         }
+
+
 
         //Import ProcessCaller for calling external programs
         //as seperate threads. This way we can process things
@@ -510,6 +516,29 @@ namespace OSIRiS
         private void formatbuttonquit_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        //Open the default browser to the on-disk help files.
+
+        private void helpbuttonsell_Click(object sender, EventArgs e)
+        {
+            string appPath = Assembly.GetEntryAssembly().Location;
+            string filename = Path.Combine(Path.GetDirectoryName(appPath), @"resources\help\OSIRiS Help.html");
+            Process.Start(filename);
+        }
+
+        private void helpbuttonformat_Click(object sender, EventArgs e)
+        {
+            string appPath = Assembly.GetEntryAssembly().Location;
+            string filename = Path.Combine(Path.GetDirectoryName(appPath), @"resources\help\OSIRiS Help.html");
+            Process.Start(filename);
+        }
+
+        private void helpbuttonsetup_Click(object sender, EventArgs e)
+        {
+            string appPath = Assembly.GetEntryAssembly().Location;
+            string filename = Path.Combine(Path.GetDirectoryName(appPath), @"resources\help\OSIRiS Help.html");
+            Process.Start(filename);
         }
 
                 }

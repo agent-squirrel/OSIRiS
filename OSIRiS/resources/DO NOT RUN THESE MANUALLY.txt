@@ -1,0 +1,15 @@
+######################################################
+#             THIS FILE IS PART OF OSIRiS            #
+#                  COPYRIGHT NOTICE                  #
+#         Copyright Adam Heathcote 2014 - 2015.      #
+#OSIRiS and associated documentation are distributed #
+#       under the GNU General Public License.        #
+#Please see gpl.txt in the root of the OSIRiS folder.#
+######################################################
+
+#########################################################################
+These scripts CANNOT be run manually! They expect arguments, either fed from
+the command line or from the OSIRiS master control program. 
+Running them manually will likely result in a broken system. 
+			    	   YOU HAVE BEEN WARNED.
+#########################################################################
