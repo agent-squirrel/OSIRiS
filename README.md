@@ -27,4 +27,4 @@ To allow team members to format external hard disk drives and
 USB flash drives for customers in a fast and efficient manner in
 a variety of file systems.
 
-OSIRiS is written in C# and is open source under the GPL.
+OSIRiS is written in C#, BATCH and Powershell and is open source under the GPL.
