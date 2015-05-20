@@ -134,7 +134,7 @@ namespace OSIRiS
 
                 this.Cursor = Cursors.AppStarting;
                 processCaller = new ProcessCaller(this);
-                processCaller.FileName = @"scripts\setup_display\setup.bat";
+                processCaller.FileName = @"resources\setup_display\setup.bat";
                 processCaller.Arguments = string.Format("{0} {1} {2} {3}", currenttime, shutdowntime, state, owuserpw);
                 processCaller.StdErrReceived += new DataReceivedHandler(writeStreamInfo);
                 processCaller.StdOutReceived += new DataReceivedHandler(writeStreamInfo);
@@ -244,7 +244,7 @@ namespace OSIRiS
 
                 this.Cursor = Cursors.AppStarting;
                 processCaller = new ProcessCaller(this);
-                processCaller.FileName = @"scripts\sell_display\sell.bat";
+                processCaller.FileName = @"resources\sell_display\sell.bat";
                 processCaller.Arguments = string.Format("{0} {1}", powerchoice, username);
                 processCaller.StdErrReceived += new DataReceivedHandler(writeStreamInfosell);
                 processCaller.StdOutReceived += new DataReceivedHandler(writeStreamInfosell);
@@ -338,6 +338,30 @@ namespace OSIRiS
                 return;
             }
 
+            //If the user does not select a drive letter we throw and error.
+
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                MessageBox.Show("You did not select a drive.",
+                "Error.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                formatbutton.Enabled = true;
+                return;
+            }
+
+            //If the user does not input a drive label we throw a error.
+            //Windows supports null drive lables but if we leave it blank
+            //the batch file we build later will prompt for confirmation.
+            //This will hang the batch file and parent OSIRiS process unless
+            //we feed it an answer. (Coming in a future version)
+
+            if (string.IsNullOrWhiteSpace(labelofdisk))
+            {
+                MessageBox.Show("You did not enter a drive name.",
+                "Error.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                formatbutton.Enabled = true;
+                return;
+            }
+
             //Because of the way Windows handles formatting large FAT32 disks,
             //we call fat32formatter from RidgeCrop Consultants.
             //Because fat32formatter wants user input and provides no way to
@@ -349,7 +373,7 @@ namespace OSIRiS
             if (fat32radio.Checked == true)
             {
                 System.Diagnostics.Process fat32proc = new System.Diagnostics.Process();
-                fat32proc.StartInfo.FileName = @"scripts\fat32format.exe";
+                fat32proc.StartInfo.FileName = @"resources\format\fat32format.exe";
                 fat32proc.StartInfo.Arguments = " " + name;
                 fat32proc.StartInfo.UseShellExecute = false;
                 fat32proc.StartInfo.RedirectStandardOutput = true;
@@ -370,14 +394,14 @@ namespace OSIRiS
                 //Build a batch file for labeling the disk.
 
                 StreamWriter r_w;
-                r_w = File.CreateText(@"scripts\format.bat");
+                r_w = File.CreateText(@"resources\format\format.bat");
                 r_w.WriteLine("label" + " " + name + " " + labelofdisk);
                 r_w.Close();
 
                 //Call the batch file.
 
                 System.Diagnostics.Process Proc1 = new System.Diagnostics.Process();
-                Proc1.StartInfo.FileName = @"scripts\format.bat";
+                Proc1.StartInfo.FileName = @"resources\format\format.bat";
                 Proc1.StartInfo.UseShellExecute = false;
                 Proc1.StartInfo.CreateNoWindow = true;
                 Proc1.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
@@ -388,7 +412,7 @@ namespace OSIRiS
                 //Recall the polled drive info so we can display
                 //updated filesystem and name information of label 4 and 6.
 
-                File.Delete(@"scripts\format.bat");
+                File.Delete(@"resources\format\format.bat");
                 MessageBox.Show("Format Complete.",
                         "Finished.", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 {
@@ -418,7 +442,7 @@ namespace OSIRiS
             //Build a batch file to format disks.
 
             StreamWriter w_r;
-            w_r = File.CreateText(@"scripts\format.bat");
+            w_r = File.CreateText(@"resources\format\format.bat");
             w_r.WriteLine("format /y" + "/q" + "/fs:" + filesystem + " " + name);
             w_r.WriteLine("label" + " " + name + " " + labelofdisk);
             w_r.Close();
@@ -426,7 +450,7 @@ namespace OSIRiS
             //Call the batch file.
 
             System.Diagnostics.Process Proc2 = new System.Diagnostics.Process();
-            Proc2.StartInfo.FileName = @"scripts\format.bat";
+            Proc2.StartInfo.FileName = @"resources\format\format.bat";
             Proc2.StartInfo.UseShellExecute = false;
             Proc2.StartInfo.CreateNoWindow = true;
             Proc2.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
@@ -437,7 +461,7 @@ namespace OSIRiS
             //Recall the polled drive info so we can display
             //updated filesystem and name information on label 4 and 6.
 
-            File.Delete(@"scripts\format.bat");
+            File.Delete(@"resources\format\format.bat");
             MessageBox.Show("Format Complete.",
                     "Finished.", MessageBoxButtons.OK, MessageBoxIcon.Information);
             {
