@@ -1,4 +1,4 @@
-# OSIRiS (Officeworks Store Initialization Routine and Scritps)
+# OSIRiS (Officeworks Store Initialization Routine and Scripts)
 OSIRiS V1 is a tool kit for working on display/demo computers at Officeworks
 or other environments where Group Policies and system images are
 impractical. 
