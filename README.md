@@ -28,3 +28,49 @@ USB flash drives for customers in a fast and efficient manner in
 a variety of file systems.
 
 OSIRiS is written in C#, BATCH and Powershell and is open source under the GPL.
+
+#What does it do?
+
+When setting up a machine, OSIRiS performs the following actions:
+
+1. Renames the machine based on the manufacturers model number as extracted from the firmware.
+
+2. Deletes all the user accounts on the machine.
+ 
+3. Creates two new accounts, ‘Customer’ and ‘Officeworks’ which has it's password set to whatever the user chooses.
+
+4. Configures a new power plan called ‘Officeworks’ that never sleeps nor hibernates.
+
+5. Disables ‘Windows Update’ to prevent the display machines from eating all the bandwidth.
+
+6. Configures the ‘OFW-Display’ wireless network.
+
+7. Sets the time zone.
+
+8. Sets the time to whatever the user chose.
+
+9. Configures the machine to automatically shutdown at the user designated time.
+
+10. Schedules a task to reset the wireless card on every boot of the machine. This prevents the machines being in airplane mode at the start of the day.
+
+11. Reboots the machine.
+
+When selling a machine, OSIRiS performs the following actions:
+
+1. Switches ‘Windows Update’ back on.
+
+2. Deletes the ‘Officeworks’ and ‘Customer’ users.
+
+3. Creates a new user based on whatever the user chooses.
+
+4. Copies over two cleanup scripts to tidy up the OSIRiS left overs on machine reboot.
+
+5. Creates a scheduled task which executes upon reboot and login of the new user account, this task bootstraps the cleanup scripts.
+
+6. Deletes the computer shutdown scheduled task and the wi-fi check scheduled task.
+
+7. Deletes the Officeworks power plan and sets the balanced plan as the default one. 
+
+8. Disconnects the wireless radio and deletes the directory containing the profile data. It then forces a reset of the radio to make sure it’s disconnected. 
+
+9. Reboots the machine into the new user account or alternatively shuts down.
