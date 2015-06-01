@@ -15,8 +15,8 @@ REM #########################################################################
 REM                       New Machine Setup Script
 REM                             Adam Heathcote
 REM This script CANNOT be run manually! It expects arguments, either fed from
-REM the command line or from the OSIRiS master control program. 
-REM Running it manually will likely result in a broken system. 
+REM the command line or from the OSIRiS master control program.
+REM Running it manually will likely result in a broken system.
 REM 			    	   YOU HAVE BEEN WARNED.
 REM #########################################################################
 
@@ -148,8 +148,8 @@ POWERCFG -SETACVALUEINDEX 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c 4f971e89-eebd-445
 :: Switch off timeouts for all AC DC states.
 POWERCFG -change -monitor-timeout-ac 0 2>&1
 POWERCFG -change -monitor-timeout-dc 0 2>&1
-POWERCFG -change -standby-timeout-ac minutes 0 2>&1
-POWERCFG -change -standby-timeout-dc minutes 0 2>&1
+POWERCFG -change -standby-timeout-ac 0 2>&1
+POWERCFG -change -standby-timeout-dc 0 2>&1
 POWERCFG -change -hibernate-timeout-ac 0 2>&1
 POWERCFG -change -hibernate-timeout-dc 0 2>&1
 
@@ -235,6 +235,3 @@ echo Restarting
 
 shutdown -r -t 5 /c "Rebooting to complete setup."
 exit
-
-
-
