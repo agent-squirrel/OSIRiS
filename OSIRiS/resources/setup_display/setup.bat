@@ -132,24 +132,26 @@ DEL userlist.txt > NUL 2>&1
 DEL userlisttrimmed.txt > NUL 2>&1
 
 
-REM #####################################################################
-REM #Copy the balanced power plan and rename the new version Officeworks.
-REM #Modify the Officeworks plan to never sleep nor hibernate and make
-REM #it the default plan.
-REM #####################################################################
+REM #######################################################################
+REM #Set the high performance plan as the default and rename it
+REM #"Officeworks".
+REM #Reconfigure the plan's defaults to make sure the machine never sleeps.
+REM #######################################################################
 @title  Setting Up the Power Settings
 
 echo Configuring Power Settings
 
-POWERCFG -DUPLICATESCHEME 381b4222-f694-41f0-9685-ff5bb260df2e 381b4222-f694-41f0-9685-ff5bb260aaaa> NUL 2>&1
-POWERCFG -CHANGENAME 381b4222-f694-41f0-9685-ff5bb260aaaa "Officeworks" > NUL 2>&1
-POWERCFG -SETACTIVE 381b4222-f694-41f0-9685-ff5bb260aaaa > NUL 2>&1
-POWERCFG -Change -monitor-timeout-ac 0 > NUL 2>&1
-POWERCFG -CHANGE -monitor-timeout-dc 0 > NUL 2>&1
-POWERCFG -CHANGE -standby-timeout-ac 0 > NUL 2>&1
-POWERCFG -CHANGE -standby-timeout-dc 0 > NUL 2>&1
-POWERCFG -CHANGE -hibernate-timeout-ac 0 > NUL 2>&1
-POWERCFG -CHANGE -hibernate-timeout-dc 0 > NUL 2>&1
+POWERCFG -SETACTIVE 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c 2>&1
+POWERCFG -CHANGENAME 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c "Officeworks" 2>&1
+:: This disables the lid close action.
+POWERCFG -SETACVALUEINDEX 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c 4f971e89-eebd-4455-a8de-9e59040e7347 5ca83367-6e45-459f-a27b-476b1d01c936 000 2>&1
+:: Switch off timeouts for all AC DC states.
+POWERCFG -change -monitor-timeout-ac 0 2>&1
+POWERCFG -change -monitor-timeout-dc 0 2>&1
+POWERCFG -standby-timeout-ac minutes 0 2>&1
+POWERCFG -standby-timeout-dc minutes 0 2>&1
+POWERCFG -hibernate-timeout-ac 0 2>&1
+POWERCFG -hibernate-timeout-dc 0 2>&1
 
 REM ####################################################
 REM #Switch off Windows Update and set it's service to
