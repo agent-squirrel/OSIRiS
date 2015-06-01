@@ -93,9 +93,9 @@ REM ###############################################
 
 echo Restoring Sane Power Settings
 
-POWERCFG -SETACTIVE 381b4222-f694-41f0-9685-ff5bb260df2e > NUL 2>&1
+POWERCFG -restoredefaultschemes > NUL 2>&1
 
-POWERCFG -DELETE 381b4222-f694-41f0-9685-ff5bb260aaaa > NUL 2>&1
+
 
 REM ###############################################
 REM #Disconnect the Wireless Radio and disassociate
