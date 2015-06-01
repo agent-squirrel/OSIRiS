@@ -148,10 +148,10 @@ POWERCFG -SETACVALUEINDEX 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c 4f971e89-eebd-445
 :: Switch off timeouts for all AC DC states.
 POWERCFG -change -monitor-timeout-ac 0 2>&1
 POWERCFG -change -monitor-timeout-dc 0 2>&1
-POWERCFG -standby-timeout-ac minutes 0 2>&1
-POWERCFG -standby-timeout-dc minutes 0 2>&1
-POWERCFG -hibernate-timeout-ac 0 2>&1
-POWERCFG -hibernate-timeout-dc 0 2>&1
+POWERCFG -change -standby-timeout-ac minutes 0 2>&1
+POWERCFG -change -standby-timeout-dc minutes 0 2>&1
+POWERCFG -change -hibernate-timeout-ac 0 2>&1
+POWERCFG -change -hibernate-timeout-dc 0 2>&1
 
 REM ####################################################
 REM #Switch off Windows Update and set it's service to
