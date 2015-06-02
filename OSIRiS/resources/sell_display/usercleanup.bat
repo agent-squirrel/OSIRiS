@@ -35,7 +35,7 @@ title Windows 7 User Profile Cleaning
 :: ----------
 
 :USERPRESERVE
-set userpreserve="Administrator,All Users,UpdatusUser,Default,Default User,Public,User"
+set userpreserve="Administrator,All Users,UpdatusUser,Default,Default User,Public,%USERNAME%"
 
 schtasks /delete /tn UserCleanup /f
 

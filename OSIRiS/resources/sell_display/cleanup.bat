@@ -15,7 +15,7 @@ REM ######################################################################
 REM #    This script is invoked on first boot of the Machine Post-Sell.  #
 REM #      Its purpose is to clean up the left over OSIRiS data.         #
 REM #         You can run it manually as an Admin if you need.           #
-REM #   DO NOT RUN THIS SCRIPT IF YOU HAVE ACCOUNTS OTHER THAN 'USER'    #
+REM # DO NOT RUN THIS SCRIPT IF YOU HAVE ACCOUNTS OTHER THAN '%USERNAME' #
 REM #     IT WILL TOTALLY DESTROY THE PROFILES OF ANY OTHER ACCOUNT.     #
 REM ######################################################################
 
@@ -42,7 +42,7 @@ REM #Call Mike Stone's User Cleanup script.
 REM #http://mstoneblog.wordpress.com
 REM ##########################################
 
-CALL C:\profiles\usercleanup.bat
+REM CALL C:\profiles\usercleanup.bat
 
 :: Take ownership of the old Officeworks and Customer directories and then
 :: delete them.

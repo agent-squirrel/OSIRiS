@@ -15,8 +15,8 @@ REM #########################################################################
 REM                        New Machine Sell Script
 REM                             Adam Heathcote
 REM This script CANNOT be run manually! It expects arguments, either fed from
-REM the command line or from the OSIRiS master control program. 
-REM Running it manually will likely result in a broken system. 
+REM the command line or from the OSIRiS master control program.
+REM Running it manually will likely result in a broken system.
 REM 			    		YOU HAVE BEEN WARNED.
 REM #########################################################################
 
@@ -42,7 +42,7 @@ REM #######################################################
 echo Deleting Accounts
 
 :: Dump all user account names to a text file.
-wmic useraccount get name > userlist.txt 
+wmic useraccount get name > userlist.txt
 
 :: Remove various junk lines from the text file.
 type userlist.txt | findstr /v Name | findstr /v Administrator | findstr /v Guest | findstr /v HomeGroup > userlisttrimmed.txt
@@ -123,7 +123,7 @@ REM ###########################################
 :: the OFW-Display profile.
 powershell "$Host.UI.RawUI.WindowTitle = 'Doing Powershell Stuff'; get-netadapter wi-fi | restart-netadapter" > NUL 2>&1
 
-echo Deleting the Shutdown Suppresor
+echo Deleting the Shutdown Suppressor
 DEL C:\Users\Public\Desktop\"Cancel Auto-Shutdown.lnk" > NUL 2>&1
 DEL C:\profiles\"Cancel Auto-Shutdown.bat" > NUL 2>&1
 
