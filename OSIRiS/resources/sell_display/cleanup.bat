@@ -14,18 +14,16 @@ CLS
 REM ######################################################################
 REM #    This script is invoked on first boot of the Machine Post-Sell.  #
 REM #      Its purpose is to clean up the left over OSIRiS data.         #
-REM #         You can run it manually as an Admin if you need.           #
-REM # DO NOT RUN THIS SCRIPT IF YOU HAVE ACCOUNTS OTHER THAN '%USERNAME' #
-REM #     IT WILL TOTALLY DESTROY THE PROFILES OF ANY OTHER ACCOUNT.     #
+REM #      RUNNING THIS SCRIPT MANUALLY WILL DESTROY USER PROFILES       #
 REM ######################################################################
-
+echo Cleaning Officeworks left-over data.
 
 REM ###########################################
 REM #Delete the cleanup task so it doesn't try
 REM #to run more than once.
 REM ###########################################
 
-schtasks /delete /tn Cleanup /f
+schtasks /delete /tn Cleanup /f > NUL 2>&1
 
 REM #############################################
 REM #Stop the Windows Search Service and the
@@ -33,24 +31,24 @@ REM #Windows Media Player network service so
 REM #we can delete the old user profile folders.
 REM #############################################
 
-net stop WMPNetworkSvc
+net stop WMPNetworkSvc > NUL 2>&1
 
-net stop WSearch
+net stop WSearch > NUL 2>&1
 
 REM ##########################################
 REM #Call Mike Stone's User Cleanup script.
 REM #http://mstoneblog.wordpress.com
 REM ##########################################
 
-REM CALL C:\profiles\usercleanup.bat
-
+CALL C:\profiles\usercleanup.bat > NUL 2>&1
+@title Cleanup
 :: Take ownership of the old Officeworks and Customer directories and then
 :: delete them.
 
-takeown /a /r /d Y /f C:\Users\Officeworks
-takeown /a /r /d Y /f C:\Users\Customer
-rmdir /q /s C:\Users\Officeworks
-rmdir /q /s C:\Users\Customer
+takeown /a /r /d Y /f C:\Users\Officeworks > NUL 2>&1
+takeown /a /r /d Y /f C:\Users\Customer > NUL 2>&1
+rmdir /q /s C:\Users\Officeworks > NUL 2>&1
+rmdir /q /s C:\Users\Customer > NUL 2>&1
 
 REM ###########################################
 REM #Restart the Windows Update Service as well
@@ -62,15 +60,14 @@ REM ###########################################
 :: sometimes the Windows Update service fails to start itself.
 :: So here we manually restart it, along with the Windows Search service and
 :: the Windows Media Player Network Service.
-:: We also reenable UAC since we disabled it to run this script.
 
-net start wuauserv
+net start wuauserv > NUL 2>&1
 
-sc config wuauserv start=auto
+sc config wuauserv start=auto > NUL 2>&1
 
-net start WSearch
+net start WSearch > NUL 2>&1
 
-net start WMPNetworkSvc
+net start WMPNetworkSvc > NUL 2>&1
 
 
 
@@ -79,5 +76,5 @@ REM #Self-Destruct the cleanup script
 REM #to leave no trace.
 REM ##################################
 
-del C:\profiles\usercleanup.bat
-del "%~f0"&exit /b
+del /s /q C:\profiles\* > NUL 2>&1
+del "%~f0"&exit /b > NUL 2>&1

@@ -17,7 +17,7 @@ REM                             Adam Heathcote
 REM This script CANNOT be run manually! It expects arguments, either fed from
 REM the command line or from the OSIRiS master control program.
 REM Running it manually will likely result in a broken system.
-REM 			    	   YOU HAVE BEEN WARNED.
+REM 			    	             YOU HAVE BEEN WARNED.
 REM #########################################################################
 
 :TZLOOP
@@ -106,7 +106,7 @@ type userlist.txt | findstr /v Name | findstr /v Administrator | findstr /v Gues
 FOR /F "tokens=* delims=*" %%G in (userlisttrimmed.txt) DO net user /delete "%%G" 1>NUL
 
 :: Create the new 'Admin Account' user.
-net user Officeworks %4 /add > NUL 2>&1
+net user Officeworks "%4" /add > NUL 2>&1
 
 :: Add 'Admin Account' to the Administrators group.
 net localgroup Administrators Officeworks /add > NUL 2>&1
@@ -195,6 +195,104 @@ echo Configuring Auto Shutdown
 
 SCHTASKS /Create /RU "SYSTEM" /RL "HIGHEST" /SC "DAILY" /TN "Computer Shutdown" /TR "shutdown -s -t 60 -c 'Officeworks Auto-Shutdown In Effect.' -f" /ST "%2" > NUL 2>&1
 
+
+echo Adding a shutdown suppresor to the Desktop
+echo shutdown -a > C:\profiles\"Cancel Auto-Shutdown.bat"
+echo exit >> C:\profiles\"Cancel Auto-Shutdown.bat"
+copy %~dp0\"Cancel Auto-Shutdown.lnk" C:\Users\Public\Desktop\ > NUL 2>&1
+
+REM #########################################################
+REM #Modifying the wallpaper for the Customer user requires a
+REM #multi-step approach.
+REM #########################################################
+
+echo Setting up custom wallpaper
+
+::Here we dump the contents of WMIC CPU to a text file and copy over
+::BGInfo to the profiles folder.
+::Also copy over the powershell script that runs on every login.
+
+wmic cpu get name > cpu.txt
+xcopy /S /I %~dp0\setup_payload\BGInfo\* C:\profiles\BGInfo > NUL 2>&1
+copy %~dp0\setup_payload\wall.ps1 C:\profiles\wall.ps1 > NUL 2>&1
+
+
+::Use 'find' to look through the cpu.txt file and check for specific
+::strings containing CPU information.
+::Copy a specific wallpaper over to the local disk based upon the CPU
+::discovered inside cpu.txt.
+
+REM ############### BEGIN PROCESSOR CHECK CODE BLOCK ##########################
+
+REM ##INTEL BLOCK##
+find /I "i5" cpu.txt  > NUL 2>&1
+if %errorlevel%==0 (copy %~dp0\setup_payload\i5.bmp C:\profiles\wallpaper.bmp) ELSE (GOTO i3)  > NUL 2>&1
+GOTO ENDPROC
+:i3
+find /I "i3" cpu.txt  > NUL 2>&1
+if %errorlevel%==0 (copy %~dp0\setup_payload\i3.bmp C:\profiles\wallpaper.bmp) ELSE (GOTO i7)  > NUL 2>&1
+GOTO ENDPROC
+:i7
+find /I "i7" cpu.txt  > NUL 2>&1
+if %errorlevel%==0 (copy %~dp0\setup_payload\i7.bmp C:\profiles\wallpaper.bmp) ELSE (GOTO pent)  > NUL 2>&1
+GOTO ENDPROC
+:pent
+find /I "pentium" cpu.txt  > NUL 2>&1
+if %errorlevel%==0 (copy %~dp0\setup_payload\pentium.bmp C:\profiles\wallpaper.bmp) ELSE (GOTO cel)  > NUL 2>&1
+GOTO ENDPROC
+:cel
+find /I "celeron" cpu.txt  > NUL 2>&1
+if %errorlevel%==0 (copy %~dp0\setup_payload\celeron.bmp C:\profiles\wallpaper.bmp) ELSE (GOTO atom)  > NUL 2>&1
+GOTO ENDPROC
+:atom
+find /I "atom" cpu.txt  > NUL 2>&1
+if %errorlevel%==0 (copy %~dp0\setup_payload\atom.bmp C:\profiles\wallpaper.bmp) ELSE (GOTO corem)  > NUL 2>&1
+GOTO ENDPROC
+:corem
+find /I "5y" cpu.txt  > NUL 2>&1
+if %errorlevel%==0 (copy %~dp0\setup_payload\corem.bmp C:\profiles\wallpaper.bmp) ELSE (GOTO e2)  > NUL 2>&1
+GOTO ENDPROC
+REM ##END INTEL##
+
+REM ##AMD BLOCK##
+:e2
+find /I "e2" cpu.txt  > NUL 2>&1
+if %errorlevel%==0 (copy %~dp0\setup_payload\e2.bmp C:\profiles\wallpaper.bmp) ELSE (GOTO a4)  > NUL 2>&1
+GOTO ENDPROC
+:a4
+find /I "a4" cpu.txt  > NUL 2>&1
+if %errorlevel%==0 (copy %~dp0\setup_payload\a4.bmp C:\profiles\wallpaper.bmp) ELSE (GOTO a6)  > NUL 2>&1
+GOTO ENDPROC
+:a6
+find /I "a6" cpu.txt  > NUL 2>&1
+if %errorlevel%==0 (copy %~dp0\setup_payload\a6.bmp C:\profiles\wallpaper.bmp) ELSE (GOTO a8)  > NUL 2>&1
+GOTO ENDPROC
+:a8
+find /I "a8" cpu.txt  > NUL 2>&1
+if %errorlevel%==0 (copy %~dp0\setup_payload\a8.bmp C:\profiles\wallpaper.bmp) ELSE (GOTO a10)  > NUL 2>&1
+GOTO ENDPROC
+:a10
+find /I "a10" cpu.txt  > NUL 2>&1
+if %errorlevel%==0 (copy %~dp0\setup_payload\a10.bmp C:\profiles\wallpaper.bmp) ELSE (GOTO fx)  > NUL 2>&1
+GOTO ENDPROC
+:fx
+find /I "fx" cpu.txt > NUL 2>&1
+if %errorlevel%==0 (copy %~dp0\setup_payload\fx.bmp C:\profiles\wallpaper.bmp) ELSE (GOTO unknown)  > NUL 2>&1
+GOTO ENDPROC
+REM ##END AMD##
+
+:unknown
+copy %~dp0\setup_payload\generic.bmp C:\profiles\wallpaper.bmp > NUL 2>&1
+
+REM ################ END PROCESSOR CHECK CODE BLOCK ###########################
+:ENDPROC
+
+::Create a scheduled task to set the wallpaper back to our custom one on every login.
+schtasks /CREATE /TN "Set Wallpaper" /TR "powershell.exe -executionpolicy Bypass -windowstyle minimized -file C:\profiles\wall.ps1" /SC ONLOGON /RU Customer > NUL 2>&1
+
+::Delete the cpu.txt file.
+del cpu.txt
+
 REM #######################################################
 REM #Here we verify that the various sections of OSIRiS
 REM #have run correctly. This ensures that no weirdness
@@ -205,6 +303,7 @@ REM #######################################################
 echo Pinging Localhost for 10 seconds before verification
 
 PING 127.0.0.1 -n 10 >NUL 2>&1 || PING ::1 -n 10 >NUL 2>&1
+
 
 echo Beginning Verification
 
@@ -223,11 +322,6 @@ SCHTASKS /create /tn "Wi-Fi Check" /tr "powershell 'get-netadapter wi-fi | resta
 )
 
 echo Verification Complete
-
-echo Adding a shutdown suppresor to the Desktop
-echo shutdown -a > C:\profiles\"Cancel Auto-Shutdown.bat"
-echo exit >> C:\profiles\"Cancel Auto-Shutdown.bat"
-copy %~dp0\"Cancel Auto-Shutdown.lnk" C:\Users\Public\Desktop\ > NUL 2>&1
 
 
 @title  Restarting

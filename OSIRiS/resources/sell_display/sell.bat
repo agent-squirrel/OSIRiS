@@ -53,7 +53,7 @@ FOR /F "tokens=* delims=" %%G in (userlisttrimmed.txt) DO net user /delete %%G >
 echo Creating New Account
 
 :: Create a new account based on the user input variable %2.
-net user %2 "" /add > NUL 2>&1
+net user "%2" "" /add > NUL 2>&1
 
 :: Add the user to the Administrators group.
 net localgroup "Administrators" "%2" /add > NUL 2>&1
@@ -79,11 +79,12 @@ echo Copying Cleanup Files
 :: Schedule a task to run on first boot that launches the cleanup script.
 copy %~dp0\cleanup.bat C:\profiles\cleanup.bat > NUL 2>&1
 copy %~dp0\usercleanup.bat C:\profiles\usercleanup.bat > NUL 2>&1
-schtasks /create /tn "Cleanup" /tr C:\profiles\cleanup.bat /sc onstart /RL HIGHEST /RU "SYSTEM" > NUL 2>&1
+schtasks /create /tn "Cleanup" /tr C:\profiles\cleanup.bat /sc onlogon /RL HIGHEST /RU "%2" > NUL 2>&1
 
 :: Delete both of the existing scheduled tasks.
 schtasks /delete /tn "Computer Shutdown" /f > NUL 2>&1
 schtasks /delete /tn "Wi-Fi Check" /f > NUL 2>&1
+schtasks /delete /tn "Set Wallpaper" /f > NUL 2>&1
 
 REM ###############################################
 REM #Set the balanced power plan as the active plan
@@ -132,13 +133,13 @@ DEL C:\profiles\"Cancel Auto-Shutdown.bat" > NUL 2>&1
 goto %1
 
 :Shutdown
-
+echo Shutting Down
 shutdown -s -t 5 /c "Shutting down."
 
 exit
 
 :Restart
-
+echo Restarting
 shutdown -r -t 5 /c "Rebooting to complete setup."
 
 exit
