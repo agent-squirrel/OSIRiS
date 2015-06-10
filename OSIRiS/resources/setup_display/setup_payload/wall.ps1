@@ -23,6 +23,9 @@ $newsize = $pswindow.windowsize
 $newsize.height = 5
 $pswindow.windowsize = $newsize
 
+#Make BGInfo highDPI aware.
+reg.exe Add "HKCU\Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers" /v "C:\profiles\BGInfo\Bginfo.exe" /d "HIGHDPIAWARE"
+
 
 #Print some text to the powershell window.
 write-host Setting walpaper, please wait...

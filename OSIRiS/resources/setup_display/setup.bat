@@ -182,7 +182,7 @@ Netsh wlan connect OFW-Display > NUL 2>&1
 
 :: This task resets the Wireless adapter on every boot of the machine.
 :: This is a heavy handed way of switching off airplane mode but it also ensures the adapter is in a known state at each boot.
-SCHTASKS /create /tn "Wi-Fi Check" /tr "powershell 'get-netadapter wi-fi | restart-netadapter'" /sc onstart /RL HIGHEST /RU "SYSTEM" > NUL 2>&1
+SCHTASKS /create /F /tn "Wi-Fi Check" /tr "powershell 'get-netadapter wi-fi | restart-netadapter'" /sc onstart /RL HIGHEST /RU "SYSTEM" > NUL 2>&1
 
 REM ######################################################################################
 REM #Create a scheduled task to shutdown the machine based upon the argument %2
@@ -193,7 +193,7 @@ REM ############################################################################
 
 echo Configuring Auto Shutdown
 
-SCHTASKS /Create /RU "SYSTEM" /RL "HIGHEST" /SC "DAILY" /TN "Computer Shutdown" /TR "shutdown -s -t 60 -c 'Officeworks Auto-Shutdown In Effect.' -f" /ST "%2" > NUL 2>&1
+SCHTASKS /Create /F /RU "SYSTEM" /RL "HIGHEST" /SC "DAILY" /TN "Computer Shutdown" /TR "shutdown -s -t 60 -c 'Officeworks Auto-Shutdown In Effect.' -f" /ST "%2" > NUL 2>&1
 
 
 echo Adding a shutdown suppresor to the Desktop
@@ -288,7 +288,7 @@ REM ################ END PROCESSOR CHECK CODE BLOCK ###########################
 :ENDPROC
 
 ::Create a scheduled task to set the wallpaper back to our custom one on every login.
-schtasks /CREATE /TN "Set Wallpaper" /TR "powershell.exe -executionpolicy Bypass -windowstyle minimized -file C:\profiles\wall.ps1" /SC ONLOGON /RU Customer > NUL 2>&1
+schtasks /CREATE /F /TN "Set Wallpaper" /TR "powershell.exe -executionpolicy Bypass -windowstyle minimized -file C:\profiles\wall.ps1" /SC ONLOGON /RU Customer > NUL 2>&1
 
 ::Delete the cpu.txt file.
 del cpu.txt
@@ -314,11 +314,11 @@ net user | find /i "Customer" 1>NUL || Net user Customer /add > NUL 2>&1
 WMIC USERACCOUNT WHERE "Name='Customer'" SET PasswordExpires=FALSE > NUL 2>&1
 SCHTASKS /query /TN "Computer Shutdown" > NUL 2>&1
 if NOT %errorlevel%==0 (
-SCHTASKS /Create /RU "SYSTEM" /RL "HIGHEST" /SC "DAILY" /TN "Computer Shutdown" /TR "shutdown -s -t 60 -c 'Officeworks Auto-Shutdown In Effect.' -f" /ST "%2" > NUL 2>&1
+SCHTASKS /Create /F /RU "SYSTEM" /RL "HIGHEST" /SC "DAILY" /TN "Computer Shutdown" /TR "shutdown -s -t 60 -c 'Officeworks Auto-Shutdown In Effect.' -f" /ST "%2" > NUL 2>&1
 )
 SCHTASKS /query /TN "Wi-Fi Check" > NUL 2>&1
 if NOT %errorlevel%==0 (
-SCHTASKS /create /tn "Wi-Fi Check" /tr "powershell 'get-netadapter wi-fi | restart-netadapter'" /sc onstart /RL HIGHEST /RU "SYSTEM" > NUL 2>&1
+SCHTASKS /create /F /tn "Wi-Fi Check" /tr "powershell 'get-netadapter wi-fi | restart-netadapter'" /sc onstart /RL HIGHEST /RU "SYSTEM" > NUL 2>&1
 )
 
 echo Verification Complete

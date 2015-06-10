@@ -79,12 +79,12 @@ echo Copying Cleanup Files
 :: Schedule a task to run on first boot that launches the cleanup script.
 copy %~dp0\cleanup.bat C:\profiles\cleanup.bat > NUL 2>&1
 copy %~dp0\usercleanup.bat C:\profiles\usercleanup.bat > NUL 2>&1
-schtasks /create /tn "Cleanup" /tr C:\profiles\cleanup.bat /sc onlogon /RL HIGHEST /RU "%2" > NUL 2>&1
+schtasks /create /F /tn "Cleanup" /tr C:\profiles\cleanup.bat /sc onlogon /RL HIGHEST /RU "%2" > NUL 2>&1
 
 :: Delete both of the existing scheduled tasks.
-schtasks /delete /tn "Computer Shutdown" /f > NUL 2>&1
-schtasks /delete /tn "Wi-Fi Check" /f > NUL 2>&1
-schtasks /delete /tn "Set Wallpaper" /f > NUL 2>&1
+schtasks /delete /F /tn "Computer Shutdown" /f > NUL 2>&1
+schtasks /delete /F /tn "Wi-Fi Check" /f > NUL 2>&1
+schtasks /delete /F /tn "Set Wallpaper" /f > NUL 2>&1
 
 REM ###############################################
 REM #Set the balanced power plan as the active plan
