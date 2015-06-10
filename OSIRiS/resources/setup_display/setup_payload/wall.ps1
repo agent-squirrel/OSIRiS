@@ -23,8 +23,11 @@ $newsize = $pswindow.windowsize
 $newsize.height = 5
 $pswindow.windowsize = $newsize
 
-#Make BGInfo highDPI aware.
-reg.exe Add "HKCU\Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers" /v "C:\profiles\BGInfo\Bginfo.exe" /d "HIGHDPIAWARE"
+#Make BGInfo highDPI aware. This is required because Windows 8.1 treats BGInfo
+#as a 'Legacy' application and scales it's UI to make it touch friendly.
+#This has the nasty side effect of making BGInfo think it's running on a very
+#small display, and thusly tiles the wallpaper. Here we disable this feature.
+reg.exe Add "HKCU\Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers" /v "C:\profiles\BGInfo\Bginfo.exe" /d "HIGHDPIAWARE" /f
 
 
 #Print some text to the powershell window.
