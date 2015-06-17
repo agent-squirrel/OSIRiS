@@ -90,7 +90,7 @@ namespace OSIRiS
                {
                  foreach (ZipEntry e in zip)
                    {
-                       e.Extract(@".\test", ExtractExistingFileAction.OverwriteSilently);
+                       e.Extract(@".", ExtractExistingFileAction.OverwriteSilently);
                    }
                     DialogResult restart = MessageBox.Show("Update Complete, press OK to restart OSIRiS.", "Restart" , MessageBoxButtons.OK);
                     if (restart == DialogResult.OK)
