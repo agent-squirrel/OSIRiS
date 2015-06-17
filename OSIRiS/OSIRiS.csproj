@@ -25,7 +25,7 @@
     <ProductName>OSIRiS</ProductName>
     <PublisherName>Adam Heathcote</PublisherName>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.5.7.%2a</ApplicationVersion>
+    <ApplicationVersion>1.7.7.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -95,7 +95,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Ionic.Zip">
-      <HintPath>resources\assemblies\Ionic.Zip.dll</HintPath>
+      <HintPath>.\Ionic.Zip.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
