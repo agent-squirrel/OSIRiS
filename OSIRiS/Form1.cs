@@ -1,22 +1,18 @@
 ﻿using System;
-using System.Reflection;
+using System.Diagnostics;
 using System.IO;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
+using System.Net;
+using System.Reflection;
 using System.Text;
-using System.Threading.Tasks;
 using System.Threading;
 using System.Windows.Forms;
-using System.Diagnostics;
-using OSIRiS;
 
 namespace OSIRiS
 {
     //Declare the main form called OSIRiSmainwindow and run dinfo.
     //Sleep the form so that the splash screen can show while disks
     //are being polled.
+
 
     public partial class OSIRiSmainwindow : Form
     {
@@ -27,6 +23,38 @@ namespace OSIRiS
             Thread.Sleep(2000);
         }
 
+        //Compare the downloaded version file to the locally stored version.
+        //If there are any differences, OSIRiS will download an updated version of itself.
+        private void OSIRiSmainwindow_Shown(object sender, EventArgs e)
+        {
+            if (File.Exists(@"resources\version.remote.txt"))
+            {
+                var localver = File.ReadAllText(@"resources\version.local.txt");
+                var remotever = File.ReadAllText(@"resources\version.remote.txt");
+
+                if (localver != remotever)
+                {
+                    DialogResult update = MessageBox.Show("There is an update available." + Environment.NewLine + "Would you like to update now?", "Update?", MessageBoxButtons.YesNo);
+                    if (update == DialogResult.Yes)
+                    {
+                        var form = new updater();
+                        form.Show(this);
+                        this.Hide();
+
+                    }
+                }
+                else
+                {
+                    return;
+
+                }
+            }
+            else
+            { 
+                return; 
+            }
+        }
+        
         //Declare dinfo and have it poll for disks
         //so we can show them on the formatter.
         //Spawn a message box if polling fails.
@@ -540,6 +568,10 @@ namespace OSIRiS
             string filename = Path.Combine(Path.GetDirectoryName(appPath), @"resources\help\OSIRiS Help.html");
             Process.Start(filename);
         }
+
+       
+
+        
 
                 }
             }

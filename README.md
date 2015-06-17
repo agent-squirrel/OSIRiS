@@ -34,26 +34,28 @@ OSIRiS is written in C#, BATCH and Powershell and is open source under the GPL.
 When setting up a machine, OSIRiS performs the following actions:
 
 1. Renames the machine based on the manufacturers model number as extracted from the firmware.
-
-2. Deletes all the user accounts on the machine.
  
-3. Creates two new accounts, ‘Customer’ and ‘Officeworks’ which has it's password set to whatever the user chooses.
+2. Sets the wallpaper to an Officeworks custom one.
 
-4. Configures a new power plan called ‘Officeworks’ that never sleeps nor hibernates.
+3. Deletes all the user accounts on the machine.
+ 
+4. Creates two new accounts, ‘Customer’ and ‘Officeworks’ which has it's password set to whatever the user chooses.
 
-5. Disables ‘Windows Update’ to prevent the display machines from eating all the bandwidth.
+5. Configures a new power plan called ‘Officeworks’ that never sleeps nor hibernates.
 
-6. Configures the ‘OFW-Display’ wireless network.
+6. Disables ‘Windows Update’ to prevent the display machines from eating all the bandwidth.
 
-7. Sets the time zone.
+7. Configures the ‘OFW-Display’ wireless network.
 
-8. Sets the time to whatever the user chose.
+8. Sets the time zone.
 
-9. Configures the machine to automatically shutdown at the user designated time.
+9. Sets the time to whatever the user chose.
 
-10. Schedules a task to reset the wireless card on every boot of the machine. This prevents the machines being in airplane mode at the start of the day.
+10. Configures the machine to automatically shutdown at the user designated time.
 
-11. Reboots the machine.
+11. Schedules a task to reset the wireless card on every boot of the machine. This prevents the machines being in airplane mode at the start of the day.
+
+12. Reboots the machine.
 
 When selling a machine, OSIRiS performs the following actions:
 

@@ -32,6 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OSIRiSmainwindow));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.setuppage = new System.Windows.Forms.TabPage();
+            this.helpbuttonsetup = new System.Windows.Forms.Button();
             this.consolecheck = new System.Windows.Forms.CheckBox();
             this.richTextBoxstream = new System.Windows.Forms.RichTextBox();
             this.maskedshutdown = new System.Windows.Forms.MaskedTextBox();
@@ -45,6 +46,7 @@
             this.pwbox = new System.Windows.Forms.TextBox();
             this.shutdownlabel = new System.Windows.Forms.Label();
             this.sellpage = new System.Windows.Forms.TabPage();
+            this.helpbuttonsell = new System.Windows.Forms.Button();
             this.sellconsolecheck = new System.Windows.Forms.CheckBox();
             this.userlabel = new System.Windows.Forms.Label();
             this.usernamebox = new System.Windows.Forms.TextBox();
@@ -55,6 +57,7 @@
             this.richTextBoxsellstream = new System.Windows.Forms.RichTextBox();
             this.sellradiogroup = new System.Windows.Forms.GroupBox();
             this.formattab = new System.Windows.Forms.TabPage();
+            this.helpbuttonformat = new System.Windows.Forms.Button();
             this.formatbuttonquit = new System.Windows.Forms.Button();
             this.formatbutton = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
@@ -73,9 +76,6 @@
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.tooltipcontrol = new System.Windows.Forms.ToolTip(this.components);
-            this.helpbuttonsetup = new System.Windows.Forms.Button();
-            this.helpbuttonsell = new System.Windows.Forms.Button();
-            this.helpbuttonformat = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.setuppage.SuspendLayout();
             this.sellpage.SuspendLayout();
@@ -119,6 +119,16 @@
             this.setuppage.TabIndex = 0;
             this.setuppage.Text = "Setup";
             this.setuppage.ToolTipText = "Use this tab to setup a new display computer.";
+            // 
+            // helpbuttonsetup
+            // 
+            this.helpbuttonsetup.Location = new System.Drawing.Point(362, 6);
+            this.helpbuttonsetup.Name = "helpbuttonsetup";
+            this.helpbuttonsetup.Size = new System.Drawing.Size(54, 26);
+            this.helpbuttonsetup.TabIndex = 16;
+            this.helpbuttonsetup.Text = "Help";
+            this.helpbuttonsetup.UseVisualStyleBackColor = true;
+            this.helpbuttonsetup.Click += new System.EventHandler(this.helpbuttonsetup_Click);
             // 
             // consolecheck
             // 
@@ -282,6 +292,16 @@
             this.sellpage.Text = "Sell";
             this.sellpage.ToolTipText = "Use this tab to sell a display computer.";
             // 
+            // helpbuttonsell
+            // 
+            this.helpbuttonsell.Location = new System.Drawing.Point(362, 6);
+            this.helpbuttonsell.Name = "helpbuttonsell";
+            this.helpbuttonsell.Size = new System.Drawing.Size(54, 26);
+            this.helpbuttonsell.TabIndex = 27;
+            this.helpbuttonsell.Text = "Help";
+            this.helpbuttonsell.UseVisualStyleBackColor = true;
+            this.helpbuttonsell.Click += new System.EventHandler(this.helpbuttonsell_Click);
+            // 
             // sellconsolecheck
             // 
             this.sellconsolecheck.AutoSize = true;
@@ -406,6 +426,16 @@
             this.formattab.Text = "Formatter";
             this.formattab.ToolTipText = "Use this tab to format an external drive for a customer.";
             this.formattab.UseVisualStyleBackColor = true;
+            // 
+            // helpbuttonformat
+            // 
+            this.helpbuttonformat.Location = new System.Drawing.Point(362, 6);
+            this.helpbuttonformat.Name = "helpbuttonformat";
+            this.helpbuttonformat.Size = new System.Drawing.Size(54, 26);
+            this.helpbuttonformat.TabIndex = 17;
+            this.helpbuttonformat.Text = "Help";
+            this.helpbuttonformat.UseVisualStyleBackColor = true;
+            this.helpbuttonformat.Click += new System.EventHandler(this.helpbuttonformat_Click);
             // 
             // formatbuttonquit
             // 
@@ -576,36 +606,6 @@
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(118, 17);
             this.toolStripStatusLabel1.Text = "toolStripStatusLabel1";
             // 
-            // helpbuttonsetup
-            // 
-            this.helpbuttonsetup.Location = new System.Drawing.Point(362, 6);
-            this.helpbuttonsetup.Name = "helpbuttonsetup";
-            this.helpbuttonsetup.Size = new System.Drawing.Size(54, 26);
-            this.helpbuttonsetup.TabIndex = 16;
-            this.helpbuttonsetup.Text = "Help";
-            this.helpbuttonsetup.UseVisualStyleBackColor = true;
-            this.helpbuttonsetup.Click += new System.EventHandler(this.helpbuttonsetup_Click);
-            // 
-            // helpbuttonsell
-            // 
-            this.helpbuttonsell.Location = new System.Drawing.Point(362, 6);
-            this.helpbuttonsell.Name = "helpbuttonsell";
-            this.helpbuttonsell.Size = new System.Drawing.Size(54, 26);
-            this.helpbuttonsell.TabIndex = 27;
-            this.helpbuttonsell.Text = "Help";
-            this.helpbuttonsell.UseVisualStyleBackColor = true;
-            this.helpbuttonsell.Click += new System.EventHandler(this.helpbuttonsell_Click);
-            // 
-            // helpbuttonformat
-            // 
-            this.helpbuttonformat.Location = new System.Drawing.Point(362, 6);
-            this.helpbuttonformat.Name = "helpbuttonformat";
-            this.helpbuttonformat.Size = new System.Drawing.Size(54, 26);
-            this.helpbuttonformat.TabIndex = 17;
-            this.helpbuttonformat.Text = "Help";
-            this.helpbuttonformat.UseVisualStyleBackColor = true;
-            this.helpbuttonformat.Click += new System.EventHandler(this.helpbuttonformat_Click);
-            // 
             // OSIRiSmainwindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
@@ -621,6 +621,8 @@
             this.Name = "OSIRiSmainwindow";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "OSIRiS";
+            this.TopMost = true;
+            this.Shown += new System.EventHandler(this.OSIRiSmainwindow_Shown);
             this.tabControl1.ResumeLayout(false);
             this.setuppage.ResumeLayout(false);
             this.setuppage.PerformLayout();

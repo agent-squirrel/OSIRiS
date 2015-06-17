@@ -26,7 +26,7 @@
 ::
 :: --------------------------------------
 
-title Windows 7 User Profile Cleaning
+@title Cleanup
 
 :: ----------
 :: Add any users you wish to exclude from the wipe to the "userpreserve"
@@ -36,8 +36,6 @@ title Windows 7 User Profile Cleaning
 
 :USERPRESERVE
 set userpreserve="Administrator,All Users,UpdatusUser,Default,Default User,Public,%USERNAME%"
-
-schtasks /delete /tn UserCleanup /f
 
 
 FOR /f "tokens=*" %%a IN ('reg query "hklm\software\microsoft\windows nt\currentversion\profilelist"^|find /i "s-1-5-21"') DO CALL :REGCHECK "%%a"
