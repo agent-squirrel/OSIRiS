@@ -87,20 +87,43 @@ namespace OSIRiS
                 //Backup the OSIRiS binary and extract the newly downloaded zip file. 
                 File.Move("OSIRiS.exe", "OSIRiS.backup.exe");
                 using (ZipFile zip = ZipFile.Read("latest.zip"))
-               {
-                 foreach (ZipEntry e in zip)
-                   {
-                       e.Extract(@".", ExtractExistingFileAction.OverwriteSilently);
-                   }
-                    DialogResult restart = MessageBox.Show("Update Complete, press OK to restart OSIRiS.", "Restart" , MessageBoxButtons.OK);
-                    if (restart == DialogResult.OK)
+                {
+                    foreach (ZipEntry e in zip)
                     {
-                        Process.Start("OSIRiS.exe");
-                        Process.GetCurrentProcess().Kill();
-                    }
+                        try
+                        {
+                            
+                        }
+                            //Below is some hacky exception catching code to make up for the short falls of DOTNETZIP.
+                            //DOTNETZIP creates temporary files at runtime and attempts to delete them afterwards, however
+                            //this fails. This code catches the exception and deletes the temp file.
+                        catch (IOException except)
+                        {
+                            bool b = false;
+                            foreach (var postFix in new[] { ".tmp", ".PendingOverwrite" })
+                            {
+                                var errorPath = Path.Combine(@".", e.FileName) + postFix;
+                                if (File.Exists(errorPath))
+                                {
+                                    File.Delete(errorPath);
+                                    b = true;
+                                }
+                            }
+                            if (!b)
+                            {
+                                throw except;
+                            }
+                            e.Extract(@".", ExtractExistingFileAction.OverwriteSilently);
+                            DialogResult restart = MessageBox.Show("Update Complete, press OK to restart OSIRiS.", "Restart", MessageBoxButtons.OK);
+                            if (restart == DialogResult.OK)
+                            {
+                                Process.Start("OSIRiS.exe");
+                                Process.GetCurrentProcess().Kill();
+                            }
+                        }
 
-                 
-               }
+                    }
+                }
             }
         }
 
