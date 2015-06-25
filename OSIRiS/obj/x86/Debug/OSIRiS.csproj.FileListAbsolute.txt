@@ -1,0 +1,8 @@
+C:\Users\Adam\Documents\Visual Studio 2013\Projects\OSIRiS\OSIRiS\bin\x86\Debug\OSIRiS.exe.config
+C:\Users\Adam\Documents\Visual Studio 2013\Projects\OSIRiS\OSIRiS\bin\x86\Debug\OSIRiS.exe
+C:\Users\Adam\Documents\Visual Studio 2013\Projects\OSIRiS\OSIRiS\bin\x86\Debug\OSIRiS.pdb
+C:\Users\Adam\Documents\Visual Studio 2013\Projects\OSIRiS\OSIRiS\obj\x86\Debug\OSIRiS.OSIRiSmainwindow.resources
+C:\Users\Adam\Documents\Visual Studio 2013\Projects\OSIRiS\OSIRiS\obj\x86\Debug\OSIRiS.Properties.Resources.resources
+C:\Users\Adam\Documents\Visual Studio 2013\Projects\OSIRiS\OSIRiS\obj\x86\Debug\OSIRiS.csproj.GenerateResource.Cache
+C:\Users\Adam\Documents\Visual Studio 2013\Projects\OSIRiS\OSIRiS\obj\x86\Debug\OSIRiS.exe
+C:\Users\Adam\Documents\Visual Studio 2013\Projects\OSIRiS\OSIRiS\obj\x86\Debug\OSIRiS.pdb

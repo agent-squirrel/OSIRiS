@@ -1,0 +1,138 @@
+﻿<html>
+	
+<head>
+	<title>File System Breakdown</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="generator" content="HelpNDoc Personal Edition 4.6.0.558">
+	<meta name="keywords" content="fs, file, system">
+	
+	<link type="text/css" rel="stylesheet" media="all" href="css/reset.css" />
+	<link type="text/css" rel="stylesheet" media="all" href="css/base.css" />
+	<link type="text/css" rel="stylesheet" media="all" href="css/hnd.css" />
+	<!--[if lte IE 8]>
+		<link type="text/css" rel="stylesheet" media="all" href="css/ielte8.css" />
+	<![endif]-->
+	<style type="text/css">
+		#topic_header
+		{
+			background-color: #EFEFEF;
+		}
+	</style>
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/hnd.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function()
+		{
+			if (top.frames.length == 0)
+			{
+				var sTopicUrl = top.location.href.substring(top.location.href.lastIndexOf("/") + 1, top.location.href.length);
+				top.location.href = "OSIRiS Help.html?" + sTopicUrl;
+			}
+			else if (top && top.FrameTOC && top.FrameTOC.SelectTocItem)
+			{
+				top.FrameTOC.SelectTocItem("FileSystemBreakdown");
+			}
+		});
+	</script>
+	
+	</head>
+
+<body>
+
+<div id="topic_header">
+			<div id="topic_header_content">
+				<h1 id="topic_header_text">File System Breakdown</h1>
+				
+				<div id="topic_breadcrumb">
+					<a href="TechnicalOverview.html">Technical Overview</a> &rsaquo;&rsaquo; </div>
+				</div>
+			<div id="topic_header_nav">
+				<a href="TechnicalOverview.html"><img src="img/arrow_up.png" alt="Parent"/></a>
+				
+				<a href="Systemrequirements.html"><img src="img/arrow_left.png" alt="Previous"/></a>
+				
+				<a href="Troubleshooting.html"><img src="img/arrow_right.png" alt="Next"/></a>
+				
+				</div>
+			<div class="clear"></div>
+		</div>
+	<div id="topic_content">
+		
+<p></p>
+<h3 class="rvps6"><span class="rvts0"><span class="rvts15">File Systems</span></span></h3>
+<p class="rvps3"><span class="rvts20"><br/></span></p>
+<p class="rvps3"><span class="rvts13">OSIRiS supports formatting external hard disk drives and USB flash drives</span></p>
+<p class="rvps3"><span class="rvts13">to a variety of different file systems.</span><br/><span class="rvts13"><br/></span></p>
+<h3 class="rvps6"><span class="rvts0"><span class="rvts21">What is a file system?</span></span></h3>
+<p class="rvps3"><span class="rvts13">A file system is a method for storing information on a storage medium.</span><br/><span class="rvts13">Every modern storage device has a file system of some description</span></p>
+<p class="rvps3"><span class="rvts13">and these file systems have different advantages and limitations.</span><br/><span class="rvts13">For more information on file systems see </span><a class="rvts14" href="http://en.wikipedia.org/wiki/File_system" target="_blank">here</a><span class="rvts13">. </span></p>
+<p class="rvps3"><span class="rvts13"><br/></span></p>
+<h3 class="rvps6"><span class="rvts0"><span class="rvts21">File systems supported by OSIRiS</span></span></h3>
+<p class="rvps3"><span class="rvts13">FAT32</span><br/><span class="rvts13">exFAT</span></p>
+<p class="rvps3"><span class="rvts13">NTFS</span></p>
+<p class="rvps3"><span class="rvts13"><br/></span></p>
+<p class="rvps3"><span class="rvts13"><br/></span></p>
+<h3 class="rvps6"><span class="rvts0"><span class="rvts22">FAT32</span></span></h3>
+<p class="rvps3"><span class="rvts19">F</span><span class="rvts13">ile </span><span class="rvts19">A</span><span class="rvts13">llocation </span><span class="rvts19">T</span><span class="rvts13">able 32 bit is an extension of the older FAT16 file system</span></p>
+<p class="rvps3"><span class="rvts13">which in turn is an extension of FAT. It is almost universally compatible with</span></p>
+<p class="rvps3"><span class="rvts13">most operating systems and hardware and is usually chosen by manufacturers</span></p>
+<p class="rvps3"><span class="rvts13">of devices like flash drives and memory cards for this reason. </span><br/><span class="rvts13">No fancy licensing is required to include FAT32 support or code into an </span></p>
+<p class="rvps3"><span class="rvts13">operating system and so it has a very low barrier for entry. </span><br/><span class="rvts13"></span><br/><span class="rvts19">Limitations: -</span><span class="rvts13"> FAT32 comes from a time before very large hard disk drives.</span><br/><span class="rvts13">It has a hard limit of 2TB per volume, you can have more than one 2TB volume on </span></p>
+<p class="rvps3"><span class="rvts13">one disk so as to utilize a 4TB disk for example. </span><br/><span class="rvts13">FAT32 also has to load it's entire table into RAM when it is mounted, this might not</span></p>
+<p class="rvps3"><span class="rvts13">be an issue for modern systems with lots of RAM, but the table can get very large </span></p>
+<p class="rvps3"><span class="rvts13">if the drive has lots of files on it. </span></p>
+<p class="rvps3"><span class="rvts13">FAT32 can only handle a single file size of 4GB, this becomes a problem if the</span></p>
+<p class="rvps3"><span class="rvts13">drive in question contains, or is going to contain, lots of video files. Video files</span></p>
+<p class="rvps3"><span class="rvts13">often top the 4GB file size limit and so if a drive is to be used in this manner try</span></p>
+<p class="rvps3"><span class="rvts13">exFAT or NTFS instead. (Or one of the Mac file systems such as HFS+)</span></p>
+<p class="rvps3"><span class="rvts13"><br/></span></p>
+<h3 class="rvps6"><span class="rvts0"><span class="rvts22">exFAT</span></span></h3>
+<p class="rvps3"><span class="rvts19">Ex</span><span class="rvts13">tended </span><span class="rvts19">F</span><span class="rvts13">ile </span><span class="rvts19">A</span><span class="rvts13">llocation </span><span class="rvts19">T</span><span class="rvts13">able is a further extension of the FAT file system.</span><br/><span class="rvts13">It requires licensing from Microsoft and so only a handful of operating systems</span></p>
+<p class="rvps3"><span class="rvts13">include it from the get go. exFAT support is present in Windows and Mac OS X</span></p>
+<p class="rvps3"><span class="rvts13">out of the box and can be added to Linux and other operating systems. This</span></p>
+<p class="rvps3"><span class="rvts13">makes exFAT an ideal file system for use on a drive that needs to be used on </span></p>
+<p class="rvps3"><span class="rvts13">both a Windows PC and a Mac. (fuse-exfat or exfat-utils are needed on Linux)</span></p>
+<p class="rvps3"><span class="rvts13"><br/></span></p>
+<p class="rvps3"><span class="rvts19">Limitations: - </span><span class="rvts13">exFAT technically has a volume size limit of 128PB but 512TB is</span></p>
+<p class="rvps3"><span class="rvts13">the recommended maximum which in the modern day is considered infinite size</span></p>
+<p class="rvps3"><span class="rvts13">for the average consumer. </span></p>
+<p class="rvps3"><span class="rvts13">exFAT does not have the facility to journal any changes made to the file system and</span></p>
+<p class="rvps3"><span class="rvts13">does not support advanced permissions. These limitations make it less than ideal for</span></p>
+<p class="rvps3"><span class="rvts13">a disk that is accessed rapidly and regularly, such as an OS boot disk. If power is lost</span></p>
+<p class="rvps3"><span class="rvts13">during a read or write, the chances of data corruption are high and with no journal to write</span></p>
+<p class="rvps3"><span class="rvts13">back from, data is usually lost.</span></p>
+<p class="rvps3"><span class="rvts13"><br/></span></p>
+<h3 class="rvps6"><span class="rvts0"><span class="rvts22">NTFS</span></span></h3>
+<p class="rvps3"><span class="rvts19">N</span><span class="rvts13">ew </span><span class="rvts19">T</span><span class="rvts13">echnology </span><span class="rvts19">F</span><span class="rvts13">ile </span><span class="rvts19">S</span><span class="rvts13">ystem is the default file system for Windows operating system</span></p>
+<p class="rvps3"><span class="rvts13">boot disks and large hard drives. (For large flash drives and memory cards, exFAT is the</span></p>
+<p class="rvps3"><span class="rvts13">default)</span><br/><span class="rvts13">Supporting journalling, this file system can recover from basic data corruption and power</span></p>
+<p class="rvps3"><span class="rvts13">loss during read/writes and advanced permission management is available making NTFS </span></p>
+<p class="rvps3"><span class="rvts13">ideal for multi-user systems.</span></p>
+<p class="rvps3"><span class="rvts13"><br/></span></p>
+<p class="rvps3"><span class="rvts19">Limitations: - </span><span class="rvts13">NTFS can only be read by Mac OS X but not written to and so makes a poor</span></p>
+<p class="rvps3"><span class="rvts13">choice for cross platform compatibility. In addition, very few media players and third party</span></p>
+<p class="rvps3"><span class="rvts13">devices support NTFS and so it is best used in a Windows only environment. </span></p>
+<p class="rvps3"><span class="rvts13">Microsoft has not released any specifications on NTFS and so any future support in anything</span></p>
+<p class="rvps3"><span class="rvts13">not made by Microsoft is subject to reverse engineering attempts.</span></p>
+<p class="rvps3"><span class="rvts13"><br/></span></p>
+<p class="rvps3"><span class="rvts18"><br/></span></p>
+<p class="rvps3"><span class="rvts18"><br/></span></p>
+<p class="rvps3"><span class="rvts18">Future Support</span></p>
+<p class="rvps3"><span class="rvts18"><br/></span></p>
+<p class="rvps3"><span class="rvts23">reFS</span></p>
+<p class="rvps3"><span class="rvts13">If and when Microsoft finalises the </span><span class="rvts19">Re</span><span class="rvts13">silient </span><span class="rvts19">F</span><span class="rvts13">ile </span><span class="rvts19">S</span><span class="rvts13">ystem for Windows 10/Server 2016 support</span></p>
+<p class="rvps3"><span class="rvts13">will likely be added to OSIRiS. reFS will support incredibly large disks on the exabyte scale and</span></p>
+<p class="rvps3"><span class="rvts13">will be able to recover from data corruption in a manner similar to the already established ZFS</span></p>
+<p class="rvps3"><span class="rvts13">and the upcoming BTRFS.</span></p>
+<p></p>
+</div>
+	
+	<div id="topic_footer">
+
+			<div id="topic_footer_content">
+				Copyright &copy; 2014 - 2015 by Adam Heathcote. Licensed under the GPL.</div>
+		</div>
+	</body>
+	
+</html>
+
