@@ -27,6 +27,7 @@ namespace OSIRiS
         //If there are any differences, OSIRiS will download an updated version of itself.
         private void OSIRiSmainwindow_Shown(object sender, EventArgs e)
         {
+
             if (File.Exists(@"resources\version.remote.txt"))
             {
                 var localver = File.ReadAllText(@"resources\version.local.txt");
@@ -37,6 +38,7 @@ namespace OSIRiS
                     DialogResult update = MessageBox.Show("There is an update available." + Environment.NewLine + "Would you like to update now?", "Update?", MessageBoxButtons.YesNo);
                     if (update == DialogResult.Yes)
                     {
+                        File.Delete(@"resources\version.remote.txt");
                         var form = new updater();
                         form.Show(this);
                         this.Hide();

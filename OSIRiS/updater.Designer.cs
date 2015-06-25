@@ -119,8 +119,8 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.Name = "updater";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Updater";
-            this.TopMost = true;
             this.Shown += new System.EventHandler(this.updater_Shown);
             this.ResumeLayout(false);
             this.PerformLayout();

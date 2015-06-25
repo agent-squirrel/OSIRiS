@@ -43,7 +43,9 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "splash";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "splash";
+            this.Text = "OSIRiS";
+            this.TopMost = true;
+            this.Load += new System.EventHandler(this.splash_Load);
             this.ResumeLayout(false);
 
         }

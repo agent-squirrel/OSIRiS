@@ -621,7 +621,6 @@
             this.Name = "OSIRiSmainwindow";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "OSIRiS";
-            this.TopMost = true;
             this.Shown += new System.EventHandler(this.OSIRiSmainwindow_Shown);
             this.tabControl1.ResumeLayout(false);
             this.setuppage.ResumeLayout(false);

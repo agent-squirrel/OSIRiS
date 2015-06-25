@@ -25,35 +25,40 @@ namespace OSIRiS
             {
                 File.Delete(@"resources\version.remote.txt");
             }
-            if (File.Exists(@"OSIRiS.backup.exe"))
-            {
-                File.Delete(@"OSIRiS.backup.exe");
-            }
             if (File.Exists(@"latest.zip"))
             {
                 File.Delete(@"latest.zip");
             }
-            using (var client = new WebClient())
-            try
+            if (Directory.Exists(@"backup"))
             {
-                client.DownloadFile("http://gnuplusadam.com/OSIRiS/version", @"resources\version.remote.txt");
+                Directory.Delete(@"backup", true);
             }
-            catch (WebException ex)
-            {
-                if (ex.Status == WebExceptionStatus.ProtocolError)
+            using (var client = new WebClient())
+                try
                 {
-                    if (((HttpWebResponse)ex.Response).StatusCode == HttpStatusCode.NotFound)
+                    client.DownloadFile("http://gnuplusadam.com/OSIRiS/version", @"resources\version.remote.txt");
+                }
+                catch (WebException ex)
+                {
+                    if (ex.Status == WebExceptionStatus.ProtocolError)
+                    {
+                        if (((HttpWebResponse)ex.Response).StatusCode == HttpStatusCode.NotFound)
+                        {
+                            return;
+                        }
+                    }
+                    else if (ex.Status == WebExceptionStatus.NameResolutionFailure)
                     {
                         return;
                     }
                 }
-                else if (ex.Status == WebExceptionStatus.NameResolutionFailure)
-                {
-                    return;
-                }
-            }
         }
 
+        private void splash_Load(object sender, EventArgs e)
+        {
+
+
+        }
     }
 }
 

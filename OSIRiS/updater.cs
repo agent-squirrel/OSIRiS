@@ -10,12 +10,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Ionic.Zip;
+using System.IO.Compression;
+
+
 
 namespace OSIRiS
 {
 
     public partial class updater : Form
+
 
     {
         WebClient webClient;               // Our WebClient that will be doing the downloading for us
@@ -84,58 +87,44 @@ namespace OSIRiS
             }
             else
             {
-                //Backup the OSIRiS binary and extract the newly downloaded zip file. 
-                File.Move("OSIRiS.exe", "OSIRiS.backup.exe");
-                using (ZipFile zip = ZipFile.Read("latest.zip"))
-                {
-                    foreach (ZipEntry e in zip)
-                    {
-                        try
-                        {
-                            
-                        }
-                            //Below is some hacky exception catching code to make up for the short falls of DOTNETZIP.
-                            //DOTNETZIP creates temporary files at runtime and attempts to delete them afterwards, however
-                            //this fails. This code catches the exception and deletes the temp file.
-                        catch (IOException except)
-                        {
-                            bool b = false;
-                            foreach (var postFix in new[] { ".tmp", ".PendingOverwrite" })
-                            {
-                                var errorPath = Path.Combine(@".", e.FileName) + postFix;
-                                if (File.Exists(errorPath))
-                                {
-                                    File.Delete(errorPath);
-                                    b = true;
-                                }
-                            }
-                            if (!b)
-                            {
-                                throw except;
-                            }
-                            e.Extract(@".", ExtractExistingFileAction.OverwriteSilently);
-                            DialogResult restart = MessageBox.Show("Update Complete, press OK to restart OSIRiS.", "Restart", MessageBoxButtons.OK);
-                            if (restart == DialogResult.OK)
-                            {
-                                Process.Start("OSIRiS.exe");
-                                Process.GetCurrentProcess().Kill();
-                            }
-                        }
+                //Call the update powershell script and decompress the new build.
 
-                    }
+                    
+                    string command = @"/c powershell -executionpolicy bypass resources\update\update.ps1";
+                    ProcessStartInfo start = new ProcessStartInfo("cmd.exe", command);
+                    Process.Start(start).WaitForExit();
+                    
+
+
+                ZipFile.ExtractToDirectory("latest.zip", ".");
+                DialogResult complete = MessageBox.Show("Update complete, press OK to restart OSIRiS.", "Complete", MessageBoxButtons.OK);
+                if (complete == DialogResult.OK)
+                {
+                    Process.Start("OSIRiS.exe");
+                    Application.Exit();
                 }
+
+
             }
         }
 
         private void updater_Shown(object sender, EventArgs e)
-        {
-            DownloadFile("Http://gnuplusadam.com/OSIRiS/latest.zip", "latest.zip");
+
+            {
+                DownloadFile("Http://gnuplusadam.com/OSIRiS/latest.zip", "latest.zip");
+
+            }
+                }
+
+            }
             
-        }
+        
+
+
 
 
 
 
         
-    }
-}
+    
+
