@@ -77,12 +77,11 @@ $regvar = (gp "HKCU:\Control Panel\Desktop").Wallpaper
 
 #Set the wallpaper to the copied bitmap if it isn't already by comparing the
 #$regvar variable to the hardcoded path.
+#Start OSIRiS Desktop Info on top of the wallpaper.
 
 if($regvar -ne "C:\profiles\wallpaper.bmp") {
 [Wallpaper.Setter]::SetWallpaper( 'C:\profiles\wallpaper.bmp', 2 )
-}
-else {C:\profiles\OSIRiS_DESKTOP_INFO.exe}
-
-#Spawn OSIRiS_BACKGROUND_INFO and close.
-
 C:\profiles\OSIRiS_DESKTOP_INFO.exe
+}
+else {C:\profiles\OSIRiS_DESKTOP_INFO.exe }
+
