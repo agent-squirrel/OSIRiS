@@ -165,9 +165,7 @@ net stop wuauserv > NUL 2>&1
 sc config wuauserv start= disabled > NUL 2>&1
 
 REM ###################################################
-REM #Create a directory on C: called profiles and copy
-REM #the Extensible Markup Language file containing
-REM #wireless configuration data to it.
+REM #Create a directory on C: called profiles.
 REM #Connect the wireless radio to the Officeworks WLAN.
 REM #Create a scheduled reset of the wireless radio on
 REM #every boot in order to clear Airplane Mode.
@@ -176,8 +174,7 @@ REM ###################################################
 echo Configuring Wireless Network
 
 mkdir C:\profiles > NUL 2>&1
-copy %~dp0\OFW-Display.xml C:\profiles\OFW-Display.xml > NUL 2>&1
-Netsh wlan add profile filename="C:\profiles\OFW-Display.xml" > NUL 2>&1
+Netsh wlan add profile filename="%~dp0\OFW-Display.xml" > NUL 2>&1
 Netsh wlan connect OFW-Display > NUL 2>&1
 
 :: This task resets the Wireless adapter on every boot of the machine.
