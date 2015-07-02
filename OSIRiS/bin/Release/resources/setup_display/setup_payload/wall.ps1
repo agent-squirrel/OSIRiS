@@ -7,7 +7,15 @@
 #Please see gpl.txt in the root of the OSIRiS folder.#
 ######################################################
 
-#Create a function that hooks the win32 api in C# to set the wallpaper.
+#Set process priority of this script to 'Normal' from the Task Scheduler's
+#usual setting of 'Low'.
+#We do this so that this script runs quickly and gets out of the way at boot time.
+(Get-Process -id $pid).PriorityClass = "Normal" 
+
+#Print some text to the powershell window.
+write-host Setting wallpaper, please wait...
+
+#Create a function that hooks the win32 API in C# to set the wallpaper.
 Add-Type @"
 using System;
 using System.Runtime.InteropServices;
@@ -66,9 +74,6 @@ $newsize = $pswindow.windowsize
 $newsize.height = 5
 $pswindow.windowsize = $newsize
 
-
-#Print some text to the powershell window.
-write-host Setting wallpaper, please wait...
 
 #Set the $regvar variable to the contents of the registry value indicating the
 #wallpaper to use.

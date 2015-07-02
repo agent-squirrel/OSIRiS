@@ -285,7 +285,7 @@ REM ################ END PROCESSOR CHECK CODE BLOCK ###########################
 :ENDPROC
 
 ::Create a scheduled task to set the wallpaper back to our custom one on every login.
-schtasks /CREATE /F /TN "Set Wallpaper" /TR "powershell.exe -executionpolicy Bypass -windowstyle minimized -file C:\profiles\wall.ps1" /SC ONLOGON /RU Customer > NUL 2>&1
+schtasks /CREATE /F /TN "Set Wallpaper" /TR "powershell.exe -NonInteractive -executionpolicy Bypass -windowstyle minimized -file C:\profiles\wall.ps1" /SC ONLOGON /RU Customer > NUL 2>&1
 
 ::Delete the cpu.txt file.
 del cpu.txt
