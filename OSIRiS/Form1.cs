@@ -171,7 +171,7 @@ namespace OSIRiS
                 this.Cursor = Cursors.AppStarting;
                 processCaller = new ProcessCaller(this);
                 processCaller.FileName = @"resources\setup_display\setup.bat";
-                processCaller.Arguments = string.Format("{0} {1} {2} {3}", currenttime, shutdowntime, state, owuserpw);
+                processCaller.Arguments = string.Format("{0} {1} {2} \"{3}\"", currenttime, shutdowntime, state, owuserpw);
                 processCaller.StdErrReceived += new DataReceivedHandler(writeStreamInfo);
                 processCaller.StdOutReceived += new DataReceivedHandler(writeStreamInfo);
                 processCaller.Completed += new EventHandler(processCompletedOrCanceled);
@@ -281,7 +281,7 @@ namespace OSIRiS
                 this.Cursor = Cursors.AppStarting;
                 processCaller = new ProcessCaller(this);
                 processCaller.FileName = @"resources\sell_display\sell.bat";
-                processCaller.Arguments = string.Format("{0} {1}", powerchoice, username);
+                processCaller.Arguments = string.Format("{0} \"{1}\"", powerchoice, username);
                 processCaller.StdErrReceived += new DataReceivedHandler(writeStreamInfosell);
                 processCaller.StdOutReceived += new DataReceivedHandler(writeStreamInfosell);
                 processCaller.Completed += new EventHandler(processCompletedOrCanceledsell);

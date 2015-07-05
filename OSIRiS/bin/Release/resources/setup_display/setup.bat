@@ -20,6 +20,10 @@ REM Running it manually will likely result in a broken system.
 REM 			    	             YOU HAVE BEEN WARNED.
 REM #########################################################################
 
+:: Check if this script is being run from OSIRiS master control program
+:: or manually. If it's being run manually (incorrectly) then quit.
+IF %3.==. (GOTO MANUALRUN) ELSE (GOTO TZLOOP)
+
 :TZLOOP
 :: Take user input argument %3 and then set the time
 :: zone based upon this argument.
@@ -106,7 +110,7 @@ type userlist.txt | findstr /v Name | findstr /v Administrator | findstr /v Gues
 FOR /F "tokens=* delims=*" %%G in (userlisttrimmed.txt) DO net user /delete "%%G" 1>NUL
 
 :: Create the new 'Admin Account' user.
-net user Officeworks "%4" /add > NUL 2>&1
+net user Officeworks "%~4" /add > NUL 2>&1
 
 :: Add 'Admin Account' to the Administrators group.
 net localgroup Administrators Officeworks /add > NUL 2>&1
@@ -157,12 +161,11 @@ REM ####################################################
 REM #Switch off Windows Update and set it's service to
 REM #not auto-start on boot.
 REM ####################################################
-@title  Nuking Windows Update
-echo Disabling Windows Updates
+@title  Disabling Windows Update
+echo Disabling Windows Update
 
-reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate\Auto Update" /v AUOptions /t REG_DWORD /d 1 /f > NUL 2>&1
 net stop wuauserv > NUL 2>&1
-sc config wuauserv start= disabled > NUL 2>&1
+sc config wuauserv start=disabled > NUL 2>&1
 
 REM ###################################################
 REM #Create a directory on C: called profiles.
@@ -207,11 +210,13 @@ echo Setting up custom wallpaper
 
 ::Here we dump the contents of WMIC CPU to a text file and copy over
 ::OSIRiS Desktop Info to the profiles folder.
-::Also copy over the powershell script that runs on every login.
+::Also copy over the powershell script that runs on every login as well as
+::it's batch launcher.
 
 wmic cpu get name > cpu.txt
 xcopy /S /I %~dp0\setup_payload\OSIRiS_DESKTOP_INFO.exe C:\profiles\ > NUL 2>&1
 copy %~dp0\setup_payload\wall.ps1 C:\profiles\wall.ps1 > NUL 2>&1
+copy %~dp0\setup_payload\walllauncher.bat C:\profiles\walllauncher.bat > NUL 2>&1
 
 
 ::Use 'find' to look through the cpu.txt file and check for specific
@@ -285,10 +290,24 @@ REM ################ END PROCESSOR CHECK CODE BLOCK ###########################
 :ENDPROC
 
 ::Create a scheduled task to set the wallpaper back to our custom one on every login.
-schtasks /CREATE /F /TN "Set Wallpaper" /TR "powershell.exe -NonInteractive -executionpolicy Bypass -windowstyle minimized -file C:\profiles\wall.ps1" /SC ONLOGON /RU Customer > NUL 2>&1
+schtasks /CREATE /F /TN "Set Wallpaper" /TR "C:\profiles\walllauncher.bat" /SC ONLOGON /RU Customer > NUL 2>&1
 
 ::Delete the cpu.txt file.
 del cpu.txt
+
+
+:: Call the powershellreg.ps1 script to disable first sign in animations, disable Windows Update and force 'Customer' account login.
+echo Call out to PowerShell to set registry values.
+SET ThisScriptsDirectory=%~dp0
+SET PowerShellScriptPath=%ThisScriptsDirectory%powershellreg.ps1
+
+:: Check system Architecture version so we can call the correct version of Powershell.
+reg Query "HKLM\Hardware\Description\System\CentralProcessor\0" | find /i "x86" > NUL && set OS=32BIT || set OS=64BIT
+:: This Powershell path may seem odd because it is calling the 64bit version of powershell.exe instead of the default 32bit version.
+:: If this is not done and powershell.exe is called by simply invoking 'powershell', then it will load the 32bit registry and the
+:: paths we need to edit won't exist.
+if %OS%==64BIT C:\windows\sysnative\windowspowershell\v1.0\powershell.exe -NonInteractive -executionpolicy Bypass -file %PowerShellScriptPath%  > NUL 2>&1
+if %OS%==32BIT powershell.exe -NonInteractive -executionpolicy Bypass -file %PowerShellScriptPath%  > NUL 2>&1
 
 REM #######################################################
 REM #Here we verify that the various sections of OSIRiS
@@ -298,13 +317,10 @@ REM #######################################################
 @title Verifying Successful Run
 
 echo Pinging Localhost for 10 seconds before verification
-
+echo Beginning Verification
 PING 127.0.0.1 -n 10 >NUL 2>&1 || PING ::1 -n 10 >NUL 2>&1
 
-
-echo Beginning Verification
-
-net user | find /i "Officeworks" 1>NUL || Net user Officeworks %4 /add > NUL 2>&1
+net user | find /i "Officeworks" 1>NUL || Net user Officeworks "%4" /add > NUL 2>&1
 WMIC USERACCOUNT WHERE "Name='Officeworks'" SET PasswordExpires=FALSE > NUL 2>&1
 net localgroup Administrators Officeworks /add > NUL 2>&1
 net user | find /i "Customer" 1>NUL || Net user Customer /add > NUL 2>&1
@@ -325,4 +341,9 @@ echo Verification Complete
 echo Restarting
 
 shutdown -r -t 5 /c "Rebooting to complete setup."
+exit
+
+:MANUALRUN
+echo This script CANNOT be run manually. Please start OSIRiS.exe instead.
+pause>nul
 exit

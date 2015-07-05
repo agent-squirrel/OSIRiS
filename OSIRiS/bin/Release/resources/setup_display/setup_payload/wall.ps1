@@ -12,10 +12,9 @@
 #We do this so that this script runs quickly and gets out of the way at boot time.
 (Get-Process -id $pid).PriorityClass = "Normal" 
 
-#Print some text to the powershell window.
-write-host Setting wallpaper, please wait...
-
 #Create a function that hooks the win32 API in C# to set the wallpaper.
+#This has to be done because Windows wont reliably reload the registry and
+#update the user theme unless the request comes from the shell.
 Add-Type @"
 using System;
 using System.Runtime.InteropServices;
@@ -57,23 +56,6 @@ namespace Wallpaper
    }
 }
 "@
-
-#Change the dimensions of the window so it's not so imposing.
-$pshost = Get-Host
-$pswindow = $pshost.UI.RawUI
-
-$newsize = $pswindow.BufferSize
-$newsize.width = 150
-$pswindow.buffersize = $newsize
-
-$newsize = $pswindow.windowsize
-$newsize.width = 70
-$pswindow.windowsize = $newsize
-
-$newsize = $pswindow.windowsize
-$newsize.height = 5
-$pswindow.windowsize = $newsize
-
 
 #Set the $regvar variable to the contents of the registry value indicating the
 #wallpaper to use.
