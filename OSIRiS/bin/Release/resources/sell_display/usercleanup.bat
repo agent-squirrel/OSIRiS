@@ -35,7 +35,7 @@
 :: ----------
 
 :USERPRESERVE
-set userpreserve="Administrator,All Users,UpdatusUser,Default,Default User,Public,%USERNAME%"
+set userpreserve="Administrator,All Users,UpdatusUser,Default,Default User,Public,DefaultAccount,%USERNAME%"
 
 
 FOR /f "tokens=*" %%a IN ('reg query "hklm\software\microsoft\windows nt\currentversion\profilelist"^|find /i "s-1-5-21"') DO CALL :REGCHECK "%%a"

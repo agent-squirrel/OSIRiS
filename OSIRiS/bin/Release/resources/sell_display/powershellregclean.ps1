@@ -8,7 +8,7 @@
 ######################################################
 
 $updatepath = 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate\Auto Update'
-New-ItemProperty $updatepath -Name AUOptions -Value 0 -Force
+New-ItemProperty $updatepath -Name AUOptions -Value 4 -Force
 
 $animpath = 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System'
 New-ItemProperty $animpath -Name EnableFirstLogonAnimation -Value 1 -Force

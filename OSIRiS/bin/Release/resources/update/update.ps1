@@ -9,7 +9,7 @@
 
 #This script creates the directories for the old version of OSIRiS to be
 #moved into. It then moves all the old files into this new directory.
-#It is called from OSIRiS.exe and as such the paths or in the context of
+#It is called from OSIRiS.exe and as such the paths are in the context of
 #OSIRiS.exe's location.
 
 #Ignore errors.
