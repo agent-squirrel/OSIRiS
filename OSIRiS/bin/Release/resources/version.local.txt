@@ -10,5 +10,6 @@
 ## This file exists solely for comparison to the locally
 ## stored copy. It exists as part of the auto-update system.
 
+v2.7
 v2.6
 v2.5
