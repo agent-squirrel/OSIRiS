@@ -223,7 +223,7 @@ echo Setting up custom wallpaper
 ::it's batch launcher.
 
 wmic cpu get name > cpu.txt
-xcopy /S /I "%~dp0\setup_payload\OSIRiS_DESKTOP_INFO.exe" C:\profiles\ > NUL 2>&1
+xcopy /S /I "%~dp0\setup_payload\ODI.exe" C:\profiles\ > NUL 2>&1
 copy "%~dp0\setup_payload\wall.ps1" C:\profiles\wall.ps1 > NUL 2>&1
 copy "%~dp0\setup_payload\walllauncher.bat" C:\profiles\walllauncher.bat > NUL 2>&1
 

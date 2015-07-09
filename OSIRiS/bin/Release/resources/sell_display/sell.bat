@@ -17,7 +17,7 @@ REM                             Adam Heathcote
 REM This script CANNOT be run manually! It expects arguments, either fed from
 REM the command line or from the OSIRiS master control program.
 REM Running it manually will likely result in a broken system.
-REM 			    		YOU HAVE BEEN WARNED.
+REM 			    		          YOU HAVE BEEN WARNED.
 REM #########################################################################
 
 :: Check if this script is being run from OSIRiS master control program

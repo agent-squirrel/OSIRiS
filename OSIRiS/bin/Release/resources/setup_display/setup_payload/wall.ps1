@@ -10,7 +10,7 @@
 #Set process priority of this script to 'Normal' from the Task Scheduler's
 #usual setting of 'Low'.
 #We do this so that this script runs quickly and gets out of the way at boot time.
-(Get-Process -id $pid).PriorityClass = "Normal" 
+(Get-Process -id $pid).PriorityClass = "Normal"
 
 #Create a function that hooks the win32 API in C# to set the wallpaper.
 #This has to be done because Windows wont reliably reload the registry and
@@ -37,15 +37,15 @@ namespace Wallpaper
          switch( style )
          {
             case Style.Stretch :
-               key.SetValue(@"WallpaperStyle", "2") ; 
+               key.SetValue(@"WallpaperStyle", "2") ;
                key.SetValue(@"TileWallpaper", "0") ;
                break;
             case Style.Center :
-               key.SetValue(@"WallpaperStyle", "1") ; 
-               key.SetValue(@"TileWallpaper", "0") ; 
+               key.SetValue(@"WallpaperStyle", "1") ;
+               key.SetValue(@"TileWallpaper", "0") ;
                break;
             case Style.Tile :
-               key.SetValue(@"WallpaperStyle", "1") ; 
+               key.SetValue(@"WallpaperStyle", "1") ;
                key.SetValue(@"TileWallpaper", "1") ;
                break;
             case Style.NoChange :
@@ -68,7 +68,6 @@ $regvar = (gp "HKCU:\Control Panel\Desktop").Wallpaper
 
 if($regvar -ne "C:\profiles\wallpaper.bmp") {
 [Wallpaper.Setter]::SetWallpaper( 'C:\profiles\wallpaper.bmp', 2 )
-C:\profiles\OSIRiS_DESKTOP_INFO.exe
+C:\profiles\ODI.exe
 }
-else {C:\profiles\OSIRiS_DESKTOP_INFO.exe }
-
+else {C:\profiles\ODI.exe }
