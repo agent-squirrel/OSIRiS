@@ -68,6 +68,9 @@ $regvar = (gp "HKCU:\Control Panel\Desktop").Wallpaper
 
 if($regvar -ne "C:\profiles\wallpaper.bmp") {
 [Wallpaper.Setter]::SetWallpaper( 'C:\profiles\wallpaper.bmp', 2 )
-C:\profiles\ODI.exe
+write-host Starting ODI.
+start C:\profiles\ODI.exe
 }
-else {C:\profiles\ODI.exe }
+else { write-host Starting ODI. ; start C:\profiles\ODI.exe }
+
+exit
