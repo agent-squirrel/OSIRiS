@@ -57,6 +57,20 @@ namespace OSIRiS
         private void splash_Load(object sender, EventArgs e)
         {
 
+            // Interval of 0,1 seconds
+            timer1.Interval = 10;
+            timer1.Tick += new EventHandler(this.Tick);
+            timer1.Enabled = true;
+            this.Opacity = 0;
+        }
+        private bool increase = true;
+        private void Tick(object sender, EventArgs e)
+        {
+            if (increase)
+                this.Opacity += 0.03D;
+
+            if (this.Opacity == 1)
+                increase = false;
 
         }
     }
