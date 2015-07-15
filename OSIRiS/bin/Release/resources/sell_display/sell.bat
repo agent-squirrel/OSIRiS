@@ -25,6 +25,10 @@ REM #########################################################################
 IF %2.==. (GOTO MANUALRUN) ELSE (GOTO BEGIN)
 :BEGIN
 
+echo Finding Architecure
+reg Query "HKLM\Hardware\Description\System\CentralProcessor\0" | find /i "x86" > NUL && set OSARC=32BIT || set OSARC=64BIT
+echo %OSARC%
+
 REM #######################################################
 REM #Delete Customer Account.
 REM #Delete Officeworks Account.
@@ -126,7 +130,6 @@ Netsh wlan disconnect > NUL 2>&1
 
 Netsh wlan delete profile name="OFW-Display" > NUL 2>&1
 
-del  C:\profiles\OFW-Display.xml > NUL 2>&1
 
 REM ###########################################
 REM #Reset the Wireless Radio to force a
@@ -138,17 +141,16 @@ REM ###########################################
 powershell "$Host.UI.RawUI.WindowTitle = 'Doing Powershell Stuff'; get-netadapter wi-fi | restart-netadapter" > NUL 2>&1
 
 echo Deleting the Shutdown Suppressor
-DEL C:\Users\Public\Desktop\"Cancel Auto-Shutdown.lnk" > NUL 2>&1
-DEL C:\profiles\"Cancel Auto-Shutdown.bat" > NUL 2>&1
-
-
+DEL C:\Users\Public\Desktop\"Suspend Auto-Shutdown.lnk" > NUL 2>&1
+DEL C:\profiles\"Suspend Auto-Shutdown.bat" > NUL 2>&1
 
 goto %1
 
 :Shutdown
 echo Shutting Down
+if %OSARC%==64BIT C:\Windows\sysnative\MSG.exe /w /time:60 Customer Please make "%~2" aware that a cleanup script will run when they first switch on the machine.
+if %OSARC%==32BIT MSG.exe /w /time:60 Customer Please make "%~2" aware that a cleanup script will run when they first switch on the machine.
 shutdown -s -t 5 /c "Shutting down."
-
 exit
 
 :Restart

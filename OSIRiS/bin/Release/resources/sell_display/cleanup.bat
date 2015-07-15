@@ -17,6 +17,8 @@ REM #      Its purpose is to clean up the left over OSIRiS data.         #
 REM #      RUNNING THIS SCRIPT MANUALLY WILL DESTROY USER PROFILES       #
 REM ######################################################################
 echo Cleaning Officeworks left-over data.
+echo This can take some time, feel free to continue using your new computer.
+echo DO NOT close this window, it will close by itself when finished. 
 
 REM ###########################################
 REM #Delete the cleanup task so it doesn't try

@@ -205,10 +205,9 @@ echo Configuring Auto Shutdown
 SCHTASKS /Create /F /RU "SYSTEM" /RL "HIGHEST" /SC "DAILY" /TN "Computer Shutdown" /TR "shutdown -s -t 60 -c 'Officeworks Auto-Shutdown In Effect.' -f" /ST "%2" > NUL 2>&1
 
 
-echo Adding a shutdown suppresor to the Desktop
-echo shutdown -a > C:\profiles\"Cancel Auto-Shutdown.bat"
-echo exit >> C:\profiles\"Cancel Auto-Shutdown.bat"
-copy "%~dp0\Cancel Auto-Shutdown.lnk" C:\Users\Public\Desktop\ > NUL 2>&1
+echo Copy over shutdown supressor
+copy "%~dp0\setup_payload\Suspend Auto-Shutdown.bat" C:\profiles\ > NUL 2>&1
+copy "%~dp0\setup_payload\Suspend Auto-Shutdown.lnk" C:\Users\Public\Desktop\ > NUL 2>&1
 
 REM #########################################################
 REM #Modifying the wallpaper for the Customer user requires a
