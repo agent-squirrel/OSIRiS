@@ -27,6 +27,21 @@ namespace OSIRiS
         //If there are any differences, OSIRiS will download an updated version of itself.
         private void OSIRiSmainwindow_Shown(object sender, EventArgs e)
         {
+            if (!File.Exists(@"resources\version.local.txt"))
+            {
+                DialogResult update = MessageBox.Show("You have missing components, forcing update.", "Corrupted", MessageBoxButtons.OK);
+                if (update == DialogResult.OK)
+                {
+                    if (File.Exists(@"resources\version.remote.txt"))
+                    {
+                        File.Delete(@"resources\version.remote.txt");
+                    }
+                    var form = new updater();
+                    form.Show(this);
+                    this.Hide();
+
+                }
+            }
 
             if (File.Exists(@"resources\version.remote.txt"))
             {
