@@ -162,6 +162,10 @@ namespace OSIRiS
                     runbutton.Enabled = true;
                     return;
                 }
+                if (File.Exists(@"resources\version.remote.txt"))
+                {
+                    File.Delete(@"resources\version.remote.txt");
+                }
 
                 //If all checks pass then use ProcessCaller to call our batch file.
                 //Pass the batch file four arguments based upon the strings created earlier.
@@ -214,6 +218,10 @@ namespace OSIRiS
 
         private void quitbutton_Click(object sender, EventArgs e)
         {
+            if (File.Exists(@"resources\version.remote.txt"))
+            {
+                File.Delete(@"resources\version.remote.txt");
+            }
             Application.Exit();
         }
 
@@ -238,6 +246,7 @@ namespace OSIRiS
             //If invalid, spawn a dialog box and bring the
             //run button back alive.
             //Return to the main form performing no further action.
+
 
             {
                 sellrunbutton.Enabled = false;
@@ -271,6 +280,11 @@ namespace OSIRiS
 
                     powerchoice = powerchoice + shutdownradio.Text;
 
+                }
+
+                if (File.Exists(@"resources\version.remote.txt"))
+                {
+                    File.Delete(@"resources\version.remote.txt");
                 }
 
                 //If all checks pass then use ProcessCaller to call our batch file.
@@ -323,6 +337,10 @@ namespace OSIRiS
 
         private void sellquitbutton_Click(object sender, EventArgs e)
         {
+            if (File.Exists(@"resources\version.remote.txt"))
+            {
+                File.Delete(@"resources\version.remote.txt");
+            }
             Application.Exit();
         }
 
@@ -545,6 +563,10 @@ namespace OSIRiS
 
         private void formatbuttonquit_Click(object sender, EventArgs e)
         {
+            if (File.Exists(@"resources\version.remote.txt"))
+            {
+                File.Delete(@"resources\version.remote.txt");
+            }
             Application.Exit();
         }
 
