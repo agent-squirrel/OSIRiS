@@ -40,9 +40,9 @@ namespace OSIRiS
             }
             //Check file integrity against file list.
             //This is an early attempt at integrity checking, it will be improved.
+            else{
 
-            if (File.Exists(@"resources\update\file_integrity"))
-            {
+            
                 string[] files = File.ReadAllLines(@"resources\update\file_integrity");
                 foreach (var file in files)
                 {
@@ -59,6 +59,7 @@ namespace OSIRiS
 
                 }
             }
+        
             //Compare the downloaded version file to the locally stored version.
             //If there are any differences, OSIRiS will download an updated version of itself.
             if (File.Exists(@"resources\version.remote.txt"))
