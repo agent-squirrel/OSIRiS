@@ -39,8 +39,8 @@ namespace OSIRiS
                 webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(Completed);
                 webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(ProgressChanged);
 
-                // The variable that will be holding the url address (making sure it starts with http://)
-                Uri URL = urlAddress.StartsWith("http://", StringComparison.OrdinalIgnoreCase) ? new Uri(urlAddress) : new Uri("http://" + urlAddress);
+                // The variable that will be holding the url address (making sure it starts with https://)
+                Uri URL = urlAddress.StartsWith("https://", StringComparison.OrdinalIgnoreCase) ? new Uri(urlAddress) : new Uri("https://" + urlAddress);
 
                 // Start the stopwatch which we will be using to calculate the download speed
                 sw.Start();
@@ -87,13 +87,18 @@ namespace OSIRiS
             }
             else
             {
-                //Call the update powershell script and decompress the new build.
+                //Call the update powershell script and decompress the new build. (If it exists)
 
-                    
+                if (File.Exists(@"resources\update\update.ps1"))
+                {
                     string command = @"/c powershell -executionpolicy bypass resources\update\update.ps1";
                     ProcessStartInfo start = new ProcessStartInfo("cmd.exe", command);
                     Process.Start(start).WaitForExit();
-                    
+                }
+                else
+                {
+                    File.Move("OSIRiS.exe", "OSIRiS.exe.bak");
+                }
 
 
                 ZipFile.ExtractToDirectory("latest.zip", ".");
@@ -111,7 +116,7 @@ namespace OSIRiS
         private void updater_Shown(object sender, EventArgs e)
 
             {
-                DownloadFile("Http://gnuplusadam.com/OSIRiS/latest.zip", "latest.zip");
+                DownloadFile("https://gnuplusadam.com/OSIRiS/latest.zip", "latest.zip");
 
             }
                 }

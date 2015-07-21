@@ -23,26 +23,44 @@ namespace OSIRiS
             Thread.Sleep(2000);
         }
 
-        //Compare the downloaded version file to the locally stored version.
-        //If there are any differences, OSIRiS will download an updated version of itself.
+
         private void OSIRiSmainwindow_Shown(object sender, EventArgs e)
         {
-            if (!File.Exists(@"resources\version.local.txt"))
+            //Check for the presence of the file integrity list. If it doesn't exist
+            //assume the OSIRiS install is compromised. 
+            if (!File.Exists(@"resources\update\file_integrity"))
             {
-                DialogResult update = MessageBox.Show("You have missing components, forcing update.", "Corrupted", MessageBoxButtons.OK);
+                DialogResult update = MessageBox.Show("You have missing components." + Environment.NewLine + "OSIRiS will now download the missing parts.", "Missing Components", MessageBoxButtons.OK);
                 if (update == DialogResult.OK)
                 {
-                    if (File.Exists(@"resources\version.remote.txt"))
-                    {
-                        File.Delete(@"resources\version.remote.txt");
-                    }
                     var form = new updater();
                     form.Show(this);
                     this.Hide();
+                }
+            }
+            //Check file integrity against file list.
+            //This is an early attempt at integrity checking, it will be improved.
+
+            if (File.Exists(@"resources\update\file_integrity"))
+            {
+                string[] files = File.ReadAllLines(@"resources\update\file_integrity");
+                foreach (var file in files)
+                {
+                    if (!File.Exists(file))
+                    {
+                        DialogResult corruptedinstall = MessageBox.Show("You have missing components." + Environment.NewLine + "OSIRiS will now download the missing parts.", "Missing Components", MessageBoxButtons.OK);
+                        if (corruptedinstall == DialogResult.OK)
+                        {
+                            var form = new updater();
+                            form.Show(this);
+                            this.Hide();
+                        }
+                    }
 
                 }
             }
-
+            //Compare the downloaded version file to the locally stored version.
+            //If there are any differences, OSIRiS will download an updated version of itself.
             if (File.Exists(@"resources\version.remote.txt"))
             {
                 var localver = File.ReadAllText(@"resources\version.local.txt");

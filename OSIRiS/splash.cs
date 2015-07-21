@@ -25,6 +25,10 @@ namespace OSIRiS
             {
                 File.Delete(@"resources\version.remote.txt");
             }
+            if (File.Exists(@"OSIRiS.exe.bak"))
+            {
+                File.Delete(@"OSIRiS.exe.bak");
+            }
             if (File.Exists(@"latest.zip"))
             {
                 File.Delete(@"latest.zip");
@@ -33,26 +37,29 @@ namespace OSIRiS
             {
                 Directory.Delete(@"backup", true);
             }
-            using (var client = new WebClient())
-                try
-                {
-                    client.DownloadFile("http://gnuplusadam.com/OSIRiS/version", @"resources\version.remote.txt");
-                }
-                catch (WebException ex)
-                {
-                    if (ex.Status == WebExceptionStatus.ProtocolError)
-                    {
-                        if (((HttpWebResponse)ex.Response).StatusCode == HttpStatusCode.NotFound)
+
+                    using (var client = new WebClient())
+                        try
                         {
-                            return;
+                            client.DownloadFile("http://gnuplusadam.com/OSIRiS/version", @"resources\version.remote.txt");
                         }
-                    }
-                    else if (ex.Status == WebExceptionStatus.NameResolutionFailure)
-                    {
-                        return;
-                    }
+                        catch (WebException ex)
+                        {
+                            if (ex.Status == WebExceptionStatus.ProtocolError)
+                            {
+                                if (((HttpWebResponse)ex.Response).StatusCode == HttpStatusCode.NotFound)
+                                {
+                                    return;
+                                }
+                            }
+                            else if (ex.Status == WebExceptionStatus.NameResolutionFailure)
+                            {
+                                return;
+                            }
+                        }
                 }
-        }
+            
+        
 
         private void splash_Load(object sender, EventArgs e)
         {
