@@ -29,13 +29,21 @@ namespace OSIRiS
             {
                 File.Delete(@"OSIRiS.exe.bak");
             }
+            if (File.Exists(@"OSIRiS_Manual.docx.bak"))
+            {
+                File.Delete(@"OSIRiS_Manual.docx.bak");
+            }
+            if (File.Exists(@"OSIRiS_Manual.pdf.bak"))
+            {
+                File.Delete(@"OSIRiS_Manual.pdf.bak");
+            }
             if (File.Exists(@"latest.zip"))
             {
                 File.Delete(@"latest.zip");
             }
-            if (Directory.Exists(@"backup"))
+            if (Directory.Exists(@"resources.bak"))
             {
-                Directory.Delete(@"backup", true);
+                Directory.Delete(@"resources.bak", true);
             }
 
                     using (var client = new WebClient())

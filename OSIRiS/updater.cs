@@ -87,15 +87,25 @@ namespace OSIRiS
             }
             else
             {
-                //Call the update powershell script and decompress the new build. (If it exists)
+                //Rename all the old files and directories so we can replace them.
 
-                if (File.Exists(@"resources\update\update.ps1"))
+                if (File.Exists(@"OSIRiS_Manual.docx"))
                 {
-                    string command = @"/c powershell -executionpolicy bypass resources\update\update.ps1";
-                    ProcessStartInfo start = new ProcessStartInfo("cmd.exe", command);
-                    Process.Start(start).WaitForExit();
+                    File.Move("OSIRiS_Manual.docx", "OSIRiS_Manual.docx.bak");
                 }
-                else
+                if (File.Exists(@"OSIRiS_Manual.pdf"))
+                {
+                    File.Move("OSIRiS_Manual.pdf", "OSIRiS_Manual.pdf.bak");
+                }
+                if (File.Exists(@"gpl.txt"))
+                {
+                    File.Move("gpl.txt", "gpl.bak.txt");
+                }
+                if (Directory.Exists(@"resources"))
+                {
+                    Directory.Move(@"resources", "resources.bak");
+                }
+
                 {
                     File.Move("OSIRiS.exe", "OSIRiS.exe.bak");
                 }
