@@ -29,6 +29,10 @@ namespace OSIRiS
             {
                 File.Delete(@"OSIRiS.exe.bak");
             }
+            if (File.Exists(@"gpl.txt.bak"))
+            {
+                File.Delete(@"gpl.txt.bak");
+            }
             if (File.Exists(@"OSIRiS_Manual.docx.bak"))
             {
                 File.Delete(@"OSIRiS_Manual.docx.bak");

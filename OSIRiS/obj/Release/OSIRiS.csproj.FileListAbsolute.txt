@@ -18,3 +18,4 @@ C:\Users\DEV\Documents\Visual Studio 2013\Projects\OSIRiS\OSIRiS\bin\Release\OSI
 C:\Users\DEV\Documents\Visual Studio 2013\Projects\OSIRiS\OSIRiS\bin\Release\OSIRiS.pdb
 C:\Users\DEV\Documents\Visual Studio 2013\Projects\OSIRiS\OSIRiS\obj\Release\OSIRiS.updater.resources
 C:\Users\Adam\Documents\Visual Studio 2013\Projects\OSIRiS\OSIRiS\obj\Release\OSIRiS.updater.resources
+C:\Users\Adam\Documents\Visual Studio 2013\Projects\OSIRiS\OSIRiS\obj\Release\OSIRiS.csprojResolveAssemblyReference.cache
