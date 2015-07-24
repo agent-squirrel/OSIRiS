@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Net;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -29,9 +28,9 @@ namespace OSIRiS
             {
                 File.Delete(@"OSIRiS.exe.bak");
             }
-            if (File.Exists(@"gpl.txt.bak"))
+            if (File.Exists(@"gpl.bak.txt"))
             {
-                File.Delete(@"gpl.txt.bak");
+                File.Delete(@"gpl.bak.txt");
             }
             if (File.Exists(@"OSIRiS_Manual.docx.bak"))
             {
@@ -48,6 +47,10 @@ namespace OSIRiS
             if (Directory.Exists(@"resources.bak"))
             {
                 Directory.Delete(@"resources.bak", true);
+            }
+            if (Directory.Exists(@"backup"))
+            {
+                Directory.Delete(@"backup", true);
             }
 
                 }

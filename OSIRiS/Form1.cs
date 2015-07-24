@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using System.IO;
 using System.Net;
-using System.Net.Http;
 using System.Reflection;
 using System.Text;
 using System.Threading;
@@ -74,7 +73,7 @@ namespace OSIRiS
                     //Compare.
                     if (latestVersion > currentVersion)
                     {
-                        DialogResult dialogResult = MessageBox.Show(String.Format("You've got version {0} of OSIRiS Would you like to update to version {1}?", currentVersion, latestVersion), "Update?", MessageBoxButtons.YesNo);
+                        DialogResult dialogResult = MessageBox.Show(String.Format("You've got version {0} of OSIRiS." + Environment.NewLine + "Would you like to update to version {1}?", currentVersion, latestVersion), "Update?", MessageBoxButtons.YesNo);
                         if (dialogResult == DialogResult.Yes)
                         {
                             var form = new updater();
