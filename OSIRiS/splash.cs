@@ -50,25 +50,6 @@ namespace OSIRiS
                 Directory.Delete(@"resources.bak", true);
             }
 
-                    using (var client = new WebClient())
-                        try
-                        {
-                            client.DownloadFile("http://gnuplusadam.com/OSIRiS/version", @"resources\version.remote.txt");
-                        }
-                        catch (WebException ex)
-                        {
-                            if (ex.Status == WebExceptionStatus.ProtocolError)
-                            {
-                                if (((HttpWebResponse)ex.Response).StatusCode == HttpStatusCode.NotFound)
-                                {
-                                    return;
-                                }
-                            }
-                            else if (ex.Status == WebExceptionStatus.NameResolutionFailure)
-                            {
-                                return;
-                            }
-                        }
                 }
             
         

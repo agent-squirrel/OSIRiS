@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Net;
+using System.Net.Http;
 using System.Reflection;
 using System.Text;
 using System.Threading;
@@ -26,6 +27,38 @@ namespace OSIRiS
 
         private void OSIRiSmainwindow_Shown(object sender, EventArgs e)
         {
+            
+            string url = "https://gnuplusadam.com/OSIRiS/version";
+            string versionstring;
+            using (var wc = new System.Net.WebClient())
+                versionstring = wc.DownloadString(url);
+            Version latestVersion = new Version(versionstring);
+
+            //Get current binary version.
+            Assembly assembly = Assembly.GetExecutingAssembly();
+            FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
+            Version currentVersion = new Version(fvi.FileVersion);
+
+            if (latestVersion > currentVersion)
+            {
+                DialogResult dialogResult = MessageBox.Show(String.Format("You've got version {0} of OSIRiS Would you like to update to version {1}?", currentVersion, latestVersion), "Update?", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    var form = new updater();
+                    form.Show(this);
+                    this.Hide();
+                }
+                else
+                {
+                    return;
+                }
+
+            }
+            else
+            {
+                return;
+
+            }
             //Check for the presence of the file integrity list. If it doesn't exist
             //assume the OSIRiS install is compromised. 
             if (!File.Exists(@"resources\update\file_integrity"))
@@ -59,37 +92,9 @@ namespace OSIRiS
 
                 }
             }
-        
-            //Compare the downloaded version file to the locally stored version.
-            //If there are any differences, OSIRiS will download an updated version of itself.
-            if (File.Exists(@"resources\version.remote.txt"))
-            {
-                var localver = File.ReadAllText(@"resources\version.local.txt");
-                var remotever = File.ReadAllText(@"resources\version.remote.txt");
 
-                if (localver != remotever)
-                {
-                    DialogResult update = MessageBox.Show("There is an update available." + Environment.NewLine + "Would you like to update now?", "Update?", MessageBoxButtons.YesNo);
-                    if (update == DialogResult.Yes)
-                    {
-                        File.Delete(@"resources\version.remote.txt");
-                        var form = new updater();
-                        form.Show(this);
-                        this.Hide();
-
-                    }
-                }
-                else
-                {
-                    return;
-
-                }
-            }
-            else
-            { 
-                return; 
-            }
         }
+        
         
         //Declare dinfo and have it poll for disks
         //so we can show them on the formatter.
