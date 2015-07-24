@@ -21,44 +21,12 @@ namespace OSIRiS
         {
             InitializeComponent();
             dinfo();
-            Thread.Sleep(2000);
+            Thread.Sleep(2000);      
         }
 
 
         private void OSIRiSmainwindow_Shown(object sender, EventArgs e)
         {
-            
-            string url = "https://gnuplusadam.com/OSIRiS/version";
-            string versionstring;
-            using (var wc = new System.Net.WebClient())
-                versionstring = wc.DownloadString(url);
-            Version latestVersion = new Version(versionstring);
-
-            //Get current binary version.
-            Assembly assembly = Assembly.GetExecutingAssembly();
-            FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
-            Version currentVersion = new Version(fvi.FileVersion);
-
-            if (latestVersion > currentVersion)
-            {
-                DialogResult dialogResult = MessageBox.Show(String.Format("You've got version {0} of OSIRiS Would you like to update to version {1}?", currentVersion, latestVersion), "Update?", MessageBoxButtons.YesNo);
-                if (dialogResult == DialogResult.Yes)
-                {
-                    var form = new updater();
-                    form.Show(this);
-                    this.Hide();
-                }
-                else
-                {
-                    return;
-                }
-
-            }
-            else
-            {
-                return;
-
-            }
             //Check for the presence of the file integrity list. If it doesn't exist
             //assume the OSIRiS install is compromised. 
             if (!File.Exists(@"resources\update\file_integrity"))
@@ -73,9 +41,8 @@ namespace OSIRiS
             }
             //Check file integrity against file list.
             //This is an early attempt at integrity checking, it will be improved.
-            else{
-
-            
+            else
+            {
                 string[] files = File.ReadAllLines(@"resources\update\file_integrity");
                 foreach (var file in files)
                 {
@@ -92,8 +59,48 @@ namespace OSIRiS
 
                 }
             }
+            //Get newest version.
+            string url = "https://gnuplusadam.com/OSIRiS/version";
+            string versionstring;
+            using (var wc = new System.Net.WebClient())
+                try
+                {
+                    versionstring = wc.DownloadString(url);
+                    Version latestVersion = new Version(versionstring);
+                    //Get current binary version.
+                    Assembly assembly = Assembly.GetExecutingAssembly();
+                    FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
+                    Version currentVersion = new Version(fvi.FileVersion);
+                    //Compare.
+                    if (latestVersion > currentVersion)
+                    {
+                        DialogResult dialogResult = MessageBox.Show(String.Format("You've got version {0} of OSIRiS Would you like to update to version {1}?", currentVersion, latestVersion), "Update?", MessageBoxButtons.YesNo);
+                        if (dialogResult == DialogResult.Yes)
+                        {
+                            var form = new updater();
+                            form.Show(this);
+                            this.Hide();
+                        }
+                        else
+                        {
+                            return;
+                        }
 
-        }
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+                catch (WebException)
+                {
+                    return;
+                }
+            
+            
+            }
+
+        
         
         
         //Declare dinfo and have it poll for disks
