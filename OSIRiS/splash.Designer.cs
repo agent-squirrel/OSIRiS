@@ -33,9 +33,6 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
-            // timer1
-            // 
-            // 
             // splash
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);

@@ -5,7 +5,9 @@ using System.Net;
 using System.Reflection;
 using System.Text;
 using System.Threading;
+using System.Xml.Serialization;
 using System.Windows.Forms;
+
 
 namespace OSIRiS
 {
@@ -212,6 +214,12 @@ namespace OSIRiS
                     File.Delete(@"resources\version.remote.txt");
                 }
 
+                    Settings v = new Settings();
+                    v.shutdowntime = this.maskedshutdown.Text;
+                    v.password = this.pwbox.Text;
+                    v.state = this.statedropdown.Text;
+                    Savesettings(v);
+
                 //If all checks pass then use ProcessCaller to call our batch file.
                 //Pass the batch file four arguments based upon the strings created earlier.
                 //Route the Standard Output and Standard Error of the batch file to the
@@ -263,6 +271,11 @@ namespace OSIRiS
 
         private void quitbutton_Click(object sender, EventArgs e)
         {
+            Settings v = new Settings();
+            v.shutdowntime = this.maskedshutdown.Text;
+            v.password = this.pwbox.Text;
+            v.state = this.statedropdown.Text;
+            Savesettings(v);
             if (File.Exists(@"resources\version.remote.txt"))
             {
                 File.Delete(@"resources\version.remote.txt");
@@ -437,7 +450,7 @@ namespace OSIRiS
                 return;
             }
 
-            //If the user does not select a drive letter we throw and error.
+            //If the user does not select a drive letter we throw an error.
 
             if (string.IsNullOrWhiteSpace(name))
             {
@@ -447,7 +460,7 @@ namespace OSIRiS
                 return;
             }
 
-            //If the user does not input a drive label we throw a error.
+            //If the user does not input a drive label we throw an error.
             //Windows supports null drive lables but if we leave it blank
             //the batch file we build later will prompt for confirmation.
             //This will hang the batch file and parent OSIRiS process unless
@@ -638,12 +651,69 @@ namespace OSIRiS
             Process.Start(filename);
         }
 
-       
+        //Clicking the refresh button will clear the drop down and re-poll for disks.
+        private void refreshbutton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                driveselector.Items.Clear();
+                DriveInfo[] allDrives = DriveInfo.GetDrives();
 
-        
+                foreach (DriveInfo d in allDrives)
+                {
+                    if (d.IsReady == true)
+                    {
+                        string ko = d.VolumeLabel;
+                        string dt = System.Convert.ToString(d.DriveType);
+                        driveselector.Items.Add(d.Name.Remove(2));
+                    }
 
                 }
             }
+            catch { MessageBox.Show("Error Fetching Drive Info", "Error"); }
+        }
 
+        private void OSIRiSmainwindow_Load(object sender, EventArgs e)
+        {
+            if (File.Exists(@"resources\config\settings.xml"))
+            {
+            Settings v = Loadsettings();
+            this.maskedshutdown.Text = v.shutdowntime;
+            this.pwbox.Text = v.password;
+            this.statedropdown.Text = v.state;
+            }
+            else
+            {
+                return;
+            }
+        }
     
+        public class Settings
+        {
+            public string shutdowntime { get; set; }
+            public string password { get; set; }
+            public string state { get; set; }
+        }
 
+        public void Savesettings(Settings v)
+        {
+            XmlSerializer serializer = new XmlSerializer(typeof(Settings));
+            using (TextWriter textWriter = new StreamWriter(@"resources\config\settings.xml"))
+            {
+                serializer.Serialize(textWriter, v);
+            }
+        }
+
+        public Settings Loadsettings()
+        {
+          
+                XmlSerializer serializer = new XmlSerializer(typeof(Settings));
+                using (TextReader textReader = new StreamReader(@"resources\config\settings.xml"))
+                {
+                    return (Settings)serializer.Deserialize(textReader);
+                }
+        }
+     }
+
+        
+}

@@ -76,6 +76,7 @@
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.tooltipcontrol = new System.Windows.Forms.ToolTip(this.components);
+            this.refreshbutton = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.setuppage.SuspendLayout();
             this.sellpage.SuspendLayout();
@@ -406,6 +407,7 @@
             // 
             // formattab
             // 
+            this.formattab.Controls.Add(this.refreshbutton);
             this.formattab.Controls.Add(this.helpbuttonformat);
             this.formattab.Controls.Add(this.formatbuttonquit);
             this.formattab.Controls.Add(this.formatbutton);
@@ -606,6 +608,17 @@
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(118, 17);
             this.toolStripStatusLabel1.Text = "toolStripStatusLabel1";
             // 
+            // refreshbutton
+            // 
+            this.refreshbutton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.refreshbutton.Image = ((System.Drawing.Image)(resources.GetObject("refreshbutton.Image")));
+            this.refreshbutton.Location = new System.Drawing.Point(265, 173);
+            this.refreshbutton.Name = "refreshbutton";
+            this.refreshbutton.Size = new System.Drawing.Size(32, 32);
+            this.refreshbutton.TabIndex = 18;
+            this.refreshbutton.UseVisualStyleBackColor = true;
+            this.refreshbutton.Click += new System.EventHandler(this.refreshbutton_Click);
+            // 
             // OSIRiSmainwindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
@@ -621,6 +634,7 @@
             this.Name = "OSIRiSmainwindow";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "OSIRiS";
+            this.Load += new System.EventHandler(this.OSIRiSmainwindow_Load);
             this.Shown += new System.EventHandler(this.OSIRiSmainwindow_Shown);
             this.tabControl1.ResumeLayout(false);
             this.setuppage.ResumeLayout(false);
@@ -686,6 +700,7 @@
         private System.Windows.Forms.Button helpbuttonsetup;
         private System.Windows.Forms.Button helpbuttonsell;
         private System.Windows.Forms.Button helpbuttonformat;
+        private System.Windows.Forms.Button refreshbutton;
     }
 }
 
