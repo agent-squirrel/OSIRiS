@@ -266,7 +266,11 @@ REM ##END INTEL##
 REM ##AMD BLOCK##
 :e2
 find /I "e2" cpu.txt  > NUL 2>&1
-if %errorlevel%==0 (copy "%~dp0\setup_payload\e2.bmp" C:\profiles\wallpaper.bmp) ELSE (GOTO a4)  > NUL 2>&1
+if %errorlevel%==0 (copy "%~dp0\setup_payload\e2.bmp" C:\profiles\wallpaper.bmp) ELSE (GOTO e1)  > NUL 2>&1
+GOTO ENDPROC
+:e1
+find /I "e1" cpu.txt  > NUL 2>&1
+if %errorlevel%==0 (copy "%~dp0\setup_payload\e1.bmp" C:\profiles\wallpaper.bmp) ELSE (GOTO a4)  > NUL 2>&1
 GOTO ENDPROC
 :a4
 find /I "a4" cpu.txt  > NUL 2>&1

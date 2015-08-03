@@ -87,31 +87,30 @@ namespace OSIRiS
             }
             else
             {
-                //Rename all the old files and directories so we can replace them.
+                //Delete all the old files and directories so we can replace them.
 
                 if (File.Exists(@"OSIRiS_Manual.docx"))
                 {
-                    File.Move("OSIRiS_Manual.docx", "OSIRiS_Manual.docx.bak");
+                    File.Delete("OSIRiS_Manual.docx");
                 }
                 if (File.Exists(@"OSIRiS_Manual.pdf"))
                 {
-                    File.Move("OSIRiS_Manual.pdf", "OSIRiS_Manual.pdf.bak");
+                    File.Delete("OSIRiS_Manual.pdf");
                 }
                 if (File.Exists(@"gpl.txt"))
                 {
-                    File.Move("gpl.txt", "gpl.bak.txt");
+                    File.Delete("gpl.txt");
                 }
                 if (Directory.Exists(@"resources"))
                 {
-                    Directory.Move(@"resources", "resources.bak");
+                Directory.Delete(@"resources", true);
                 }
 
-                {
-                    File.Move("OSIRiS.exe", "OSIRiS.exe.bak");
-                }
+                File.Move("OSIRiS.exe", "OSIRiS.exe.bak");
 
+                //Download the new version of OSIRiS to the users TEMP directory and then unpack to the USB.
 
-                ZipFile.ExtractToDirectory("latest.zip", ".");
+                ZipFile.ExtractToDirectory(Path.GetTempPath() + "latest.zip", ".");
                 DialogResult complete = MessageBox.Show("Update complete, press OK to restart OSIRiS.", "Complete", MessageBoxButtons.OK);
                 if (complete == DialogResult.OK)
                 {
@@ -126,7 +125,7 @@ namespace OSIRiS
         private void updater_Shown(object sender, EventArgs e)
 
             {
-                DownloadFile("https://gnuplusadam.com/OSIRiS/latest.zip", "latest.zip");
+                DownloadFile("https://gnuplusadam.com/OSIRiS/latest.zip", Path.GetTempPath() + "latest.zip");
 
             }
                 }
