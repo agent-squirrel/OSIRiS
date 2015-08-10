@@ -7,6 +7,5 @@ c:\users\adam\documents\visual studio 2013\Projects\OSIRiS\OSIRiS\obj\Debug\OSIR
 c:\users\adam\documents\visual studio 2013\Projects\OSIRiS\OSIRiS\obj\Debug\OSIRiS.pdb
 c:\users\adam\documents\visual studio 2013\Projects\OSIRiS\OSIRiS\obj\Debug\OSIRiS.OSIRiSmainwindow.resources
 C:\Users\Adam\Documents\Visual Studio 2013\Projects\OSIRiS\OSIRiS\obj\Debug\OSIRiS.splash.resources
-C:\Users\Adam\Documents\Visual Studio 2013\Projects\OSIRiS\OSIRiS\obj\Debug\OSIRiS.TrustInfo.xml
-C:\Users\Adam\Documents\Visual Studio 2013\Projects\OSIRiS\OSIRiS\obj\Debug\OSIRiS.exe.manifest
 C:\Users\Adam\Documents\Visual Studio 2013\Projects\OSIRiS\OSIRiS\obj\Debug\OSIRiS.csprojResolveAssemblyReference.cache
+C:\Users\Adam\Documents\Visual Studio 2013\Projects\OSIRiS\OSIRiS\obj\Debug\OSIRiS.updater.resources

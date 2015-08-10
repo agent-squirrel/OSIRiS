@@ -39,5 +39,5 @@ FOR /F "usebackq delims=: tokens=2" %%i IN (osname.txt) DO set OSTEMP=%%i
 echo.%OSTEMP%|findstr /c "10" >nul 2>&1 && set "OSVAR=Windows 10" || set "OSVAR=Windows 8"
 del osname.txt
 echo Calling %OSVAR% Script
-if "%OSVAR%"=="Windows 10" call "%~dp0setup10.bat" %1 %2 %3 %4
-if "%OSVAR%"=="Windows 8" call "%~dp0setup8.bat" %1 %2 %3 %4
+if "%OSVAR%"=="Windows 10" call "%~dp0setup10.bat" %1 %2 %3 %4 %5
+if "%OSVAR%"=="Windows 8" call "%~dp0setup8.bat" %1 %2 %3 %4 %5

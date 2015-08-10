@@ -32,6 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OSIRiSmainwindow));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.setuppage = new System.Windows.Forms.TabPage();
+            this.clearancecheckbox = new System.Windows.Forms.CheckBox();
             this.helpbuttonsetup = new System.Windows.Forms.Button();
             this.consolecheck = new System.Windows.Forms.CheckBox();
             this.richTextBoxstream = new System.Windows.Forms.RichTextBox();
@@ -57,6 +58,7 @@
             this.richTextBoxsellstream = new System.Windows.Forms.RichTextBox();
             this.sellradiogroup = new System.Windows.Forms.GroupBox();
             this.formattab = new System.Windows.Forms.TabPage();
+            this.refreshbutton = new System.Windows.Forms.Button();
             this.helpbuttonformat = new System.Windows.Forms.Button();
             this.formatbuttonquit = new System.Windows.Forms.Button();
             this.formatbutton = new System.Windows.Forms.Button();
@@ -76,7 +78,6 @@
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.tooltipcontrol = new System.Windows.Forms.ToolTip(this.components);
-            this.refreshbutton = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.setuppage.SuspendLayout();
             this.sellpage.SuspendLayout();
@@ -100,6 +101,7 @@
             // setuppage
             // 
             this.setuppage.BackColor = System.Drawing.Color.White;
+            this.setuppage.Controls.Add(this.clearancecheckbox);
             this.setuppage.Controls.Add(this.helpbuttonsetup);
             this.setuppage.Controls.Add(this.consolecheck);
             this.setuppage.Controls.Add(this.richTextBoxstream);
@@ -121,6 +123,17 @@
             this.setuppage.Text = "Setup";
             this.setuppage.ToolTipText = "Use this tab to setup a new display computer.";
             // 
+            // clearancecheckbox
+            // 
+            this.clearancecheckbox.AutoSize = true;
+            this.clearancecheckbox.Location = new System.Drawing.Point(191, 139);
+            this.clearancecheckbox.Name = "clearancecheckbox";
+            this.clearancecheckbox.Size = new System.Drawing.Size(137, 22);
+            this.clearancecheckbox.TabIndex = 6;
+            this.clearancecheckbox.Text = "Clearance S&&D";
+            this.tooltipcontrol.SetToolTip(this.clearancecheckbox, "Check this box if this machine is a clearance model or Soiled and Damaged.");
+            this.clearancecheckbox.UseVisualStyleBackColor = true;
+            // 
             // helpbuttonsetup
             // 
             this.helpbuttonsetup.Location = new System.Drawing.Point(362, 6);
@@ -134,7 +147,7 @@
             // consolecheck
             // 
             this.consolecheck.AutoSize = true;
-            this.consolecheck.Location = new System.Drawing.Point(8, 444);
+            this.consolecheck.Location = new System.Drawing.Point(8, 139);
             this.consolecheck.Name = "consolecheck";
             this.consolecheck.Size = new System.Drawing.Size(177, 22);
             this.consolecheck.TabIndex = 5;
@@ -148,18 +161,19 @@
             this.richTextBoxstream.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.richTextBoxstream.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.richTextBoxstream.HideSelection = false;
-            this.richTextBoxstream.Location = new System.Drawing.Point(0, 162);
+            this.richTextBoxstream.Location = new System.Drawing.Point(0, 167);
             this.richTextBoxstream.Name = "richTextBoxstream";
             this.richTextBoxstream.ReadOnly = true;
             this.richTextBoxstream.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.richTextBoxstream.Size = new System.Drawing.Size(419, 277);
+            this.richTextBoxstream.Size = new System.Drawing.Size(419, 272);
             this.richTextBoxstream.TabIndex = 15;
+            this.richTextBoxstream.TabStop = false;
             this.richTextBoxstream.Text = "";
             this.tooltipcontrol.SetToolTip(this.richTextBoxstream, "Console output box.");
             // 
             // maskedshutdown
             // 
-            this.maskedshutdown.Location = new System.Drawing.Point(244, 62);
+            this.maskedshutdown.Location = new System.Drawing.Point(247, 41);
             this.maskedshutdown.Mask = "00:00";
             this.maskedshutdown.Name = "maskedshutdown";
             this.maskedshutdown.PromptChar = ' ';
@@ -172,7 +186,7 @@
             // 
             // maskedtime24
             // 
-            this.maskedtime24.Location = new System.Drawing.Point(244, 28);
+            this.maskedtime24.Location = new System.Drawing.Point(247, 7);
             this.maskedtime24.Mask = "00:00";
             this.maskedtime24.Name = "maskedtime24";
             this.maskedtime24.PromptChar = ' ';
@@ -186,7 +200,7 @@
             // timelable
             // 
             this.timelable.AutoSize = true;
-            this.timelable.Location = new System.Drawing.Point(92, 31);
+            this.timelable.Location = new System.Drawing.Point(95, 10);
             this.timelable.Name = "timelable";
             this.timelable.Size = new System.Drawing.Size(146, 18);
             this.timelable.TabIndex = 12;
@@ -198,7 +212,7 @@
             this.quitbutton.Location = new System.Drawing.Point(344, 445);
             this.quitbutton.Name = "quitbutton";
             this.quitbutton.Size = new System.Drawing.Size(75, 23);
-            this.quitbutton.TabIndex = 7;
+            this.quitbutton.TabIndex = 8;
             this.quitbutton.Text = "Quit";
             this.tooltipcontrol.SetToolTip(this.quitbutton, "Click here to close OSIRiS.");
             this.quitbutton.UseVisualStyleBackColor = true;
@@ -209,7 +223,7 @@
             this.runbutton.Location = new System.Drawing.Point(263, 445);
             this.runbutton.Name = "runbutton";
             this.runbutton.Size = new System.Drawing.Size(75, 23);
-            this.runbutton.TabIndex = 6;
+            this.runbutton.TabIndex = 7;
             this.runbutton.Text = "Run";
             this.tooltipcontrol.SetToolTip(this.runbutton, "Click here when ready.");
             this.runbutton.UseVisualStyleBackColor = true;
@@ -227,7 +241,7 @@
             "SA",
             "WA",
             "NT"});
-            this.statedropdown.Location = new System.Drawing.Point(147, 128);
+            this.statedropdown.Location = new System.Drawing.Point(150, 107);
             this.statedropdown.Name = "statedropdown";
             this.statedropdown.Size = new System.Drawing.Size(121, 26);
             this.statedropdown.TabIndex = 4;
@@ -236,7 +250,7 @@
             // statelabel
             // 
             this.statelabel.AutoSize = true;
-            this.statelabel.Location = new System.Drawing.Point(92, 131);
+            this.statelabel.Location = new System.Drawing.Point(95, 110);
             this.statelabel.Name = "statelabel";
             this.statelabel.Size = new System.Drawing.Size(49, 18);
             this.statelabel.TabIndex = 4;
@@ -246,7 +260,7 @@
             // userpwlabel
             // 
             this.userpwlabel.AutoSize = true;
-            this.userpwlabel.Location = new System.Drawing.Point(92, 99);
+            this.userpwlabel.Location = new System.Drawing.Point(95, 78);
             this.userpwlabel.Name = "userpwlabel";
             this.userpwlabel.Size = new System.Drawing.Size(150, 18);
             this.userpwlabel.TabIndex = 3;
@@ -255,7 +269,7 @@
             // 
             // pwbox
             // 
-            this.pwbox.Location = new System.Drawing.Point(248, 96);
+            this.pwbox.Location = new System.Drawing.Point(251, 75);
             this.pwbox.Name = "pwbox";
             this.pwbox.Size = new System.Drawing.Size(100, 26);
             this.pwbox.TabIndex = 3;
@@ -265,7 +279,7 @@
             // shutdownlabel
             // 
             this.shutdownlabel.AutoSize = true;
-            this.shutdownlabel.Location = new System.Drawing.Point(92, 65);
+            this.shutdownlabel.Location = new System.Drawing.Point(95, 44);
             this.shutdownlabel.Name = "shutdownlabel";
             this.shutdownlabel.Size = new System.Drawing.Size(143, 18);
             this.shutdownlabel.TabIndex = 0;
@@ -428,6 +442,17 @@
             this.formattab.Text = "Formatter";
             this.formattab.ToolTipText = "Use this tab to format an external drive for a customer.";
             this.formattab.UseVisualStyleBackColor = true;
+            // 
+            // refreshbutton
+            // 
+            this.refreshbutton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.refreshbutton.Image = ((System.Drawing.Image)(resources.GetObject("refreshbutton.Image")));
+            this.refreshbutton.Location = new System.Drawing.Point(265, 173);
+            this.refreshbutton.Name = "refreshbutton";
+            this.refreshbutton.Size = new System.Drawing.Size(32, 32);
+            this.refreshbutton.TabIndex = 18;
+            this.refreshbutton.UseVisualStyleBackColor = true;
+            this.refreshbutton.Click += new System.EventHandler(this.refreshbutton_Click);
             // 
             // helpbuttonformat
             // 
@@ -608,17 +633,6 @@
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(118, 17);
             this.toolStripStatusLabel1.Text = "toolStripStatusLabel1";
             // 
-            // refreshbutton
-            // 
-            this.refreshbutton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.refreshbutton.Image = ((System.Drawing.Image)(resources.GetObject("refreshbutton.Image")));
-            this.refreshbutton.Location = new System.Drawing.Point(265, 173);
-            this.refreshbutton.Name = "refreshbutton";
-            this.refreshbutton.Size = new System.Drawing.Size(32, 32);
-            this.refreshbutton.TabIndex = 18;
-            this.refreshbutton.UseVisualStyleBackColor = true;
-            this.refreshbutton.Click += new System.EventHandler(this.refreshbutton_Click);
-            // 
             // OSIRiSmainwindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
@@ -701,6 +715,7 @@
         private System.Windows.Forms.Button helpbuttonsell;
         private System.Windows.Forms.Button helpbuttonformat;
         private System.Windows.Forms.Button refreshbutton;
+        private System.Windows.Forms.CheckBox clearancecheckbox;
     }
 }
 

@@ -301,8 +301,21 @@ REM ################ END PROCESSOR CHECK CODE BLOCK FOR WIN8 ###################
 
 :ENDPROC
 
+IF [%5]==[clearance] GOTO clear
+IF [%5]==[] GOTO normal
+:clear
+::Create a scheduled task to set the wallpaper back to our custom one on every login with a clearance banner.
+schtasks /CREATE /F /TN "Set Wallpaper" /TR "C:\profiles\walllauncher.bat" /SC ONLOGON /RU Customer > NUL 2>&1
+::Start ODI at logon.
+schtasks /CREATE /F /TN "Start ODI" /TR "C:\profiles\ODI.exe clear" /SC ONLOGON /RU Customer > NUL 2>&1
+GOTO continue
+
+:normal
 ::Create a scheduled task to set the wallpaper back to our custom one on every login.
 schtasks /CREATE /F /TN "Set Wallpaper" /TR "C:\profiles\walllauncher.bat" /SC ONLOGON /RU Customer > NUL 2>&1
+::Start ODI at logon.
+schtasks /CREATE /F /TN "Start ODI" /TR "C:\profiles\ODI.exe" /SC ONLOGON /RU Customer > NUL 2>&1
+:continue
 
 ::Delete the cpu.txt file.
 del cpu.txt
@@ -348,7 +361,7 @@ echo Verification Complete
 @title  Restarting
 echo Restarting
 
-shutdown -r -t 5 /c "Rebooting to complete setup."
+shutdown -r -t 5 -c "Rebooting to complete setup."
 exit
 
 :MANUALRUN

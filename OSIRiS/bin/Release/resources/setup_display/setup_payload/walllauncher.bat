@@ -22,7 +22,7 @@ mode con: cols=68 lines=10
 echo Setting Wallpaper, please DO NOT close this window.
 echo This can take up to 1 minute, the window will close automatically.
 
-powershell.exe -NonInteractive -executionpolicy Bypass -file C:\profiles\wall.ps1
+powershell.exe -NonInteractive -executionpolicy Bypass -command C:\profiles\wall.ps1
 
 echo Setting Home Page for IE.
 @title Set Homepage

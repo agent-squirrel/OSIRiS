@@ -172,6 +172,7 @@ namespace OSIRiS
                 string shutdowntime = maskedshutdown.Text;
                 string owuserpw = pwbox.Text;
                 string state = statedropdown.Text;
+                string clearance = "clearance";
 
                 //Perform some checks for invalid inputs.
                 //If invalid, spawn a dialog box and bring the
@@ -225,22 +226,44 @@ namespace OSIRiS
                 //Route the Standard Output and Standard Error of the batch file to the
                 //console output richtextbox.
 
-                this.Cursor = Cursors.AppStarting;
-                processCaller = new ProcessCaller(this);
-                processCaller.FileName = @"resources\setup_display\setup.bat";
-                processCaller.Arguments = string.Format("{0} {1} {2} \"{3}\"", currenttime, shutdowntime, state, owuserpw);
-                processCaller.StdErrReceived += new DataReceivedHandler(writeStreamInfo);
-                processCaller.StdOutReceived += new DataReceivedHandler(writeStreamInfo);
-                processCaller.Completed += new EventHandler(processCompletedOrCanceled);
-                processCaller.Cancelled += new EventHandler(processCompletedOrCanceled);
-                this.richTextBoxstream.Text = "Begin." + Environment.NewLine;
+                    if (clearancecheckbox.Checked)
+                    {
+                        this.Cursor = Cursors.AppStarting;
+                        processCaller = new ProcessCaller(this);
+                        processCaller.FileName = @"resources\setup_display\setup.bat";
+                        processCaller.Arguments = string.Format("{0} {1} {2} \"{3}\" {4}", currenttime, shutdowntime, state, owuserpw, clearance);
+                        processCaller.StdErrReceived += new DataReceivedHandler(writeStreamInfo);
+                        processCaller.StdOutReceived += new DataReceivedHandler(writeStreamInfo);
+                        processCaller.Completed += new EventHandler(processCompletedOrCanceled);
+                        processCaller.Cancelled += new EventHandler(processCompletedOrCanceled);
+                        this.richTextBoxstream.Text = "Lets Go!." + Environment.NewLine;
 
-                //The following function starts a process and returns immediately,
-                //thus allowing the form to stay responsive.
-                //Also start the marquee progress bar.
+                        //The following function starts a process and returns immediately,
+                        //thus allowing the form to stay responsive.
+                        //Also start the marquee progress bar.
 
-                processCaller.Start();
-                toolStripProgressBar.Style = ProgressBarStyle.Marquee;
+                        processCaller.Start();
+                        toolStripProgressBar.Style = ProgressBarStyle.Marquee;
+                    }
+                    else
+                    {
+                        this.Cursor = Cursors.AppStarting;
+                        processCaller = new ProcessCaller(this);
+                        processCaller.FileName = @"resources\setup_display\setup.bat";
+                        processCaller.Arguments = string.Format("{0} {1} {2} \"{3}\"", currenttime, shutdowntime, state, owuserpw);
+                        processCaller.StdErrReceived += new DataReceivedHandler(writeStreamInfo);
+                        processCaller.StdOutReceived += new DataReceivedHandler(writeStreamInfo);
+                        processCaller.Completed += new EventHandler(processCompletedOrCanceled);
+                        processCaller.Cancelled += new EventHandler(processCompletedOrCanceled);
+                        this.richTextBoxstream.Text = "Lets Go!" + Environment.NewLine;
+
+                        //The following function starts a process and returns immediately,
+                        //thus allowing the form to stay responsive.
+                        //Also start the marquee progress bar.
+
+                        processCaller.Start();
+                        toolStripProgressBar.Style = ProgressBarStyle.Marquee;
+                    }
             }
 
             //If we get a no back from the dialog box,
@@ -358,7 +381,7 @@ namespace OSIRiS
                 processCaller.StdOutReceived += new DataReceivedHandler(writeStreamInfosell);
                 processCaller.Completed += new EventHandler(processCompletedOrCanceledsell);
                 processCaller.Cancelled += new EventHandler(processCompletedOrCanceledsell);
-                this.richTextBoxsellstream.Text = "Begin." + Environment.NewLine;
+                this.richTextBoxsellstream.Text = "..and we're off!" + Environment.NewLine;
 
                 //The following function starts a process and returns immediately,
                 //thus allowing the form to stay responsive.
