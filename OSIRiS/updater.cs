@@ -48,6 +48,7 @@ namespace OSIRiS
                 try
                 {
                     // Start downloading the file
+                    info.Text = "Downloading";
                     webClient.DownloadFileAsync(URL, location);
                 }
                 catch (Exception ex)
@@ -60,14 +61,8 @@ namespace OSIRiS
         // The event that will fire whenever the progress of the WebClient is changed
         private void ProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
-            // Calculate download speed and output it to labelSpeed.
-            labelSpeed.Text = string.Format("{0} kb/s", (e.BytesReceived / 1024d / sw.Elapsed.TotalSeconds).ToString("0.00"));
-
             // Update the progressbar percentage only when the value is not the same.
             progressBar.Value = e.ProgressPercentage;
-
-            // Show the percentage on our label.
-            labelPerc.Text = e.ProgressPercentage.ToString() + "%";
 
             // Update the label with how much data have been downloaded so far and the total size of the file we are currently downloading
             labelDownloaded.Text = string.Format("{0} MB's / {1} MB's",
@@ -87,47 +82,113 @@ namespace OSIRiS
             }
             else
             {
-                //Delete all the old files and directories so we can replace them.
-
-                if (File.Exists(@"OSIRiS_Manual.docx"))
-                {
-                    File.Delete("OSIRiS_Manual.docx");
-                }
-                if (File.Exists(@"OSIRiS_Manual.pdf"))
-                {
-                    File.Delete("OSIRiS_Manual.pdf");
-                }
-                if (File.Exists(@"gpl.txt"))
-                {
-                    File.Delete("gpl.txt");
-                }
-                if (Directory.Exists(@"resources"))
-                {
-                Directory.Delete(@"resources", true);
-                }
-
-                File.Move("OSIRiS.exe", "OSIRiS.exe.bak");
-
-                //Download the new version of OSIRiS to the users TEMP directory and then unpack to the USB.
-
-                ZipFile.ExtractToDirectory(Path.GetTempPath() + "latest.zip", ".");
-                DialogResult complete = MessageBox.Show("Update complete, press OK to restart OSIRiS.", "Complete", MessageBoxButtons.OK);
-                if (complete == DialogResult.OK)
-                {
-                    Process.Start("OSIRiS.exe");
-                    Application.Exit();
-                }
-
-
+                extract();
             }
         }
 
         private void updater_Shown(object sender, EventArgs e)
 
             {
-                DownloadFile("https://gnuplusadam.com/OSIRiS/latest.zip", Path.GetTempPath() + "latest.zip");
-
+                // Start the progress bar.
+                progressBar.Style = ProgressBarStyle.Marquee;
+                BackgroundWorker bw = new BackgroundWorker();
+                bw.WorkerSupportsCancellation = false;
+                bw.WorkerReportsProgress = true;
+                bw.DoWork += new DoWorkEventHandler(bw_DoWork);
+                bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bw_RunWorkerCompleted);
+                bw.RunWorkerAsync();
             }
+
+        private void bw_DoWork(object sender, DoWorkEventArgs e)
+        {
+            BackgroundWorker worker = sender as BackgroundWorker;
+
+            for (int i = 1; (i <= 10); i++)
+            {
+                if ((worker.CancellationPending == true))
+                {
+                    e.Cancel = true;
+                    break;
+                }
+                else
+                {
+                    info.Text = "Deleting Old Files";
+                    //Delete all the old files and directories so we can replace them.
+
+                    if (File.Exists(@"OSIRiS_Manual.docx"))
+                    {
+                        File.Delete("OSIRiS_Manual.docx");
+                    }
+                    if (File.Exists(@"OSIRiS_Manual.pdf"))
+                    {
+                        File.Delete("OSIRiS_Manual.pdf");
+                    }
+                    if (File.Exists(@"gpl.txt"))
+                    {
+                        File.Delete("gpl.txt");
+                    }
+                    if (Directory.Exists(@"resources"))
+                    {
+                        Directory.Delete(@"resources", true);
+                    }
+
+                    File.Move("OSIRiS.exe", "OSIRiS.exe.bak");
+                    System.Threading.Thread.Sleep(500);
+                }
+            }
+        }
+        private void bw2_DoWork(object sender, DoWorkEventArgs e)
+        {
+            BackgroundWorker worker = sender as BackgroundWorker;
+
+            for (int i = 1; (i <= 10); i++)
+            {
+                if ((worker.CancellationPending == true))
+                {
+                    e.Cancel = true;
+                    break;
+                }
+                else
+                {
+                    //Unpack to the USB.
+                    progressBar.Style = ProgressBarStyle.Marquee;
+                    info.Text = "Extracting";
+                    ZipFile.ExtractToDirectory(Path.GetTempPath() + "latest.zip", ".");
+                    System.Threading.Thread.Sleep(500);
+                }
+            }
+        }
+        private void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            // Download the new version of OSIRiS.
+            // Start the progress bar.
+            progressBar.Style = ProgressBarStyle.Blocks;
+            DownloadFile("https://gnuplusadam.com/OSIRiS/latest.zip", Path.GetTempPath() + "latest.zip");
+        }
+        private void bw2_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            info.Text = "Done";
+            progressBar.Style = ProgressBarStyle.Continuous;
+            progressBar.MarqueeAnimationSpeed = 0;
+            DialogResult complete = MessageBox.Show("Update complete, press OK to restart OSIRiS.", "Complete", MessageBoxButtons.OK);
+            if (complete == DialogResult.OK)
+            {
+                Process.Start("OSIRiS.exe");
+                Application.Exit();
+            }
+        }
+        private void extract()
+        {
+            // Start the progress bar.
+            progressBar.Style = ProgressBarStyle.Marquee;
+            BackgroundWorker bw2 = new BackgroundWorker();
+            bw2.WorkerSupportsCancellation = false;
+            bw2.WorkerReportsProgress = true;
+            bw2.DoWork += new DoWorkEventHandler(bw2_DoWork);
+            bw2.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bw2_RunWorkerCompleted);
+            bw2.RunWorkerAsync();
+        }
+
                 }
 
             }

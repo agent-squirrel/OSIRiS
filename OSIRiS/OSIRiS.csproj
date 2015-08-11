@@ -183,6 +183,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="logo_icon.ico" />
+    <None Include="OSIRiS_logo\logocropped.png" />
     <None Include="Resources\shell32_0238.ico" />
     <None Include="OSIRiS_logo\logo_splash.png" />
     <None Include="OSIRiS_logo\logo_splash.fw.png" />

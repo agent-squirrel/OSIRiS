@@ -445,11 +445,11 @@
             // 
             // refreshbutton
             // 
+            this.refreshbutton.BackgroundImage = global::OSIRiS.Properties.Resources.shell32_0238;
             this.refreshbutton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.refreshbutton.Image = ((System.Drawing.Image)(resources.GetObject("refreshbutton.Image")));
             this.refreshbutton.Location = new System.Drawing.Point(265, 173);
             this.refreshbutton.Name = "refreshbutton";
-            this.refreshbutton.Size = new System.Drawing.Size(32, 32);
+            this.refreshbutton.Size = new System.Drawing.Size(29, 29);
             this.refreshbutton.TabIndex = 18;
             this.refreshbutton.UseVisualStyleBackColor = true;
             this.refreshbutton.Click += new System.EventHandler(this.refreshbutton_Click);

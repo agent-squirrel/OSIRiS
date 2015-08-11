@@ -28,76 +28,62 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(updater));
-            this.progressBar = new System.Windows.Forms.ProgressBar();
-            this.labelSpeed = new System.Windows.Forms.Label();
-            this.labelPerc = new System.Windows.Forms.Label();
             this.labelDownloaded = new System.Windows.Forms.Label();
-            this.perccomplete = new System.Windows.Forms.Label();
+            this.progressBar = new System.Windows.Forms.ProgressBar();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.totaldownloaded = new System.Windows.Forms.Label();
-            this.speed = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.info = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
-            // 
-            // progressBar
-            // 
-            this.progressBar.Location = new System.Drawing.Point(12, 74);
-            this.progressBar.Name = "progressBar";
-            this.progressBar.Size = new System.Drawing.Size(484, 23);
-            this.progressBar.TabIndex = 0;
-            // 
-            // labelSpeed
-            // 
-            this.labelSpeed.AutoSize = true;
-            this.labelSpeed.Location = new System.Drawing.Point(244, 157);
-            this.labelSpeed.Name = "labelSpeed";
-            this.labelSpeed.Size = new System.Drawing.Size(55, 18);
-            this.labelSpeed.TabIndex = 1;
-            this.labelSpeed.Text = "Speed";
-            // 
-            // labelPerc
-            // 
-            this.labelPerc.AutoSize = true;
-            this.labelPerc.Location = new System.Drawing.Point(156, 53);
-            this.labelPerc.Name = "labelPerc";
-            this.labelPerc.Size = new System.Drawing.Size(62, 18);
-            this.labelPerc.TabIndex = 2;
-            this.labelPerc.Text = "Percent";
             // 
             // labelDownloaded
             // 
             this.labelDownloaded.AutoSize = true;
-            this.labelDownloaded.Location = new System.Drawing.Point(156, 100);
+            this.labelDownloaded.Location = new System.Drawing.Point(154, 110);
             this.labelDownloaded.Name = "labelDownloaded";
-            this.labelDownloaded.Size = new System.Drawing.Size(96, 18);
+            this.labelDownloaded.Size = new System.Drawing.Size(0, 18);
             this.labelDownloaded.TabIndex = 3;
-            this.labelDownloaded.Text = "Downloaded";
             // 
-            // perccomplete
+            // progressBar
             // 
-            this.perccomplete.AutoSize = true;
-            this.perccomplete.Location = new System.Drawing.Point(12, 53);
-            this.perccomplete.Name = "perccomplete";
-            this.perccomplete.Size = new System.Drawing.Size(138, 18);
-            this.perccomplete.TabIndex = 4;
-            this.perccomplete.Text = "Percent Complete:";
+            this.progressBar.Location = new System.Drawing.Point(12, 131);
+            this.progressBar.Name = "progressBar";
+            this.progressBar.Size = new System.Drawing.Size(484, 23);
+            this.progressBar.TabIndex = 0;
+            // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
             // 
             // totaldownloaded
             // 
             this.totaldownloaded.AutoSize = true;
-            this.totaldownloaded.Location = new System.Drawing.Point(12, 100);
+            this.totaldownloaded.Location = new System.Drawing.Point(12, 110);
             this.totaldownloaded.Name = "totaldownloaded";
             this.totaldownloaded.Size = new System.Drawing.Size(136, 18);
             this.totaldownloaded.TabIndex = 5;
             this.totaldownloaded.Text = "Total Downloaded:";
             // 
-            // speed
+            // pictureBox1
             // 
-            this.speed.AutoSize = true;
-            this.speed.Location = new System.Drawing.Point(179, 157);
-            this.speed.Name = "speed";
-            this.speed.Size = new System.Drawing.Size(59, 18);
-            this.speed.TabIndex = 6;
-            this.speed.Text = "Speed:";
+            this.pictureBox1.Image = global::OSIRiS.Properties.Resources.logocropped;
+            this.pictureBox1.Location = new System.Drawing.Point(133, 12);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(242, 90);
+            this.pictureBox1.TabIndex = 6;
+            this.pictureBox1.TabStop = false;
+            // 
+            // info
+            // 
+            this.info.Location = new System.Drawing.Point(133, 157);
+            this.info.Name = "info";
+            this.info.Size = new System.Drawing.Size(242, 18);
+            this.info.TabIndex = 7;
+            this.info.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // updater
             // 
@@ -106,12 +92,10 @@
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(508, 184);
             this.ControlBox = false;
-            this.Controls.Add(this.speed);
+            this.Controls.Add(this.info);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.totaldownloaded);
-            this.Controls.Add(this.perccomplete);
             this.Controls.Add(this.labelDownloaded);
-            this.Controls.Add(this.labelPerc);
-            this.Controls.Add(this.labelSpeed);
             this.Controls.Add(this.progressBar);
             this.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -122,6 +106,8 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Updater";
             this.Shown += new System.EventHandler(this.updater_Shown);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -129,12 +115,11 @@
 
         #endregion
 
-        private System.Windows.Forms.ProgressBar progressBar;
-        private System.Windows.Forms.Label labelSpeed;
-        private System.Windows.Forms.Label labelPerc;
         private System.Windows.Forms.Label labelDownloaded;
-        private System.Windows.Forms.Label perccomplete;
+        private System.Windows.Forms.ProgressBar progressBar;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
+        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label totaldownloaded;
-        private System.Windows.Forms.Label speed;
+        private System.Windows.Forms.Label info;
     }
 }

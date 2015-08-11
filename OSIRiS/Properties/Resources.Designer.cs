@@ -83,6 +83,16 @@ namespace OSIRiS.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap logocropped {
+            get {
+                object obj = ResourceManager.GetObject("logocropped", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap shell32_0238 {
             get {
                 object obj = ResourceManager.GetObject("shell32_0238", resourceCulture);

@@ -698,6 +698,7 @@ namespace OSIRiS
 
         private void OSIRiSmainwindow_Load(object sender, EventArgs e)
         {
+            this.Activate();
             if (File.Exists(@"resources\config\settings.xml"))
             {
             Settings v = Loadsettings();

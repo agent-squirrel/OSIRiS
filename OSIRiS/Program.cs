@@ -43,8 +43,9 @@ namespace OSIRiS
             OSIRiSmainwindow OSIRiSmainwindow = new OSIRiSmainwindow();
             OSIRiSmainwindow.Load += new EventHandler(OSIRiSmainwindow_Load);
             Application.Run(OSIRiSmainwindow);
+
         }
-        }
+    }
 
         static void OSIRiSmainwindow_Load(object sender, EventArgs e)
         {
@@ -53,7 +54,7 @@ namespace OSIRiS
             {
                 return;
             }
-
+            
             splash.Invoke(new Action(splash.Close));
             splash.Dispose();
             splash = null;
