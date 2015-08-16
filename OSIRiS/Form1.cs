@@ -8,7 +8,6 @@ using System.Threading;
 using System.Xml.Serialization;
 using System.Windows.Forms;
 
-
 namespace OSIRiS
 {
     //Declare the main form called OSIRiSmainwindow and run dinfo.
@@ -18,6 +17,7 @@ namespace OSIRiS
 
     public partial class OSIRiSmainwindow : Form
     {
+
         public OSIRiSmainwindow()
         {
             InitializeComponent();
@@ -210,11 +210,8 @@ namespace OSIRiS
                     runbutton.Enabled = true;
                     return;
                 }
-                if (File.Exists(@"resources\version.remote.txt"))
-                {
-                    File.Delete(@"resources\version.remote.txt");
-                }
 
+                   //Serialize the settings to an XML file for later recall.
                     Settings v = new Settings();
                     v.shutdowntime = this.maskedshutdown.Text;
                     v.password = this.pwbox.Text;
@@ -287,6 +284,7 @@ namespace OSIRiS
         private void processCompletedOrCanceled(object sender, EventArgs e)
         {
             this.Cursor = Cursors.Default;
+            Application.Exit();
         }
 
         //Exit the application and all threads gracefully if
@@ -299,10 +297,6 @@ namespace OSIRiS
             v.password = this.pwbox.Text;
             v.state = this.statedropdown.Text;
             Savesettings(v);
-            if (File.Exists(@"resources\version.remote.txt"))
-            {
-                File.Delete(@"resources\version.remote.txt");
-            }
             Application.Exit();
         }
 
@@ -363,11 +357,6 @@ namespace OSIRiS
 
                 }
 
-                if (File.Exists(@"resources\version.remote.txt"))
-                {
-                    File.Delete(@"resources\version.remote.txt");
-                }
-
                 //If all checks pass then use ProcessCaller to call our batch file.
                 //Pass the batch file four arguments based upon the strings created earlier.
                 //Route the Standard Output and Standard Error of the batch file to the
@@ -411,6 +400,7 @@ namespace OSIRiS
         private void processCompletedOrCanceledsell(object sender, EventArgs e)
         {
             this.Cursor = Cursors.Default;
+            Application.Exit();
         }
 
         //Exit the application and all threads gracefully if
@@ -418,10 +408,6 @@ namespace OSIRiS
 
         private void sellquitbutton_Click(object sender, EventArgs e)
         {
-            if (File.Exists(@"resources\version.remote.txt"))
-            {
-                File.Delete(@"resources\version.remote.txt");
-            }
             Application.Exit();
         }
 
@@ -644,10 +630,6 @@ namespace OSIRiS
 
         private void formatbuttonquit_Click(object sender, EventArgs e)
         {
-            if (File.Exists(@"resources\version.remote.txt"))
-            {
-                File.Delete(@"resources\version.remote.txt");
-            }
             Application.Exit();
         }
 
@@ -656,21 +638,21 @@ namespace OSIRiS
         private void helpbuttonsell_Click(object sender, EventArgs e)
         {
             string appPath = Assembly.GetEntryAssembly().Location;
-            string filename = Path.Combine(Path.GetDirectoryName(appPath), @"resources\help\OSIRiS Help.html");
+            string filename = Path.Combine(Path.GetDirectoryName(appPath), @"OSIRiS_Manual.pdf");
             Process.Start(filename);
         }
 
         private void helpbuttonformat_Click(object sender, EventArgs e)
         {
             string appPath = Assembly.GetEntryAssembly().Location;
-            string filename = Path.Combine(Path.GetDirectoryName(appPath), @"resources\help\OSIRiS Help.html");
+            string filename = Path.Combine(Path.GetDirectoryName(appPath), @"OSIRiS_Manual.pdf");
             Process.Start(filename);
         }
 
         private void helpbuttonsetup_Click(object sender, EventArgs e)
         {
             string appPath = Assembly.GetEntryAssembly().Location;
-            string filename = Path.Combine(Path.GetDirectoryName(appPath), @"resources\help\OSIRiS Help.html");
+            string filename = Path.Combine(Path.GetDirectoryName(appPath), @"OSIRiS_Manual.pdf");
             Process.Start(filename);
         }
 
@@ -736,6 +718,19 @@ namespace OSIRiS
                 {
                     return (Settings)serializer.Deserialize(textReader);
                 }
+        }
+
+        private void advancedbutton_Click(object sender, EventArgs e)
+        {
+            if (advancedformatpanel.Visible == true)
+            {
+                advancedformatpanel.Visible = false;
+            }
+            else
+            {
+                advancedformatpanel.Visible = true;
+            }
+            
         }
      }
 

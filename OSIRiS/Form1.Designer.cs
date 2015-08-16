@@ -58,6 +58,8 @@
             this.richTextBoxsellstream = new System.Windows.Forms.RichTextBox();
             this.sellradiogroup = new System.Windows.Forms.GroupBox();
             this.formattab = new System.Windows.Forms.TabPage();
+            this.advancedbutton = new System.Windows.Forms.Button();
+            this.advancedformatpanel = new System.Windows.Forms.Panel();
             this.refreshbutton = new System.Windows.Forms.Button();
             this.helpbuttonformat = new System.Windows.Forms.Button();
             this.formatbuttonquit = new System.Windows.Forms.Button();
@@ -421,6 +423,8 @@
             // 
             // formattab
             // 
+            this.formattab.Controls.Add(this.advancedbutton);
+            this.formattab.Controls.Add(this.advancedformatpanel);
             this.formattab.Controls.Add(this.refreshbutton);
             this.formattab.Controls.Add(this.helpbuttonformat);
             this.formattab.Controls.Add(this.formatbuttonquit);
@@ -443,6 +447,25 @@
             this.formattab.ToolTipText = "Use this tab to format an external drive for a customer.";
             this.formattab.UseVisualStyleBackColor = true;
             // 
+            // advancedbutton
+            // 
+            this.advancedbutton.Location = new System.Drawing.Point(169, 445);
+            this.advancedbutton.Name = "advancedbutton";
+            this.advancedbutton.Size = new System.Drawing.Size(90, 23);
+            this.advancedbutton.TabIndex = 20;
+            this.advancedbutton.Text = "Advanced";
+            this.advancedbutton.UseVisualStyleBackColor = true;
+            this.advancedbutton.Click += new System.EventHandler(this.advancedbutton_Click);
+            // 
+            // advancedformatpanel
+            // 
+            this.advancedformatpanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.advancedformatpanel.Location = new System.Drawing.Point(8, 281);
+            this.advancedformatpanel.Name = "advancedformatpanel";
+            this.advancedformatpanel.Size = new System.Drawing.Size(402, 158);
+            this.advancedformatpanel.TabIndex = 19;
+            this.advancedformatpanel.Visible = false;
+            // 
             // refreshbutton
             // 
             this.refreshbutton.BackgroundImage = global::OSIRiS.Properties.Resources.shell32_0238;
@@ -451,6 +474,7 @@
             this.refreshbutton.Name = "refreshbutton";
             this.refreshbutton.Size = new System.Drawing.Size(29, 29);
             this.refreshbutton.TabIndex = 18;
+            this.tooltipcontrol.SetToolTip(this.refreshbutton, "Refresh drive list.");
             this.refreshbutton.UseVisualStyleBackColor = true;
             this.refreshbutton.Click += new System.EventHandler(this.refreshbutton_Click);
             // 
@@ -477,7 +501,7 @@
             // 
             // formatbutton
             // 
-            this.formatbutton.Location = new System.Drawing.Point(138, 287);
+            this.formatbutton.Location = new System.Drawing.Point(263, 445);
             this.formatbutton.Name = "formatbutton";
             this.formatbutton.Size = new System.Drawing.Size(75, 23);
             this.formatbutton.TabIndex = 8;
@@ -716,6 +740,8 @@
         private System.Windows.Forms.Button helpbuttonformat;
         private System.Windows.Forms.Button refreshbutton;
         private System.Windows.Forms.CheckBox clearancecheckbox;
+        private System.Windows.Forms.Panel advancedformatpanel;
+        private System.Windows.Forms.Button advancedbutton;
     }
 }
 

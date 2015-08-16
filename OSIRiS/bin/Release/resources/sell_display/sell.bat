@@ -102,7 +102,7 @@ echo Deleting Scheduled Tasks
 schtasks /delete /F /tn "Computer Shutdown" /f > NUL 2>&1
 schtasks /delete /F /tn "Wi-Fi Check" /f > NUL 2>&1
 schtasks /delete /F /tn "Set Wallpaper" /f > NUL 2>&1
-schtasks /delete /F /tn "Start ODI" /f > NUL 2>&1
+schtasks /delete /F /tn "Start ODIN" /f > NUL 2>&1
 
 REM ###############################################
 REM #Set the balanced power plan as the active plan

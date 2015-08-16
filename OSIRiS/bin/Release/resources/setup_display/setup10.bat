@@ -218,13 +218,11 @@ echo Setting up custom wallpaper
 
 ::Here we dump the contents of WMIC CPU to a text file and copy over
 ::OSIRiS Desktop Info to the profiles folder.
-::Also copy over the powershell script that runs on every login as well as
-::it's batch launcher.
+::Also we copy over the 'Customer' account image.
 
 wmic cpu get name > cpu.txt
-xcopy /S /I "%~dp0\setup_payload\ODI.exe" C:\profiles\ > NUL 2>&1
-copy "%~dp0\setup_payload\wall.ps1" C:\profiles\wall.ps1 > NUL 2>&1
-copy "%~dp0\setup_payload\walllauncher.bat" C:\profiles\walllauncher.bat > NUL 2>&1
+xcopy /S /I "%~dp0\setup_payload\ODIN.exe" C:\profiles\ > NUL 2>&1
+xcopy /S /I "%~dp0\setup_payload\user.bmp" C:\profiles\ > NUL 2>&1
 
 ::Use 'find' to look through the cpu.txt file and check for specific
 ::strings containing CPU information.
@@ -304,17 +302,13 @@ REM ################ END PROCESSOR CHECK CODE BLOCK FOR WIN8 ###################
 IF [%5]==[clearance] GOTO clear
 IF [%5]==[] GOTO normal
 :clear
-::Create a scheduled task to set the wallpaper back to our custom one on every login with a clearance banner.
-schtasks /CREATE /F /TN "Set Wallpaper" /TR "C:\profiles\walllauncher.bat" /SC ONLOGON /RU Customer > NUL 2>&1
-::Start ODI at logon.
-schtasks /CREATE /F /TN "Start ODI" /TR "C:\profiles\ODI.exe clear" /SC ONLOGON /RU Customer > NUL 2>&1
+::Start ODIN at logon.
+schtasks /CREATE /F /TN "Start ODIN" /TR "C:\profiles\ODIN.exe clear" /SC ONLOGON /RU Customer > NUL 2>&1
 GOTO continue
 
 :normal
-::Create a scheduled task to set the wallpaper back to our custom one on every login.
-schtasks /CREATE /F /TN "Set Wallpaper" /TR "C:\profiles\walllauncher.bat" /SC ONLOGON /RU Customer > NUL 2>&1
-::Start ODI at logon.
-schtasks /CREATE /F /TN "Start ODI" /TR "C:\profiles\ODI.exe" /SC ONLOGON /RU Customer > NUL 2>&1
+::Start ODIN at logon.
+schtasks /CREATE /F /TN "Start ODIN" /TR "C:\profiles\ODIN.exe" /SC ONLOGON /RU Customer > NUL 2>&1
 :continue
 
 ::Delete the cpu.txt file.
