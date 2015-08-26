@@ -170,12 +170,8 @@ namespace OSIRiS
             info.Text = "Done";
             progressBar.Style = ProgressBarStyle.Continuous;
             progressBar.MarqueeAnimationSpeed = 0;
-            DialogResult complete = MessageBox.Show("Update complete, press OK to restart OSIRiS.", "Complete", MessageBoxButtons.OK);
-            if (complete == DialogResult.OK)
-            {
-                Process.Start("OSIRiS.exe");
-                Application.Exit();
-            }
+            var form = new update_complete();
+            form.Show(this);
         }
         private void extract()
         {

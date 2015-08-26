@@ -58,9 +58,6 @@
             this.richTextBoxsellstream = new System.Windows.Forms.RichTextBox();
             this.sellradiogroup = new System.Windows.Forms.GroupBox();
             this.formattab = new System.Windows.Forms.TabPage();
-            this.advancedbutton = new System.Windows.Forms.Button();
-            this.advancedformatpanel = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
             this.refreshbutton = new System.Windows.Forms.Button();
             this.helpbuttonformat = new System.Windows.Forms.Button();
             this.formatbuttonquit = new System.Windows.Forms.Button();
@@ -85,7 +82,6 @@
             this.setuppage.SuspendLayout();
             this.sellpage.SuspendLayout();
             this.formattab.SuspendLayout();
-            this.advancedformatpanel.SuspendLayout();
             this.driveselected.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.SuspendLayout();
@@ -425,8 +421,6 @@
             // 
             // formattab
             // 
-            this.formattab.Controls.Add(this.advancedbutton);
-            this.formattab.Controls.Add(this.advancedformatpanel);
             this.formattab.Controls.Add(this.refreshbutton);
             this.formattab.Controls.Add(this.helpbuttonformat);
             this.formattab.Controls.Add(this.formatbuttonquit);
@@ -448,35 +442,6 @@
             this.formattab.Text = "Formatter";
             this.formattab.ToolTipText = "Use this tab to format an external drive for a customer.";
             this.formattab.UseVisualStyleBackColor = true;
-            // 
-            // advancedbutton
-            // 
-            this.advancedbutton.Location = new System.Drawing.Point(169, 445);
-            this.advancedbutton.Name = "advancedbutton";
-            this.advancedbutton.Size = new System.Drawing.Size(90, 23);
-            this.advancedbutton.TabIndex = 20;
-            this.advancedbutton.Text = "Advanced";
-            this.advancedbutton.UseVisualStyleBackColor = true;
-            this.advancedbutton.Click += new System.EventHandler(this.advancedbutton_Click);
-            // 
-            // advancedformatpanel
-            // 
-            this.advancedformatpanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.advancedformatpanel.Controls.Add(this.label1);
-            this.advancedformatpanel.Location = new System.Drawing.Point(8, 281);
-            this.advancedformatpanel.Name = "advancedformatpanel";
-            this.advancedformatpanel.Size = new System.Drawing.Size(402, 158);
-            this.advancedformatpanel.TabIndex = 19;
-            this.advancedformatpanel.Visible = false;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(138, 47);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(125, 36);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "Not Implemented\r\nComing soon.";
             // 
             // refreshbutton
             // 
@@ -693,8 +658,6 @@
             this.sellpage.PerformLayout();
             this.formattab.ResumeLayout(false);
             this.formattab.PerformLayout();
-            this.advancedformatpanel.ResumeLayout(false);
-            this.advancedformatpanel.PerformLayout();
             this.driveselected.ResumeLayout(false);
             this.driveselected.PerformLayout();
             this.statusStrip.ResumeLayout(false);
@@ -754,9 +717,6 @@
         private System.Windows.Forms.Button helpbuttonformat;
         private System.Windows.Forms.Button refreshbutton;
         private System.Windows.Forms.CheckBox clearancecheckbox;
-        private System.Windows.Forms.Panel advancedformatpanel;
-        private System.Windows.Forms.Button advancedbutton;
-        private System.Windows.Forms.Label label1;
     }
 }
 

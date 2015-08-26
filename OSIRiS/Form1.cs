@@ -719,20 +719,6 @@ namespace OSIRiS
                     return (Settings)serializer.Deserialize(textReader);
                 }
         }
-
-        private void advancedbutton_Click(object sender, EventArgs e)
-        {
-            if (advancedformatpanel.Visible == true)
-            {
-                advancedformatpanel.Visible = false;
-            }
-            else
-            {
-                advancedformatpanel.Visible = true;
-            }
             
         }
      }
-
-        
-}

@@ -134,6 +134,12 @@
     <Compile Include="updater.Designer.cs">
       <DependentUpon>updater.cs</DependentUpon>
     </Compile>
+    <Compile Include="update_complete.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="update_complete.Designer.cs">
+      <DependentUpon>update_complete.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -147,6 +153,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="updater.resx">
       <DependentUpon>updater.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="update_complete.resx">
+      <DependentUpon>update_complete.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="OSIRiS.manifest">
       <SubType>Designer</SubType>
