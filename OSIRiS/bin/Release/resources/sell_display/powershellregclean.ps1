@@ -18,3 +18,6 @@ New-ItemProperty $loginpath -Name AutoAdminLogon -Value 0 -Force
 New-ItemProperty $loginpath -Name DefaultUserName -Value '' -Force
 New-ItemProperty $loginpath -Name DefaultPassword -Value '' -Force
 New-ItemProperty $loginpath -Name ForceAutoLogon -Value 0 -Force
+
+$ODINautostart = 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run'
+Remove-ItemProperty $ODINautostart -Name ODIN -Force

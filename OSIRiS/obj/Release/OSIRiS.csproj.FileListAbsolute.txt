@@ -23,3 +23,12 @@ C:\Users\Adam\Documents\Visual Studio 2013\Projects\OSIRiS\OSIRiS\obj\Release\OS
 C:\Users\Adam\Documents\Visual Studio 2015\Projects\OSIRiS\OSIRiS\bin\Release\OSIRiS.exe.config
 C:\Users\Adam\Documents\Visual Studio 2015\Projects\OSIRiS\OSIRiS\obj\Release\OSIRiS.exe
 C:\Users\Adam\Documents\Visual Studio 2015\Projects\OSIRiS\OSIRiS\obj\Release\OSIRiS.pdb
+C:\Users\Adam\Documents\Visual Studio 2015\Projects\OSIRiS\OSIRiS\bin\Release\OSIRiS.exe
+C:\Users\Adam\Documents\Visual Studio 2015\Projects\OSIRiS\OSIRiS\bin\Release\OSIRiS.pdb
+C:\Users\Adam\Documents\Visual Studio 2015\Projects\OSIRiS\OSIRiS\obj\Release\OSIRiS.csprojResolveAssemblyReference.cache
+C:\Users\Adam\Documents\Visual Studio 2015\Projects\OSIRiS\OSIRiS\obj\Release\OSIRiS.OSIRiSmainwindow.resources
+C:\Users\Adam\Documents\Visual Studio 2015\Projects\OSIRiS\OSIRiS\obj\Release\OSIRiS.Properties.Resources.resources
+C:\Users\Adam\Documents\Visual Studio 2015\Projects\OSIRiS\OSIRiS\obj\Release\OSIRiS.splash.resources
+C:\Users\Adam\Documents\Visual Studio 2015\Projects\OSIRiS\OSIRiS\obj\Release\OSIRiS.updater.resources
+C:\Users\Adam\Documents\Visual Studio 2015\Projects\OSIRiS\OSIRiS\obj\Release\OSIRiS.update_complete.resources
+C:\Users\Adam\Documents\Visual Studio 2015\Projects\OSIRiS\OSIRiS\obj\Release\OSIRiS.csproj.GenerateResource.Cache

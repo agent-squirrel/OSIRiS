@@ -341,6 +341,7 @@
             // usernamebox
             // 
             this.usernamebox.Location = new System.Drawing.Point(132, 119);
+            this.usernamebox.MaxLength = 20;
             this.usernamebox.Name = "usernamebox";
             this.usernamebox.Size = new System.Drawing.Size(100, 26);
             this.usernamebox.TabIndex = 24;

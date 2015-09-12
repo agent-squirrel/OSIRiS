@@ -719,6 +719,5 @@ namespace OSIRiS
                     return (Settings)serializer.Deserialize(textReader);
                 }
         }
-            
-        }
+    }
      }

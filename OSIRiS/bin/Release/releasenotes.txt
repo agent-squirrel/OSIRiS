@@ -9,6 +9,24 @@
 
 
 --------------------------------------------------------------------------------
+2.8.1.7:
+Added a manual tool, under the "manual_tools" folder to change ODIN's clearance
+banner if it is incorrectly set. This tool can also switch ODIN from scheduled mode
+over to the newer reg called mode.
+(This tool is the only script that should be run manually out of the resources folder)
+Added a REGEX to the computer rename call so that ALL special characters are 
+accounted for. Previously if the model contained spaces they where handled but if 
+other special characters where present, the rename silently failed.
+
+2.8.1.6:
+Modified the way ODIN is called on login. The previous method was to use a scheduled
+task, however this proved troublesome on newer machines with wonky scheduler settings.
+The improved method is to write a registry entry to 
+HKLM:\Software\Microsoft\Windows\CurrentVersion\Run in the form of "ODIN" pointing to
+the ODIN executable at C:\profiles\ and optionally appending the "clear" argument to
+display the clearance banner.
+Began modernisation of C# code and transition over to WPF/XAML.
+
 2.8.1.5:
 Beginning of the change log/release notes for OSIRiS.
 Added an update completion form with check box to allow for easy access to

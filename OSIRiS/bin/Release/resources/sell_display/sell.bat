@@ -98,7 +98,7 @@ copy "%~dp0\usercleanup.bat" C:\profiles\usercleanup.bat > NUL 2>&1
 schtasks /create /F /tn "Cleanup" /tr C:\profiles\cleanup.bat /sc onlogon /RL HIGHEST /RU "%~2" > NUL 2>&1
 
 echo Deleting Scheduled Tasks
-:: Delete both of the existing scheduled tasks.
+:: Delete all of the existing scheduled tasks.
 schtasks /delete /F /tn "Computer Shutdown" /f > NUL 2>&1
 schtasks /delete /F /tn "Wi-Fi Check" /f > NUL 2>&1
 schtasks /delete /F /tn "Set Wallpaper" /f > NUL 2>&1

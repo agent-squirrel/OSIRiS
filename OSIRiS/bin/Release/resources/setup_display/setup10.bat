@@ -85,11 +85,11 @@ wmic computersystem get model > tempmodel.txt
 type tempmodel.txt | findstr /v Model > compmodel.txt
 
 :: The computer name cannot contain spaces so we use powershell to run through the file identifying all spaces and remove them.
-powershell "$Host.UI.RawUI.WindowTitle = 'Doing Powershell Stuff'; (Get-Content compmodel.txt) | Foreach-Object {$_ -replace ' ', ''} | Set-Content compmodel.txt" > NUL 2>&1
+powershell "$Host.UI.RawUI.WindowTitle = 'Doing Powershell Stuff'; (Get-Content compmodel.txt) | Foreach-Object {$_ -replace '[^a-zA-Z]', ''} | Set-Content compmodel.txt" > NUL 2>&1
 
 :: Run a loop through the text file created earlier and load the model name into a variable (%G).
 :: Set the variable %G as the computer name.
-FOR /F "tokens=* delims=" %%G in (compmodel.txt) DO wmic computersystem where name="%COMPUTERNAME%" call rename name= %%G > NUL 2>&1
+FOR /F "tokens=* delims=" %%G in (compmodel.txt) DO wmic computersystem where name="%COMPUTERNAME%" call rename name=%%G > NUL 2>&1
 
 :: Delete the two text files.
 DEL compmodel.txt > NUL 2>&1
@@ -179,8 +179,6 @@ sc config wuauserv start=disabled > NUL 2>&1
 REM ###################################################
 REM #Create a directory on C: called profiles.
 REM #Connect the wireless radio to the Officeworks WLAN.
-REM #Create a scheduled reset of the wireless radio on
-REM #every boot in order to clear Airplane Mode.
 REM ###################################################
 @title  Setting Up the Wireless Network
 echo Configuring Wireless Network
@@ -188,10 +186,6 @@ echo Configuring Wireless Network
 mkdir C:\profiles > NUL 2>&1
 Netsh wlan add profile filename="%~dp0\OFW-Display.xml" > NUL 2>&1
 Netsh wlan connect OFW-Display > NUL 2>&1
-
-:: This task resets the Wireless adapter on every boot of the machine.
-:: This is a heavy handed way of switching off airplane mode but it also ensures the adapter is in a known state at each boot.
-SCHTASKS /create /F /tn "Wi-Fi Check" /tr "powershell 'get-netadapter wi-fi | restart-netadapter'" /sc onstart /RL HIGHEST /RU "SYSTEM" > NUL 2>&1
 
 REM ######################################################################################
 REM #Create a scheduled task to shutdown the machine based upon the argument %2
@@ -218,11 +212,9 @@ echo Setting up custom wallpaper
 
 ::Here we dump the contents of WMIC CPU to a text file and copy over
 ::OSIRiS Desktop Info to the profiles folder.
-::Also we copy over the 'Customer' account image.
 
 wmic cpu get name > cpu.txt
-xcopy /S /I "%~dp0\setup_payload\ODIN.exe" C:\profiles\ > NUL 2>&1
-xcopy /S /I "%~dp0\setup_payload\user.bmp" C:\profiles\ > NUL 2>&1
+copy "%~dp0\setup_payload\ODIN.exe" C:\profiles\ > NUL 2>&1
 
 ::Use 'find' to look through the cpu.txt file and check for specific
 ::strings containing CPU information.
@@ -299,28 +291,20 @@ REM ################ END PROCESSOR CHECK CODE BLOCK FOR WIN8 ###################
 
 :ENDPROC
 
-IF [%5]==[clearance] GOTO clear
-IF [%5]==[] GOTO normal
-:clear
-::Start ODIN at logon.
-schtasks /CREATE /F /TN "Start ODIN" /TR "C:\profiles\ODIN.exe clear" /SC ONLOGON /RU Customer > NUL 2>&1
-GOTO continue
-
-:normal
-::Start ODIN at logon.
-schtasks /CREATE /F /TN "Start ODIN" /TR "C:\profiles\ODIN.exe" /SC ONLOGON /RU Customer > NUL 2>&1
-:continue
-
-::Delete the cpu.txt file.
-del cpu.txt
-
-
-:: Call the powershellreg.ps1 script to disable first sign in animations, disable Windows Update and force 'Customer' account login.
+::Start ODIN at logon. The old method was to use a scheduled task which is unreliable on certain machines.
+::The new approach is to write to the startup section of the registry. This SHOULD (read: might break) work
+::on all machines.
+::Call the powershellreg.ps1 script to disable first sign in animations, disable Windows Update and force 'Customer' account login.
+::Also set up ODIN on login start.
 echo Call out to PowerShell to set registry values.
 SET "ThisScriptsDirectory=%~dp0"
 SET "PowerShellScriptPath=%ThisScriptsDirectory%powershellreg.ps1"
-if %OSARC%==64BIT C:\windows\sysnative\windowspowershell\v1.0\powershell.exe -NonInteractive -executionpolicy Bypass -file "%PowerShellScriptPath%" > NUL 2>&1
-if %OSARC%==32BIT powershell.exe -NonInteractive -executionpolicy Bypass -file "%PowerShellScriptPath%"  > NUL 2>&1
+if %OSARC%==64BIT C:\windows\sysnative\windowspowershell\v1.0\powershell.exe -NonInteractive -executionpolicy Bypass -file "%PowerShellScriptPath%" %5 > NUL 2>&1
+if %OSARC%==32BIT powershell.exe -NonInteractive -executionpolicy Bypass -file "%PowerShellScriptPath%" %5 > NUL 2>&1
+
+
+::Delete the cpu.txt file.
+del cpu.txt
 
 
 
