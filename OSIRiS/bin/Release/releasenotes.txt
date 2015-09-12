@@ -9,6 +9,15 @@
 
 
 --------------------------------------------------------------------------------
+2.8.1.8:
+Truncated the Sell New User Name box maximum length to 20 characters.
+Windows will throw an exception if a username exceeds this length and fail to
+create an account, resulting in a machine with no accounts.
+Added ROSY (OSIRiS Recovery System) to the server containing OSIRiS.
+ROSY can reset a customers machine for them, should they find OSIRiS on it when
+they arrive home. Full instructions for it's use will be added to the OSIRiS 
+landing page at https://gnuplusadam.com/OSIRiS/ soon.
+
 2.8.1.7:
 Added a manual tool, under the "manual_tools" folder to change ODIN's clearance
 banner if it is incorrectly set. This tool can also switch ODIN from scheduled mode

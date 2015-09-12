@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("OSIRiS")]
-[assembly: AssemblyDescription("Officeworks Store Initialization Routine and Script")]
+[assembly: AssemblyDescription("Officeworks Scripted Initialization Routine for Stores")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Project OSIRiS")]
 [assembly: AssemblyProduct("OSIRiS")]
 [assembly: AssemblyCopyright("Copyright ©  2015")]
 [assembly: AssemblyTrademark("")]
@@ -33,4 +33,4 @@ using System.Runtime.InteropServices;
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.5.0")]
-[assembly: AssemblyFileVersion("2.8.1.7")]
+[assembly: AssemblyFileVersion("2.8.1.8")]
