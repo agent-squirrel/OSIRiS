@@ -22,11 +22,15 @@ echo.
 echo This can take some time, feel free to continue using your new computer.
 echo.
 echo DO NOT close this window, it will close by itself when finished.
+echo.
+echo Preparing...
+TIMEOUT /T 10 /NOBREAK
 
 REM ###########################################
 REM #Delete the cleanup task so it doesn't try
 REM #to run more than once.
 REM ###########################################
+echo Working...
 
 schtasks /delete /tn Cleanup /f > NUL 2>&1
 
@@ -40,20 +44,11 @@ net stop WMPNetworkSvc > NUL 2>&1
 
 net stop WSearch > NUL 2>&1
 
-REM ##########################################
-REM #Call Mike Stone's User Cleanup script.
-REM #http://mstoneblog.wordpress.com
-REM ##########################################
-
-CALL C:\profiles\usercleanup.bat > NUL 2>&1
-@title Cleanup
 :: Take ownership of the old Officeworks and Customer directories and then
 :: delete them.
 
-takeown /a /r /d Y /f C:\Users\Officeworks > NUL 2>&1
-takeown /a /r /d Y /f C:\Users\Customer > NUL 2>&1
-rmdir /q /s C:\Users\Officeworks > NUL 2>&1
-rmdir /q /s C:\Users\Customer > NUL 2>&1
+wmic path win32_UserProfile where LocalPath="c:\\users\\Officeworks" Delete > NUL 2>&1
+wmic path win32_UserProfile where LocalPath="c:\\users\\Customer" Delete > NUL 2>&1
 
 REM ###########################################
 REM #Restart the Windows Update Service as well
@@ -81,5 +76,5 @@ REM #Self-Destruct the cleanup script
 REM #to leave no trace.
 REM ##################################
 
-del /s /q C:\profiles\* > NUL 2>&1
+rmdir /s /q C:\profiles > NUL 2>&1
 del "%~f0"&exit /b > NUL 2>&1
