@@ -9,6 +9,10 @@
 
 
 --------------------------------------------------------------------------------
+2.8.1.9:
+ROSY landing page is operational at https://gnuplusadam.com/OSIRiS/ROSY.
+Removed dependency on Mike Stone's user profile cleanup script.
+
 2.8.1.8:
 Truncated the Sell New User Name box maximum length to 20 characters.
 Windows will throw an exception if a username exceeds this length and fail to
