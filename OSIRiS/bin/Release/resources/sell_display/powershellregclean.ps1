@@ -19,5 +19,8 @@ New-ItemProperty $loginpath -Name DefaultUserName -Value '' -Force
 New-ItemProperty $loginpath -Name DefaultPassword -Value '' -Force
 New-ItemProperty $loginpath -Name ForceAutoLogon -Value 0 -Force
 
+$smartscreenpath = 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer'
+New-ItemProperty $smartscreenpath -Name SmartScreenEnabled -Value 'RequireAdmin' -Force
+
 $ODINautostart = 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run'
 Remove-ItemProperty $ODINautostart -Name ODIN -Force

@@ -23,6 +23,9 @@ New-ItemProperty $loginpath -Name DefaultUserName -Value 'Customer' -Force
 New-ItemProperty $loginpath -Name DefaultPassword -Value '' -Force
 New-ItemProperty $loginpath -Name ForceAutoLogon -Value 1 -Force
 
+$smartscreenpath = 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer'
+New-ItemProperty $smartscreenpath -Name SmartScreenEnabled -Value 'Off' -Force
+
 $ODINautostart = 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run'
 if ($a -eq "clearance")
 {
@@ -30,4 +33,3 @@ New-ItemProperty $ODINautostart -Name ODIN -Value "`"C:\profiles\ODIN.exe`" clea
 } else {
 New-ItemProperty $ODINautostart -Name ODIN -Value "C:\profiles\ODIN.exe" -force
 }
-
