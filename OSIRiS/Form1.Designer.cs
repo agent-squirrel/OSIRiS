@@ -312,7 +312,7 @@
             this.helpbuttonsell.Location = new System.Drawing.Point(362, 6);
             this.helpbuttonsell.Name = "helpbuttonsell";
             this.helpbuttonsell.Size = new System.Drawing.Size(54, 26);
-            this.helpbuttonsell.TabIndex = 27;
+            this.helpbuttonsell.TabIndex = 1;
             this.helpbuttonsell.Text = "Help";
             this.helpbuttonsell.UseVisualStyleBackColor = true;
             this.helpbuttonsell.Click += new System.EventHandler(this.helpbuttonsell_Click);
@@ -323,7 +323,7 @@
             this.sellconsolecheck.Location = new System.Drawing.Point(8, 444);
             this.sellconsolecheck.Name = "sellconsolecheck";
             this.sellconsolecheck.Size = new System.Drawing.Size(177, 22);
-            this.sellconsolecheck.TabIndex = 6;
+            this.sellconsolecheck.TabIndex = 5;
             this.sellconsolecheck.Text = "Show Console Output";
             this.tooltipcontrol.SetToolTip(this.sellconsolecheck, "Check this box if you want to see the sell messages.");
             this.sellconsolecheck.UseVisualStyleBackColor = true;
@@ -344,7 +344,7 @@
             this.usernamebox.MaxLength = 20;
             this.usernamebox.Name = "usernamebox";
             this.usernamebox.Size = new System.Drawing.Size(100, 26);
-            this.usernamebox.TabIndex = 24;
+            this.usernamebox.TabIndex = 4;
             this.usernamebox.Text = "User";
             this.tooltipcontrol.SetToolTip(this.usernamebox, "w user account name for the customer.");
             // 
@@ -355,7 +355,7 @@
             this.restartradio.Location = new System.Drawing.Point(132, 62);
             this.restartradio.Name = "restartradio";
             this.restartradio.Size = new System.Drawing.Size(76, 22);
-            this.restartradio.TabIndex = 23;
+            this.restartradio.TabIndex = 3;
             this.restartradio.TabStop = true;
             this.restartradio.Text = "Restart";
             this.tooltipcontrol.SetToolTip(this.restartradio, "Choose what the computer will do once the sell routine is complete.");
@@ -367,7 +367,7 @@
             this.shutdownradio.Location = new System.Drawing.Point(132, 34);
             this.shutdownradio.Name = "shutdownradio";
             this.shutdownradio.Size = new System.Drawing.Size(94, 22);
-            this.shutdownradio.TabIndex = 22;
+            this.shutdownradio.TabIndex = 2;
             this.shutdownradio.TabStop = true;
             this.shutdownradio.Text = "Shutdown";
             this.tooltipcontrol.SetToolTip(this.shutdownradio, "Choose what the computer will do once the sell routine is complete.");
@@ -378,7 +378,7 @@
             this.sellquitbutton.Location = new System.Drawing.Point(344, 445);
             this.sellquitbutton.Name = "sellquitbutton";
             this.sellquitbutton.Size = new System.Drawing.Size(75, 23);
-            this.sellquitbutton.TabIndex = 18;
+            this.sellquitbutton.TabIndex = 7;
             this.sellquitbutton.Text = "Quit";
             this.tooltipcontrol.SetToolTip(this.sellquitbutton, "Click here to close OSIRiS.");
             this.sellquitbutton.UseVisualStyleBackColor = true;
@@ -389,7 +389,7 @@
             this.sellrunbutton.Location = new System.Drawing.Point(263, 445);
             this.sellrunbutton.Name = "sellrunbutton";
             this.sellrunbutton.Size = new System.Drawing.Size(75, 23);
-            this.sellrunbutton.TabIndex = 17;
+            this.sellrunbutton.TabIndex = 6;
             this.sellrunbutton.Text = "Run";
             this.tooltipcontrol.SetToolTip(this.sellrunbutton, "Click here when ready.");
             this.sellrunbutton.UseVisualStyleBackColor = true;
@@ -451,7 +451,7 @@
             this.refreshbutton.Location = new System.Drawing.Point(265, 173);
             this.refreshbutton.Name = "refreshbutton";
             this.refreshbutton.Size = new System.Drawing.Size(29, 29);
-            this.refreshbutton.TabIndex = 18;
+            this.refreshbutton.TabIndex = 3;
             this.tooltipcontrol.SetToolTip(this.refreshbutton, "Refresh drive list.");
             this.refreshbutton.UseVisualStyleBackColor = true;
             this.refreshbutton.Click += new System.EventHandler(this.refreshbutton_Click);
@@ -461,7 +461,7 @@
             this.helpbuttonformat.Location = new System.Drawing.Point(362, 6);
             this.helpbuttonformat.Name = "helpbuttonformat";
             this.helpbuttonformat.Size = new System.Drawing.Size(54, 26);
-            this.helpbuttonformat.TabIndex = 17;
+            this.helpbuttonformat.TabIndex = 1;
             this.helpbuttonformat.Text = "Help";
             this.helpbuttonformat.UseVisualStyleBackColor = true;
             this.helpbuttonformat.Click += new System.EventHandler(this.helpbuttonformat_Click);
@@ -471,7 +471,7 @@
             this.formatbuttonquit.Location = new System.Drawing.Point(344, 445);
             this.formatbuttonquit.Name = "formatbuttonquit";
             this.formatbuttonquit.Size = new System.Drawing.Size(75, 23);
-            this.formatbuttonquit.TabIndex = 15;
+            this.formatbuttonquit.TabIndex = 9;
             this.formatbuttonquit.Text = "Quit";
             this.tooltipcontrol.SetToolTip(this.formatbuttonquit, "Click here to close OSIRiS.");
             this.formatbuttonquit.UseVisualStyleBackColor = true;
@@ -512,7 +512,7 @@
             this.exFATradio.Location = new System.Drawing.Point(329, 211);
             this.exFATradio.Name = "exFATradio";
             this.exFATradio.Size = new System.Drawing.Size(70, 22);
-            this.exFATradio.TabIndex = 5;
+            this.exFATradio.TabIndex = 6;
             this.exFATradio.Text = "exFAT";
             this.tooltipcontrol.SetToolTip(this.exFATradio, "exFAT. Read/Write on most systems, use in joint Windows/Mac environments.");
             this.exFATradio.UseVisualStyleBackColor = true;
@@ -523,7 +523,7 @@
             this.NTFSradio.Location = new System.Drawing.Point(256, 211);
             this.NTFSradio.Name = "NTFSradio";
             this.NTFSradio.Size = new System.Drawing.Size(67, 22);
-            this.NTFSradio.TabIndex = 4;
+            this.NTFSradio.TabIndex = 5;
             this.NTFSradio.Text = "NTFS";
             this.tooltipcontrol.SetToolTip(this.NTFSradio, "NTFS. Can only be read by Macs, not written to. Best used in Windows only environ" +
         "ments. ");
@@ -536,7 +536,7 @@
             this.fat32radio.Location = new System.Drawing.Point(178, 211);
             this.fat32radio.Name = "fat32radio";
             this.fat32radio.Size = new System.Drawing.Size(72, 22);
-            this.fat32radio.TabIndex = 3;
+            this.fat32radio.TabIndex = 4;
             this.fat32radio.TabStop = true;
             this.fat32radio.Text = "FAT32";
             this.tooltipcontrol.SetToolTip(this.fat32radio, "FAT32. File size limitation of 4gb, use for games consoles and set-top boxes.");
@@ -570,7 +570,7 @@
             this.driveselector.Location = new System.Drawing.Point(138, 175);
             this.driveselector.Name = "driveselector";
             this.driveselector.Size = new System.Drawing.Size(121, 26);
-            this.driveselector.TabIndex = 0;
+            this.driveselector.TabIndex = 2;
             this.tooltipcontrol.SetToolTip(this.driveselector, "Choose a drive to format here.");
             this.driveselector.SelectedIndexChanged += new System.EventHandler(this.driveselector_SelectedIndexChanged);
             // 
