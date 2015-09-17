@@ -31,4 +31,3 @@ C:\Users\Adam\Documents\Visual Studio 2015\Projects\OSIRiS\OSIRiS\obj\Release\OS
 C:\Users\Adam\Documents\Visual Studio 2015\Projects\OSIRiS\OSIRiS\obj\Release\OSIRiS.updater.resources
 C:\Users\Adam\Documents\Visual Studio 2015\Projects\OSIRiS\OSIRiS\obj\Release\OSIRiS.update_complete.resources
 C:\Users\Adam\Documents\Visual Studio 2015\Projects\OSIRiS\OSIRiS\obj\Release\OSIRiS.csproj.GenerateResource.Cache
-C:\Users\Adam\Documents\Visual Studio 2015\Projects\OSIRiS\OSIRiS\obj\Release\OSIRiS.csprojResolveAssemblyReference.cache

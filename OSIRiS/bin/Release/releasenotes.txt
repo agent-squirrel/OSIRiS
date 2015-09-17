@@ -9,6 +9,11 @@
 
 
 --------------------------------------------------------------------------------
+2.8.2.0:
+Fixed a bug where the updater would check for updates even if their was a currupted
+OSIRiS install. If their is a corrupted install AND an update available OSIRiS
+defaults to fixing the install.
+
 2.8.1.9:
 ROSY landing page is operational at https://gnuplusadam.com/OSIRiS/ROSY.
 Removed dependency on Mike Stone's user profile cleanup script.

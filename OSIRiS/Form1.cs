@@ -57,49 +57,51 @@ namespace OSIRiS
                             this.Hide();
                         }
                     }
-
-                }
-            }
-            //Get newest version.
-            string url = "https://gnuplusadam.com/OSIRiS/version";
-            string versionstring;
-            using (var wc = new System.Net.WebClient())
-                try
-                {
-                    versionstring = wc.DownloadString(url);
-                    Version latestVersion = new Version(versionstring);
-                    //Get current binary version.
-                    Assembly assembly = Assembly.GetExecutingAssembly();
-                    FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
-                    Version currentVersion = new Version(fvi.FileVersion);
-                    //Compare.
-                    if (latestVersion > currentVersion)
-                    {
-                        DialogResult dialogResult = MessageBox.Show(String.Format("You've got version {0} of OSIRiS." + Environment.NewLine + "Would you like to update to version {1}?", currentVersion, latestVersion), "Update?", MessageBoxButtons.YesNo);
-                        if (dialogResult == DialogResult.Yes)
-                        {
-                            var form = new updater();
-                            form.Show(this);
-                            this.Hide();
-                        }
-                        else
-                        {
-                            return;
-                        }
-
-                    }
                     else
                     {
-                        return;
+                        //Lets check for updates.
+                        //Get newest version.
+                        string url = "https://gnuplusadam.com/OSIRiS/version";
+                        string versionstring;
+                        using (var wc = new System.Net.WebClient())
+                            try
+                            {
+                                versionstring = wc.DownloadString(url);
+                                Version latestVersion = new Version(versionstring);
+                                //Get current binary version.
+                                Assembly assembly = Assembly.GetExecutingAssembly();
+                                FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
+                                Version currentVersion = new Version(fvi.FileVersion);
+                                //Compare.
+                                if (latestVersion > currentVersion)
+                                {
+                                    DialogResult dialogResult = MessageBox.Show(String.Format("You've got version {0} of OSIRiS." + Environment.NewLine + "Would you like to update to version {1}?", currentVersion, latestVersion), "Update?", MessageBoxButtons.YesNo);
+                                    if (dialogResult == DialogResult.Yes)
+                                    {
+                                        var form = new updater();
+                                        form.Show(this);
+                                        this.Hide();
+                                    }
+                                    else
+                                    {
+                                        return;
+                                    }
+
+                                }
+                                else
+                                {
+                                    return;
+                                }
+                            }
+                            catch (WebException)
+                            {
+                                return;
+                            }
                     }
+
                 }
-                catch (WebException)
-                {
-                    return;
-                }
-            
-            
-            }
+            }    
+      }
 
         
         
