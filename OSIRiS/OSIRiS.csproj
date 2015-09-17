@@ -73,7 +73,7 @@
     <ApplicationManifest>OSIRiS.manifest</ApplicationManifest>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>logo_icon.ico</ApplicationIcon>
+    <ApplicationIcon>logo_bkg.fw.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>426AA17F7AEE531AA7137BBCB133A362235E02AA</ManifestCertificateThumbprint>
@@ -191,6 +191,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="logo_bkg.fw.ico" />
     <Content Include="logo_icon.ico" />
     <None Include="OSIRiS_logo\logocropped.png" />
     <None Include="Resources\shell32_0238.ico" />
