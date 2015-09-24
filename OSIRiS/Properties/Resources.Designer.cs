@@ -113,9 +113,9 @@ namespace OSIRiS.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap shell32_0238 {
+        internal static System.Drawing.Bitmap logocropped_with_gear {
             get {
-                object obj = ResourceManager.GetObject("shell32_0238", resourceCulture);
+                object obj = ResourceManager.GetObject("logocropped_with_gear", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -1,23 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
 using System.IO;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Net;
+using MaterialSkin;
+using MaterialSkin.Controls;
 
 namespace OSIRiS
 {
-    public partial class update_complete : Form
+    public partial class update_complete : MaterialForm
     {
         public update_complete()
         {
             InitializeComponent();
+            var materialSkinManager = MaterialSkinManager.Instance;
+            materialSkinManager.AddFormToManage(this);
+            materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
+            materialSkinManager.ColorScheme = new ColorScheme(Primary.BlueGrey900, Primary.BlueGrey400, Primary.Indigo100, Accent.Amber700, TextShade.WHITE);
         }
 
         private void ok_button_Click(object sender, EventArgs e)

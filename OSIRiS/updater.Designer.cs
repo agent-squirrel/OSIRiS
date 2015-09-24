@@ -30,75 +30,79 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(updater));
-            this.labelDownloaded = new System.Windows.Forms.Label();
-            this.progressBar = new System.Windows.Forms.ProgressBar();
+            this.labelDownloaded = new MaterialSkin.Controls.MaterialLabel();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.totaldownloaded = new System.Windows.Forms.Label();
+            this.info = new MaterialSkin.Controls.MaterialLabel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.info = new System.Windows.Forms.Label();
+            this.totaldownloadedlabel = new MaterialSkin.Controls.MaterialLabel();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // labelDownloaded
             // 
-            this.labelDownloaded.AutoSize = true;
-            this.labelDownloaded.Location = new System.Drawing.Point(154, 110);
+            this.labelDownloaded.Depth = 0;
+            this.labelDownloaded.Font = new System.Drawing.Font("Roboto", 11F);
+            this.labelDownloaded.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.labelDownloaded.Location = new System.Drawing.Point(12, 194);
+            this.labelDownloaded.MouseState = MaterialSkin.MouseState.HOVER;
             this.labelDownloaded.Name = "labelDownloaded";
-            this.labelDownloaded.Size = new System.Drawing.Size(0, 18);
+            this.labelDownloaded.Size = new System.Drawing.Size(484, 21);
             this.labelDownloaded.TabIndex = 3;
-            // 
-            // progressBar
-            // 
-            this.progressBar.Location = new System.Drawing.Point(12, 131);
-            this.progressBar.Name = "progressBar";
-            this.progressBar.Size = new System.Drawing.Size(484, 23);
-            this.progressBar.TabIndex = 0;
+            this.labelDownloaded.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // errorProvider1
             // 
             this.errorProvider1.ContainerControl = this;
             // 
-            // totaldownloaded
+            // info
             // 
-            this.totaldownloaded.AutoSize = true;
-            this.totaldownloaded.Location = new System.Drawing.Point(12, 110);
-            this.totaldownloaded.Name = "totaldownloaded";
-            this.totaldownloaded.Size = new System.Drawing.Size(136, 18);
-            this.totaldownloaded.TabIndex = 5;
-            this.totaldownloaded.Text = "Total Downloaded:";
+            this.info.Depth = 0;
+            this.info.Font = new System.Drawing.Font("Roboto", 11F);
+            this.info.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.info.Location = new System.Drawing.Point(133, 220);
+            this.info.MouseState = MaterialSkin.MouseState.HOVER;
+            this.info.Name = "info";
+            this.info.Size = new System.Drawing.Size(242, 31);
+            this.info.TabIndex = 7;
+            this.info.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::OSIRiS.Properties.Resources.logocropped;
-            this.pictureBox1.Location = new System.Drawing.Point(133, 12);
+            this.pictureBox1.Enabled = false;
+            this.pictureBox1.Image = global::OSIRiS.Properties.Resources.logocropped_with_gear;
+            this.pictureBox1.Location = new System.Drawing.Point(133, 71);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(242, 90);
             this.pictureBox1.TabIndex = 6;
             this.pictureBox1.TabStop = false;
             // 
-            // info
+            // totaldownloadedlabel
             // 
-            this.info.Location = new System.Drawing.Point(133, 157);
-            this.info.Name = "info";
-            this.info.Size = new System.Drawing.Size(242, 18);
-            this.info.TabIndex = 7;
-            this.info.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.totaldownloadedlabel.AutoSize = true;
+            this.totaldownloadedlabel.Depth = 0;
+            this.totaldownloadedlabel.Font = new System.Drawing.Font("Roboto", 11F);
+            this.totaldownloadedlabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.totaldownloadedlabel.Location = new System.Drawing.Point(187, 171);
+            this.totaldownloadedlabel.MouseState = MaterialSkin.MouseState.HOVER;
+            this.totaldownloadedlabel.Name = "totaldownloadedlabel";
+            this.totaldownloadedlabel.Size = new System.Drawing.Size(135, 19);
+            this.totaldownloadedlabel.TabIndex = 8;
+            this.totaldownloadedlabel.Text = "Total Downloaded:";
+            this.totaldownloadedlabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // updater
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(508, 184);
+            this.ClientSize = new System.Drawing.Size(508, 267);
             this.ControlBox = false;
+            this.Controls.Add(this.totaldownloadedlabel);
             this.Controls.Add(this.info);
             this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.totaldownloaded);
             this.Controls.Add(this.labelDownloaded);
-            this.Controls.Add(this.progressBar);
             this.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
@@ -115,11 +119,10 @@
 
         #endregion
 
-        private System.Windows.Forms.Label labelDownloaded;
-        private System.Windows.Forms.ProgressBar progressBar;
+        private MaterialSkin.Controls.MaterialLabel labelDownloaded;
         private System.Windows.Forms.ErrorProvider errorProvider1;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Label totaldownloaded;
-        private System.Windows.Forms.Label info;
+        private MaterialSkin.Controls.MaterialLabel info;
+        private MaterialSkin.Controls.MaterialLabel totaldownloadedlabel;
     }
 }

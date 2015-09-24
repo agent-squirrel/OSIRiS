@@ -2,22 +2,16 @@
 using System.Diagnostics;
 using System.IO;
 using System.Net;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO.Compression;
-
-
+using MaterialSkin.Controls;
+using MaterialSkin;
 
 namespace OSIRiS
 {
 
-    public partial class updater : Form
+    public partial class updater : MaterialForm
 
 
     {
@@ -26,7 +20,11 @@ namespace OSIRiS
         public updater()
         {
             InitializeComponent();
-            
+            var materialSkinManager = MaterialSkinManager.Instance;
+            materialSkinManager.AddFormToManage(this);
+            materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
+            materialSkinManager.ColorScheme = new ColorScheme(Primary.BlueGrey900, Primary.BlueGrey400, Primary.Indigo100, Accent.Amber700, TextShade.WHITE);
+
 
         }
 
@@ -61,8 +59,6 @@ namespace OSIRiS
         // The event that will fire whenever the progress of the WebClient is changed
         private void ProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
-            // Update the progressbar percentage only when the value is not the same.
-            progressBar.Value = e.ProgressPercentage;
 
             // Update the label with how much data have been downloaded so far and the total size of the file we are currently downloading
             labelDownloaded.Text = string.Format("{0} MB's / {1} MB's",
@@ -89,8 +85,7 @@ namespace OSIRiS
         private void updater_Shown(object sender, EventArgs e)
 
             {
-                // Start the progress bar.
-                progressBar.Style = ProgressBarStyle.Marquee;
+                pictureBox1.Enabled = true;
                 BackgroundWorker bw = new BackgroundWorker();
                 bw.WorkerSupportsCancellation = false;
                 bw.WorkerReportsProgress = true;
@@ -151,7 +146,6 @@ namespace OSIRiS
                 else
                 {
                     //Unpack to the USB.
-                    progressBar.Style = ProgressBarStyle.Marquee;
                     info.Text = "Extracting";
                     ZipFile.ExtractToDirectory(Path.GetTempPath() + "latest.zip", ".");
                     System.Threading.Thread.Sleep(500);
@@ -162,21 +156,18 @@ namespace OSIRiS
         {
             // Download the new version of OSIRiS.
             // Start the progress bar.
-            progressBar.Style = ProgressBarStyle.Blocks;
             DownloadFile("https://gnuplusadam.com/OSIRiS/latest.zip", Path.GetTempPath() + "latest.zip");
         }
         private void bw2_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
+            pictureBox1.Enabled = false;
             info.Text = "Done";
-            progressBar.Style = ProgressBarStyle.Continuous;
-            progressBar.MarqueeAnimationSpeed = 0;
             var form = new update_complete();
             form.Show(this);
         }
         private void extract()
         {
             // Start the progress bar.
-            progressBar.Style = ProgressBarStyle.Marquee;
             BackgroundWorker bw2 = new BackgroundWorker();
             bw2.WorkerSupportsCancellation = false;
             bw2.WorkerReportsProgress = true;

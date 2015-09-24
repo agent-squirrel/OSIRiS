@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading;
 using System.Xml.Serialization;
 using System.Windows.Forms;
+using MaterialSkin.Controls;
+using MaterialSkin;
 
 namespace OSIRiS
 {
@@ -15,12 +17,16 @@ namespace OSIRiS
     //are being polled.
 
 
-    public partial class OSIRiSmainwindow : Form
+    public partial class OSIRiSmainwindow : MaterialForm
     {
 
         public OSIRiSmainwindow()
         {
             InitializeComponent();
+            var materialSkinManager = MaterialSkinManager.Instance;
+            materialSkinManager.AddFormToManage(this);
+            materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
+            materialSkinManager.ColorScheme = new ColorScheme(Primary.BlueGrey900, Primary.BlueGrey400, Primary.Indigo100, Accent.Amber700, TextShade.WHITE);
             dinfo();
             Thread.Sleep(2000);      
         }
@@ -138,6 +144,8 @@ namespace OSIRiS
 
         private ProcessCaller processCaller;
 
+        #region Setup Tab
+
         //#########################################
         //Below is the content for the setup tab.
         //#########################################
@@ -159,19 +167,11 @@ namespace OSIRiS
             {
                 sellrunbutton.Enabled = false;
                 runbutton.Enabled = false;
-                richTextBoxstream.Visible = consolecheck.Checked;
 
                 //Set some strings from the various user input controls.
 
-                string currenttime = maskedtime24.Text;
-                if (maskedtime24.Text == "00:00")
-                {
-                    MessageBox.Show("You forgot to enter the current time.",
-                    "Error.", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    runbutton.Enabled = true;
-                    return;
-                }
-                string shutdowntime = maskedshutdown.Text;
+                string currenttime = this.currenttime.Value.ToString("HH:mm");
+                string shutdowntime = this.shutdowntime.Value.ToString("HH:mm");
                 string owuserpw = pwbox.Text;
                 string state = statedropdown.Text;
                 string clearance = "clearance";
@@ -181,17 +181,14 @@ namespace OSIRiS
                 //run button back alive.
                 //Return to the main form performing no further action. 
 
-                maskedtime24.TextMaskFormat = MaskFormat.ExcludePromptAndLiterals;
-                if (maskedtime24.Text == "")
+                if (currenttime == "01:00")
                 {
                     MessageBox.Show("You forgot to enter the current time.",
                     "Error.", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     runbutton.Enabled = true;
                     return;
                 }
-
-                maskedshutdown.TextMaskFormat = MaskFormat.ExcludePromptAndLiterals;
-                if (maskedshutdown.Text == "")
+                if (shutdowntime == "01:00")
                 {
                     MessageBox.Show("You forgot to enter a shutdown time.",
                     "Error.", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -215,7 +212,7 @@ namespace OSIRiS
 
                    //Serialize the settings to an XML file for later recall.
                     Settings v = new Settings();
-                    v.shutdowntime = this.maskedshutdown.Text;
+                    v.shutdowntime = this.shutdowntime.Text;
                     v.password = this.pwbox.Text;
                     v.state = this.statedropdown.Text;
                     Savesettings(v);
@@ -235,14 +232,13 @@ namespace OSIRiS
                         processCaller.StdOutReceived += new DataReceivedHandler(writeStreamInfo);
                         processCaller.Completed += new EventHandler(processCompletedOrCanceled);
                         processCaller.Cancelled += new EventHandler(processCompletedOrCanceled);
-                        this.richTextBoxstream.Text = "Lets Go!." + Environment.NewLine;
 
                         //The following function starts a process and returns immediately,
                         //thus allowing the form to stay responsive.
                         //Also start the marquee progress bar.
 
                         processCaller.Start();
-                        toolStripProgressBar.Style = ProgressBarStyle.Marquee;
+
                     }
                     else
                     {
@@ -254,14 +250,13 @@ namespace OSIRiS
                         processCaller.StdOutReceived += new DataReceivedHandler(writeStreamInfo);
                         processCaller.Completed += new EventHandler(processCompletedOrCanceled);
                         processCaller.Cancelled += new EventHandler(processCompletedOrCanceled);
-                        this.richTextBoxstream.Text = "Lets Go!" + Environment.NewLine;
 
                         //The following function starts a process and returns immediately,
                         //thus allowing the form to stay responsive.
                         //Also start the marquee progress bar.
 
                         processCaller.Start();
-                        toolStripProgressBar.Style = ProgressBarStyle.Marquee;
+
                     }
             }
 
@@ -281,7 +276,7 @@ namespace OSIRiS
 
         private void writeStreamInfo(object sender, DataReceivedEventArgs e)
         {
-            this.richTextBoxstream.AppendText(e.Text + Environment.NewLine);
+            this.progresslabel.Text = (e.Text);
         }
         private void processCompletedOrCanceled(object sender, EventArgs e)
         {
@@ -294,14 +289,25 @@ namespace OSIRiS
 
         private void quitbutton_Click(object sender, EventArgs e)
         {
-            Settings v = new Settings();
-            v.shutdowntime = this.maskedshutdown.Text;
-            v.password = this.pwbox.Text;
-            v.state = this.statedropdown.Text;
-            Savesettings(v);
-            Application.Exit();
+            if (File.Exists(@"resources\config\settings.xml"))
+            {
+                Settings v = new Settings();
+                v.shutdowntime = this.shutdowntime.Text;
+                v.password = this.pwbox.Text;
+                v.state = this.statedropdown.Text;
+                Savesettings(v);
+                Application.Exit();
+            }
+            else
+            {
+                Application.Exit();
+            }
+            
         }
 
+        #endregion
+
+        #region Sell Tab
         //#########################################
         //Below is the content for the sell tab.
         //#########################################
@@ -328,7 +334,6 @@ namespace OSIRiS
             {
                 sellrunbutton.Enabled = false;
                 runbutton.Enabled = false;
-                richTextBoxsellstream.Visible = sellconsolecheck.Checked;
                 if (string.IsNullOrWhiteSpace(usernamebox.Text))
                 {
                     MessageBox.Show("You did not input a username.",
@@ -372,14 +377,13 @@ namespace OSIRiS
                 processCaller.StdOutReceived += new DataReceivedHandler(writeStreamInfosell);
                 processCaller.Completed += new EventHandler(processCompletedOrCanceledsell);
                 processCaller.Cancelled += new EventHandler(processCompletedOrCanceledsell);
-                this.richTextBoxsellstream.Text = "..and we're off!" + Environment.NewLine;
 
                 //The following function starts a process and returns immediately,
                 //thus allowing the form to stay responsive.
                 //Also start the marquee progress bar.
 
                 processCaller.Start();
-                toolStripProgressBar.Style = ProgressBarStyle.Marquee;
+
             }
 
             //If we get a no back from the dialog box,
@@ -397,7 +401,7 @@ namespace OSIRiS
 
         private void writeStreamInfosell(object sender, DataReceivedEventArgs e)
         {
-            this.richTextBoxsellstream.AppendText(e.Text + Environment.NewLine);
+            this.progresslabelsell.Text = (e.Text);
         }
         private void processCompletedOrCanceledsell(object sender, EventArgs e)
         {
@@ -410,9 +414,23 @@ namespace OSIRiS
 
         private void sellquitbutton_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            if (File.Exists(@"resources\config\settings.xml"))
+            {
+                Settings v = new Settings();
+                v.shutdowntime = this.shutdowntime.Text;
+                v.password = this.pwbox.Text;
+                v.state = this.statedropdown.Text;
+                Savesettings(v);
+                Application.Exit();
+            }
+            else
+            {
+                Application.Exit();
+            }
         }
+        #endregion
 
+        #region Format Tab
         //############################################
         //Format tab content below this point.
         //############################################
@@ -632,35 +650,25 @@ namespace OSIRiS
 
         private void formatbuttonquit_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            if (File.Exists(@"resources\config\settings.xml"))
+            {
+                Settings v = new Settings();
+                v.shutdowntime = this.shutdowntime.Text;
+                v.password = this.pwbox.Text;
+                v.state = this.statedropdown.Text;
+                Savesettings(v);
+                Application.Exit();
+            }
+            else
+            {
+                Application.Exit();
+            }
         }
 
-        //Open the default browser to the on-disk help files.
-
-        private void helpbuttonsell_Click(object sender, EventArgs e)
-        {
-            string appPath = Assembly.GetEntryAssembly().Location;
-            string filename = Path.Combine(Path.GetDirectoryName(appPath), @"OSIRiS_Manual.pdf");
-            Process.Start(filename);
-        }
-
-        private void helpbuttonformat_Click(object sender, EventArgs e)
-        {
-            string appPath = Assembly.GetEntryAssembly().Location;
-            string filename = Path.Combine(Path.GetDirectoryName(appPath), @"OSIRiS_Manual.pdf");
-            Process.Start(filename);
-        }
-
-        private void helpbuttonsetup_Click(object sender, EventArgs e)
-        {
-            string appPath = Assembly.GetEntryAssembly().Location;
-            string filename = Path.Combine(Path.GetDirectoryName(appPath), @"OSIRiS_Manual.pdf");
-            Process.Start(filename);
-        }
-
-        //Clicking the refresh button will clear the drop down and re-poll for disks.
+        //Clicking the refresh button will clear the drop down and re-poll for disks
         private void refreshbutton_Click(object sender, EventArgs e)
         {
+
             try
             {
                 driveselector.Items.Clear();
@@ -680,13 +688,16 @@ namespace OSIRiS
             catch { MessageBox.Show("Error Fetching Drive Info", "Error"); }
         }
 
+        #endregion
+
+        #region Windows On-Load Events
         private void OSIRiSmainwindow_Load(object sender, EventArgs e)
         {
             this.Activate();
             if (File.Exists(@"resources\config\settings.xml"))
             {
             Settings v = Loadsettings();
-            this.maskedshutdown.Text = v.shutdowntime;
+            this.shutdowntime.Text = v.shutdowntime;
             this.pwbox.Text = v.password;
             this.statedropdown.Text = v.state;
             }
@@ -703,6 +714,9 @@ namespace OSIRiS
             public string state { get; set; }
         }
 
+        #endregion
+
+        #region Form Serilizer
         public void Savesettings(Settings v)
         {
             XmlSerializer serializer = new XmlSerializer(typeof(Settings));
@@ -721,5 +735,32 @@ namespace OSIRiS
                     return (Settings)serializer.Deserialize(textReader);
                 }
         }
+        #endregion
+
+        #region Help Buttons
+        private void helpsetupbutton_Click(object sender, EventArgs e)
+        {
+            string appPath = Assembly.GetEntryAssembly().Location;
+            string filename = Path.Combine(Path.GetDirectoryName(appPath), @"OSIRiS_Manual.pdf");
+            Process.Start(filename);
+        }
+
+        private void helpsellbutton_Click(object sender, EventArgs e)
+        {
+            string appPath = Assembly.GetEntryAssembly().Location;
+            string filename = Path.Combine(Path.GetDirectoryName(appPath), @"OSIRiS_Manual.pdf");
+            Process.Start(filename);
+        }
+
+        private void helpformatbutton_Click(object sender, EventArgs e)
+        {
+            string appPath = Assembly.GetEntryAssembly().Location;
+            string filename = Path.Combine(Path.GetDirectoryName(appPath), @"OSIRiS_Manual.pdf");
+            Process.Start(filename);
+        }
+        #endregion
+
+
+    
     }
-     }
+}
