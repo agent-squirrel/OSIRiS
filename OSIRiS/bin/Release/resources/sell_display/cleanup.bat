@@ -16,7 +16,7 @@ REM #    This script is invoked on first boot of the Machine Post-Sell.  #
 REM #      Its purpose is to clean up the left over OSIRiS data.         #
 REM #      RUNNING THIS SCRIPT MANUALLY WILL DESTROY USER PROFILES       #
 REM ######################################################################
-mode con: cols=100 lines=10
+mode con: cols=100 lines=12
 echo Cleaning Officeworks left-over data.
 echo.
 echo This can take some time, feel free to continue using your new computer.

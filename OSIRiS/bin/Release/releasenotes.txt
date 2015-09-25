@@ -9,9 +9,16 @@
 
 
 --------------------------------------------------------------------------------
+3.0.0.0:
+Complete re-design of the OSIRiS UI. OSIRiS now conforms (loosly) to Google's 
+Material Design language. In addition, the console output boxes are no longer 
+present and a singe line of text has taken their place. This text is updated with
+messages about the running of OSIRiS and better shows if OSIRiS has crashed or
+is struggling.
+
 2.8.2.0:
-Fixed a bug where the updater would check for updates even if their was a currupted
-OSIRiS install. If their is a corrupted install AND an update available OSIRiS
+Fixed a bug where the updater would check for updates even if there was a currupted
+OSIRiS install. If there is a corrupted install AND an update available OSIRiS
 defaults to fixing the install.
 
 2.8.1.9:

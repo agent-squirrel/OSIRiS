@@ -32,6 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OSIRiSmainwindow));
             this.tabControl1 = new MaterialSkin.Controls.MaterialTabControl();
             this.setuppage = new System.Windows.Forms.TabPage();
+            this.progresslabel = new System.Windows.Forms.Label();
             this.shutdowntime = new System.Windows.Forms.DateTimePicker();
             this.helpsetupbutton = new MaterialSkin.Controls.MaterialRaisedButton();
             this.currenttime = new System.Windows.Forms.DateTimePicker();
@@ -45,6 +46,7 @@
             this.pwbox = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.shutdownlabel = new MaterialSkin.Controls.MaterialLabel();
             this.sellpage = new System.Windows.Forms.TabPage();
+            this.progresslabelsell = new System.Windows.Forms.Label();
             this.helpsellbutton = new MaterialSkin.Controls.MaterialRaisedButton();
             this.userlabel = new MaterialSkin.Controls.MaterialLabel();
             this.usernamebox = new System.Windows.Forms.TextBox();
@@ -71,8 +73,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.tooltipcontrol = new System.Windows.Forms.ToolTip(this.components);
             this.tabselector = new MaterialSkin.Controls.MaterialTabSelector();
-            this.progresslabel = new System.Windows.Forms.Label();
-            this.progresslabelsell = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.setuppage.SuspendLayout();
             this.sellpage.SuspendLayout();
@@ -93,7 +93,7 @@
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.ShowToolTips = true;
             this.tabControl1.Size = new System.Drawing.Size(426, 388);
-            this.tabControl1.TabIndex = 0;
+            this.tabControl1.TabIndex = 2;
             // 
             // setuppage
             // 
@@ -119,6 +119,17 @@
             this.setuppage.Text = "Setup";
             this.setuppage.ToolTipText = "Use this tab to setup a new display computer.";
             // 
+            // progresslabel
+            // 
+            this.progresslabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.progresslabel.Location = new System.Drawing.Point(3, 226);
+            this.progresslabel.Name = "progresslabel";
+            this.progresslabel.Size = new System.Drawing.Size(412, 23);
+            this.progresslabel.TabIndex = 20;
+            this.progresslabel.Text = "Welcome To OSIRiS!";
+            this.progresslabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.tooltipcontrol.SetToolTip(this.progresslabel, "Welcome!");
+            // 
             // shutdowntime
             // 
             this.shutdowntime.Format = System.Windows.Forms.DateTimePickerFormat.Time;
@@ -126,7 +137,7 @@
             this.shutdowntime.Name = "shutdowntime";
             this.shutdowntime.ShowUpDown = true;
             this.shutdowntime.Size = new System.Drawing.Size(119, 27);
-            this.shutdowntime.TabIndex = 19;
+            this.shutdowntime.TabIndex = 4;
             this.tooltipcontrol.SetToolTip(this.shutdowntime, "Input your desired shutdown time here, take care with AM/PM.");
             this.shutdowntime.Value = new System.DateTime(2015, 9, 22, 1, 0, 0, 0);
             // 
@@ -138,7 +149,7 @@
             this.helpsetupbutton.Name = "helpsetupbutton";
             this.helpsetupbutton.Primary = true;
             this.helpsetupbutton.Size = new System.Drawing.Size(75, 23);
-            this.helpsetupbutton.TabIndex = 18;
+            this.helpsetupbutton.TabIndex = 8;
             this.helpsetupbutton.Text = "Help";
             this.tooltipcontrol.SetToolTip(this.helpsetupbutton, "Click here to open the manual.");
             this.helpsetupbutton.UseVisualStyleBackColor = true;
@@ -151,7 +162,7 @@
             this.currenttime.Name = "currenttime";
             this.currenttime.ShowUpDown = true;
             this.currenttime.Size = new System.Drawing.Size(119, 27);
-            this.currenttime.TabIndex = 17;
+            this.currenttime.TabIndex = 3;
             this.tooltipcontrol.SetToolTip(this.currenttime, "Input the current time here, take care with AM/PM.");
             this.currenttime.Value = new System.DateTime(2015, 9, 22, 1, 0, 0, 0);
             // 
@@ -167,7 +178,7 @@
             this.clearancecheckbox.Name = "clearancecheckbox";
             this.clearancecheckbox.Ripple = true;
             this.clearancecheckbox.Size = new System.Drawing.Size(121, 30);
-            this.clearancecheckbox.TabIndex = 6;
+            this.clearancecheckbox.TabIndex = 7;
             this.clearancecheckbox.Text = "Clearance S&D";
             this.tooltipcontrol.SetToolTip(this.clearancecheckbox, "Check this box if this machine is a clearance model or Soiled and Damaged.");
             this.clearancecheckbox.UseVisualStyleBackColor = true;
@@ -194,7 +205,7 @@
             this.quitbutton.Name = "quitbutton";
             this.quitbutton.Primary = true;
             this.quitbutton.Size = new System.Drawing.Size(75, 23);
-            this.quitbutton.TabIndex = 8;
+            this.quitbutton.TabIndex = 10;
             this.quitbutton.Text = "Quit";
             this.tooltipcontrol.SetToolTip(this.quitbutton, "Click here to close OSIRiS.");
             this.quitbutton.UseVisualStyleBackColor = true;
@@ -208,7 +219,7 @@
             this.runbutton.Name = "runbutton";
             this.runbutton.Primary = true;
             this.runbutton.Size = new System.Drawing.Size(75, 23);
-            this.runbutton.TabIndex = 7;
+            this.runbutton.TabIndex = 9;
             this.runbutton.Text = "Run";
             this.tooltipcontrol.SetToolTip(this.runbutton, "Click here when ready.");
             this.runbutton.UseVisualStyleBackColor = true;
@@ -230,7 +241,7 @@
             this.statedropdown.Location = new System.Drawing.Point(240, 70);
             this.statedropdown.Name = "statedropdown";
             this.statedropdown.Size = new System.Drawing.Size(121, 28);
-            this.statedropdown.TabIndex = 4;
+            this.statedropdown.TabIndex = 5;
             this.tooltipcontrol.SetToolTip(this.statedropdown, "Choose the state your store resides in here. ");
             // 
             // statelabel
@@ -274,7 +285,7 @@
             this.pwbox.SelectionLength = 0;
             this.pwbox.SelectionStart = 0;
             this.pwbox.Size = new System.Drawing.Size(100, 23);
-            this.pwbox.TabIndex = 3;
+            this.pwbox.TabIndex = 6;
             this.pwbox.Text = "happy456";
             this.tooltipcontrol.SetToolTip(this.pwbox, "Input your stores display password here.");
             this.pwbox.UseSystemPasswordChar = false;
@@ -313,6 +324,17 @@
             this.sellpage.Text = "Sell";
             this.sellpage.ToolTipText = "Use this tab to sell a display computer.";
             // 
+            // progresslabelsell
+            // 
+            this.progresslabelsell.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.progresslabelsell.Location = new System.Drawing.Point(3, 226);
+            this.progresslabelsell.Name = "progresslabelsell";
+            this.progresslabelsell.Size = new System.Drawing.Size(412, 23);
+            this.progresslabelsell.TabIndex = 28;
+            this.progresslabelsell.Text = "Welcome To OSIRiS!";
+            this.progresslabelsell.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.tooltipcontrol.SetToolTip(this.progresslabelsell, "Welcome!");
+            // 
             // helpsellbutton
             // 
             this.helpsellbutton.Depth = 0;
@@ -321,7 +343,7 @@
             this.helpsellbutton.Name = "helpsellbutton";
             this.helpsellbutton.Primary = true;
             this.helpsellbutton.Size = new System.Drawing.Size(75, 23);
-            this.helpsellbutton.TabIndex = 27;
+            this.helpsellbutton.TabIndex = 4;
             this.helpsellbutton.Text = "Help";
             this.tooltipcontrol.SetToolTip(this.helpsellbutton, "Click here to open the manual.");
             this.helpsellbutton.UseVisualStyleBackColor = true;
@@ -348,13 +370,14 @@
             this.usernamebox.MaxLength = 20;
             this.usernamebox.Name = "usernamebox";
             this.usernamebox.Size = new System.Drawing.Size(100, 29);
-            this.usernamebox.TabIndex = 4;
+            this.usernamebox.TabIndex = 3;
             this.usernamebox.Text = "User";
             this.tooltipcontrol.SetToolTip(this.usernamebox, "Input the new user account name for the customer.");
             // 
             // restartradio
             // 
             this.restartradio.AutoSize = true;
+            this.restartradio.Checked = true;
             this.restartradio.Depth = 0;
             this.restartradio.Font = new System.Drawing.Font("Roboto", 10F);
             this.restartradio.Location = new System.Drawing.Point(132, 62);
@@ -364,7 +387,8 @@
             this.restartradio.Name = "restartradio";
             this.restartradio.Ripple = true;
             this.restartradio.Size = new System.Drawing.Size(73, 30);
-            this.restartradio.TabIndex = 3;
+            this.restartradio.TabIndex = 2;
+            this.restartradio.TabStop = true;
             this.restartradio.Text = "Restart";
             this.tooltipcontrol.SetToolTip(this.restartradio, "Choose what the computer will do once the sell routine is complete.");
             this.restartradio.UseVisualStyleBackColor = true;
@@ -372,7 +396,6 @@
             // shutdownradio
             // 
             this.shutdownradio.AutoSize = true;
-            this.shutdownradio.Checked = true;
             this.shutdownradio.Depth = 0;
             this.shutdownradio.Font = new System.Drawing.Font("Roboto", 10F);
             this.shutdownradio.Location = new System.Drawing.Point(132, 34);
@@ -382,8 +405,7 @@
             this.shutdownradio.Name = "shutdownradio";
             this.shutdownradio.Ripple = true;
             this.shutdownradio.Size = new System.Drawing.Size(90, 30);
-            this.shutdownradio.TabIndex = 2;
-            this.shutdownradio.TabStop = true;
+            this.shutdownradio.TabIndex = 1;
             this.shutdownradio.Text = "Shutdown";
             this.tooltipcontrol.SetToolTip(this.shutdownradio, "Choose what the computer will do once the sell routine is complete.");
             this.shutdownradio.UseVisualStyleBackColor = true;
@@ -396,7 +418,7 @@
             this.sellquitbutton.Name = "sellquitbutton";
             this.sellquitbutton.Primary = true;
             this.sellquitbutton.Size = new System.Drawing.Size(75, 23);
-            this.sellquitbutton.TabIndex = 7;
+            this.sellquitbutton.TabIndex = 6;
             this.sellquitbutton.Text = "Quit";
             this.tooltipcontrol.SetToolTip(this.sellquitbutton, "Click here to close OSIRiS.");
             this.sellquitbutton.UseVisualStyleBackColor = true;
@@ -410,7 +432,7 @@
             this.sellrunbutton.Name = "sellrunbutton";
             this.sellrunbutton.Primary = true;
             this.sellrunbutton.Size = new System.Drawing.Size(75, 23);
-            this.sellrunbutton.TabIndex = 6;
+            this.sellrunbutton.TabIndex = 5;
             this.sellrunbutton.Text = "Run";
             this.tooltipcontrol.SetToolTip(this.sellrunbutton, "Click here when ready.");
             this.sellrunbutton.UseVisualStyleBackColor = true;
@@ -462,7 +484,7 @@
             this.refreshbutton.Name = "refreshbutton";
             this.refreshbutton.Primary = false;
             this.refreshbutton.Size = new System.Drawing.Size(70, 36);
-            this.refreshbutton.TabIndex = 29;
+            this.refreshbutton.TabIndex = 3;
             this.refreshbutton.Text = "Refresh";
             this.tooltipcontrol.SetToolTip(this.refreshbutton, "Click here to refresh the drive list.");
             this.refreshbutton.UseVisualStyleBackColor = true;
@@ -476,7 +498,7 @@
             this.helpformatbutton.Name = "helpformatbutton";
             this.helpformatbutton.Primary = true;
             this.helpformatbutton.Size = new System.Drawing.Size(75, 23);
-            this.helpformatbutton.TabIndex = 28;
+            this.helpformatbutton.TabIndex = 8;
             this.helpformatbutton.Text = "Help";
             this.tooltipcontrol.SetToolTip(this.helpformatbutton, "Click here to open the manual.");
             this.helpformatbutton.UseVisualStyleBackColor = true;
@@ -490,7 +512,7 @@
             this.formatbuttonquit.Name = "formatbuttonquit";
             this.formatbuttonquit.Primary = true;
             this.formatbuttonquit.Size = new System.Drawing.Size(75, 23);
-            this.formatbuttonquit.TabIndex = 9;
+            this.formatbuttonquit.TabIndex = 10;
             this.formatbuttonquit.Text = "Quit";
             this.tooltipcontrol.SetToolTip(this.formatbuttonquit, "Click here to close OSIRiS.");
             this.formatbuttonquit.UseVisualStyleBackColor = true;
@@ -504,7 +526,7 @@
             this.formatbutton.Name = "formatbutton";
             this.formatbutton.Primary = true;
             this.formatbutton.Size = new System.Drawing.Size(75, 23);
-            this.formatbutton.TabIndex = 8;
+            this.formatbutton.TabIndex = 9;
             this.formatbutton.Text = "Format";
             this.tooltipcontrol.SetToolTip(this.formatbutton, "Click here when ready.");
             this.formatbutton.UseVisualStyleBackColor = true;
@@ -634,7 +656,7 @@
             this.driveselected.Location = new System.Drawing.Point(106, 10);
             this.driveselected.Name = "driveselected";
             this.driveselected.Size = new System.Drawing.Size(200, 151);
-            this.driveselected.TabIndex = 14;
+            this.driveselected.TabIndex = 1;
             this.driveselected.TabStop = false;
             this.driveselected.Text = "Selected Drive Info";
             this.tooltipcontrol.SetToolTip(this.driveselected, "Infomation about the selected drive.");
@@ -664,31 +686,9 @@
             this.tabselector.MouseState = MaterialSkin.MouseState.HOVER;
             this.tabselector.Name = "tabselector";
             this.tabselector.Size = new System.Drawing.Size(426, 48);
-            this.tabselector.TabIndex = 2;
+            this.tabselector.TabIndex = 1;
             this.tabselector.Text = "materialTabSelector1";
             this.tooltipcontrol.SetToolTip(this.tabselector, "Pick a task.");
-            // 
-            // progresslabel
-            // 
-            this.progresslabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.progresslabel.Location = new System.Drawing.Point(3, 226);
-            this.progresslabel.Name = "progresslabel";
-            this.progresslabel.Size = new System.Drawing.Size(412, 23);
-            this.progresslabel.TabIndex = 20;
-            this.progresslabel.Text = "Welcome To OSIRiS!";
-            this.progresslabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.tooltipcontrol.SetToolTip(this.progresslabel, "Welcome!");
-            // 
-            // progresslabelsell
-            // 
-            this.progresslabelsell.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.progresslabelsell.Location = new System.Drawing.Point(3, 226);
-            this.progresslabelsell.Name = "progresslabelsell";
-            this.progresslabelsell.Size = new System.Drawing.Size(412, 23);
-            this.progresslabelsell.TabIndex = 28;
-            this.progresslabelsell.Text = "Welcome To OSIRiS!";
-            this.progresslabelsell.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.tooltipcontrol.SetToolTip(this.progresslabelsell, "Welcome!");
             // 
             // OSIRiSmainwindow
             // 
