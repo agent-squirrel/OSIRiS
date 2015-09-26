@@ -9,6 +9,12 @@
 
 
 --------------------------------------------------------------------------------
+3.0.0.1:
+Fixed some misc comments in the code that no longer apply.
+Updated ODIN to allow for automatic updates. ODIN will now check for a new version
+of itself on startup every day. Updating only takes a few seconds and ODIN will
+display it's splash screen while this is happening.
+
 3.0.0.0:
 Complete re-design of the OSIRiS UI. OSIRiS now conforms (loosly) to Google's 
 Material Design language. In addition, the console output boxes are no longer 
