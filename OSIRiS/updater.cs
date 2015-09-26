@@ -155,7 +155,6 @@ namespace OSIRiS
         private void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             // Download the new version of OSIRiS.
-            // Start the progress bar.
             DownloadFile("https://gnuplusadam.com/OSIRiS/latest.zip", Path.GetTempPath() + "latest.zip");
         }
         private void bw2_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -167,7 +166,6 @@ namespace OSIRiS
         }
         private void extract()
         {
-            // Start the progress bar.
             BackgroundWorker bw2 = new BackgroundWorker();
             bw2.WorkerSupportsCancellation = false;
             bw2.WorkerReportsProgress = true;
