@@ -85,8 +85,8 @@ namespace OSIRiS
                                     if (dialogResult == DialogResult.Yes)
                                     {
                                         var form = new updater();
-                                        form.Show(this);
                                         this.Hide();
+                                        form.Show();
                                     }
                                     else
                                     {
