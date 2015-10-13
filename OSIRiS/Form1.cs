@@ -28,7 +28,7 @@ namespace OSIRiS
             materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
             materialSkinManager.ColorScheme = new ColorScheme(Primary.BlueGrey900, Primary.BlueGrey400, Primary.Indigo100, Accent.Amber700, TextShade.WHITE);
             dinfo();
-            Thread.Sleep(2000);      
+            Thread.Sleep(2000);
         }
 
 
@@ -106,12 +106,12 @@ namespace OSIRiS
                     }
 
                 }
-            }    
-      }
+            }
+        }
 
-        
-        
-        
+
+
+
         //Declare dinfo and have it poll for disks
         //so we can show them on the formatter.
         //Spawn a message box if polling fails.
@@ -210,54 +210,54 @@ namespace OSIRiS
                     return;
                 }
 
-                   //Serialize the settings to an XML file for later recall.
-                    Settings v = new Settings();
-                    v.shutdowntime = this.shutdowntime.Text;
-                    v.password = this.pwbox.Text;
-                    v.state = this.statedropdown.Text;
-                    Savesettings(v);
+                //Serialize the settings to an XML file for later recall.
+                Settings v = new Settings();
+                v.shutdowntime = this.shutdowntime.Text;
+                v.password = this.pwbox.Text;
+                v.state = this.statedropdown.Text;
+                Savesettings(v);
 
                 //If all checks pass then use ProcessCaller to call our batch file.
                 //Pass the batch file four arguments based upon the strings created earlier.
                 //Route the Standard Output and Standard Error of the batch file to the
                 //console output richtextbox.
 
-                    if (clearancecheckbox.Checked)
-                    {
-                        this.Cursor = Cursors.AppStarting;
-                        processCaller = new ProcessCaller(this);
-                        processCaller.FileName = @"resources\setup_display\setup.bat";
-                        processCaller.Arguments = string.Format("{0} {1} {2} \"{3}\" {4}", currenttime, shutdowntime, state, owuserpw, clearance);
-                        processCaller.StdErrReceived += new DataReceivedHandler(writeStreamInfo);
-                        processCaller.StdOutReceived += new DataReceivedHandler(writeStreamInfo);
-                        processCaller.Completed += new EventHandler(processCompletedOrCanceled);
-                        processCaller.Cancelled += new EventHandler(processCompletedOrCanceled);
+                if (clearancecheckbox.Checked)
+                {
+                    this.Cursor = Cursors.AppStarting;
+                    processCaller = new ProcessCaller(this);
+                    processCaller.FileName = @"resources\setup_display\setup.bat";
+                    processCaller.Arguments = string.Format("{0} {1} {2} \"{3}\" {4}", currenttime, shutdowntime, state, owuserpw, clearance);
+                    processCaller.StdErrReceived += new DataReceivedHandler(writeStreamInfo);
+                    processCaller.StdOutReceived += new DataReceivedHandler(writeStreamInfo);
+                    processCaller.Completed += new EventHandler(processCompletedOrCanceled);
+                    processCaller.Cancelled += new EventHandler(processCompletedOrCanceled);
 
-                        //The following function starts a process and returns immediately,
-                        //thus allowing the form to stay responsive.
-                        //Also start the marquee progress bar.
+                    //The following function starts a process and returns immediately,
+                    //thus allowing the form to stay responsive.
+                    //Also start the marquee progress bar.
 
-                        processCaller.Start();
+                    processCaller.Start();
 
-                    }
-                    else
-                    {
-                        this.Cursor = Cursors.AppStarting;
-                        processCaller = new ProcessCaller(this);
-                        processCaller.FileName = @"resources\setup_display\setup.bat";
-                        processCaller.Arguments = string.Format("{0} {1} {2} \"{3}\"", currenttime, shutdowntime, state, owuserpw);
-                        processCaller.StdErrReceived += new DataReceivedHandler(writeStreamInfo);
-                        processCaller.StdOutReceived += new DataReceivedHandler(writeStreamInfo);
-                        processCaller.Completed += new EventHandler(processCompletedOrCanceled);
-                        processCaller.Cancelled += new EventHandler(processCompletedOrCanceled);
+                }
+                else
+                {
+                    this.Cursor = Cursors.AppStarting;
+                    processCaller = new ProcessCaller(this);
+                    processCaller.FileName = @"resources\setup_display\setup.bat";
+                    processCaller.Arguments = string.Format("{0} {1} {2} \"{3}\"", currenttime, shutdowntime, state, owuserpw);
+                    processCaller.StdErrReceived += new DataReceivedHandler(writeStreamInfo);
+                    processCaller.StdOutReceived += new DataReceivedHandler(writeStreamInfo);
+                    processCaller.Completed += new EventHandler(processCompletedOrCanceled);
+                    processCaller.Cancelled += new EventHandler(processCompletedOrCanceled);
 
-                        //The following function starts a process and returns immediately,
-                        //thus allowing the form to stay responsive.
-                        //Also start the marquee progress bar.
+                    //The following function starts a process and returns immediately,
+                    //thus allowing the form to stay responsive.
+                    //Also start the marquee progress bar.
 
-                        processCaller.Start();
+                    processCaller.Start();
 
-                    }
+                }
             }
 
             //If we get a no back from the dialog box,
@@ -302,7 +302,7 @@ namespace OSIRiS
             {
                 Application.Exit();
             }
-            
+
         }
 
         #endregion
@@ -503,6 +503,7 @@ namespace OSIRiS
                 return;
             }
 
+            #region FAT32 Format
             //Because of the way Windows handles formatting large FAT32 disks,
             //we call fat32formatter from RidgeCrop Consultants.
             //Because fat32formatter wants user input and provides no way to
@@ -551,11 +552,12 @@ namespace OSIRiS
 
                 //Delete the Batch File.
                 //Recall the polled drive info so we can display
-                //updated filesystem and name information of label 4 and 6.
+                //updated filesystem and name information on label 4 and 6.
 
                 File.Delete(@"resources\format\format.bat");
                 MessageBox.Show("Format Complete.",
                         "Finished.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                formatlabel.Text = "";
                 {
                     try
                     {
@@ -578,7 +580,9 @@ namespace OSIRiS
                 formatbutton.Enabled = true;
                 return;
             }
+            #endregion
 
+            #region Standard Format
             //Standard routine for non-FAT32 disks.
             //Build a batch file to format disks.
 
@@ -605,6 +609,7 @@ namespace OSIRiS
             File.Delete(@"resources\format\format.bat");
             MessageBox.Show("Format Complete.",
                     "Finished.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            formatlabel.Text = "";
             {
                 try
                 {
@@ -627,21 +632,48 @@ namespace OSIRiS
             formatbutton.Enabled = true;
             return;
         }
+        #endregion
 
-        //Set string values based upon radio buttons.
+        //Execute the format method based on user input.
 
         private void formatbutton_Click(object sender, EventArgs e)
         {
-            formatbutton.Enabled = false;
+            foreach (DriveInfo d in DriveInfo.GetDrives())
             {
-                string ui = System.Environment.GetFolderPath(Environment.SpecialFolder.System);
+                if (d.IsReady == true)
                 {
-                    string fs = "NTFS";
-                    string iop = label6.Text;
-                    if (fat32radio.Checked == true) { fs = "FAT32"; }
-                    if (exFATradio.Checked == true) { fs = "exFAT"; }
-                    format(fs, textBox1.Text, driveselector.Text);
-                }
+                    if (driveselector.Text == d.Name.Remove(2))
+                    {
+                        if (d.TotalSize / (1024 * 1024) > 2097152 && fat32radio.Checked == true)
+                        {
+                            MessageBox.Show("You have chosen a disk too large to contain a FAT32 file system.", "Too Large", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            break;
+                        }
+                        else
+                        {
+                            DialogResult formatdialog = MessageBox.Show("You are about to format " + d.VolumeLabel + Environment.NewLine + "Are you sure you want to do this?", "Really Format?", MessageBoxButtons.YesNo);
+                            if (formatdialog == DialogResult.Yes)
+                            {
+                                formatlabel.Text = "Formatting Please Wait.";
+                                formatbutton.Enabled = false;
+                                {
+                                    string ui = System.Environment.GetFolderPath(Environment.SpecialFolder.System);
+                                    {
+                                        string fs = "NTFS";
+                                        string iop = label6.Text;
+                                        if (fat32radio.Checked == true) { fs = "FAT32"; }
+                                        if (exFATradio.Checked == true) { fs = "exFAT"; }
+                                        format(fs, textBox1.Text, driveselector.Text);
+                                    }
+                                }
+                            }
+                            if (formatdialog == DialogResult.No)
+                            {
+                                return;
+                            }
+                        }
+                    }
+                } 
             }
         }
 
@@ -690,23 +722,23 @@ namespace OSIRiS
 
         #endregion
 
-        #region Windows On-Load Events
+        #region Window On-Load Events
         private void OSIRiSmainwindow_Load(object sender, EventArgs e)
         {
             this.Activate();
             if (File.Exists(@"resources\config\settings.xml"))
             {
-            Settings v = Loadsettings();
-            this.shutdowntime.Text = v.shutdowntime;
-            this.pwbox.Text = v.password;
-            this.statedropdown.Text = v.state;
+                Settings v = Loadsettings();
+                this.shutdowntime.Text = v.shutdowntime;
+                this.pwbox.Text = v.password;
+                this.statedropdown.Text = v.state;
             }
             else
             {
                 return;
             }
         }
-    
+
         public class Settings
         {
             public string shutdowntime { get; set; }
@@ -728,12 +760,12 @@ namespace OSIRiS
 
         public Settings Loadsettings()
         {
-          
-                XmlSerializer serializer = new XmlSerializer(typeof(Settings));
-                using (TextReader textReader = new StreamReader(@"resources\config\settings.xml"))
-                {
-                    return (Settings)serializer.Deserialize(textReader);
-                }
+
+            XmlSerializer serializer = new XmlSerializer(typeof(Settings));
+            using (TextReader textReader = new StreamReader(@"resources\config\settings.xml"))
+            {
+                return (Settings)serializer.Deserialize(textReader);
+            }
         }
         #endregion
 
@@ -758,9 +790,40 @@ namespace OSIRiS
             string filename = Path.Combine(Path.GetDirectoryName(appPath), @"OSIRiS_Manual.pdf");
             Process.Start(filename);
         }
+
+
         #endregion
 
-
-    
+        #region Handle Update Key-Combo
+        private void OSIRiSmainwindow_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Control && e.Shift && e.KeyCode == Keys.U)
+            {
+                string url = "https://gnuplusadam.com/OSIRiS/version";
+                string versionstring;
+                using (var wc = new System.Net.WebClient())
+                    try
+                    {
+                        versionstring = wc.DownloadString(url);
+                        Version latestVersion = new Version(versionstring);
+                        DialogResult dialogResult = MessageBox.Show(String.Format("Would you like to update to version {0}?", latestVersion), "Forced Update?", MessageBoxButtons.YesNo);
+                        if (dialogResult == DialogResult.Yes)
+                        {
+                            var form = new updater();
+                            this.Hide();
+                            form.Show();
+                        }
+                        else
+                        {
+                            return;
+                        }
+                    }
+                    catch (WebException)
+                    {
+                        return;
+                    }
+            }
+        }
+        #endregion
     }
 }

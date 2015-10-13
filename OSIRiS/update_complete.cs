@@ -23,14 +23,12 @@ namespace OSIRiS
         {
             if (releasenotescheckbox.Checked == true)
             {
-                if (releasenotescheckbox.Checked == true)
-                {
                     using (var client = new WebClient())
                     {
                         client.DownloadFile("https://gnuplusadam.com/OSIRiS/releasenotes.txt", Path.GetTempPath() + "OSIRiS Release Notes.txt");
                     }
                     Process.Start(Path.GetTempPath() + "OSIRiS Release Notes.txt");
-                }
+                
                 Process.Start("OSIRiS.exe");
                 Application.Exit();
             }

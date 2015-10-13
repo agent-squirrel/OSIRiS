@@ -56,6 +56,7 @@
             this.sellrunbutton = new MaterialSkin.Controls.MaterialRaisedButton();
             this.sellradiogroup = new System.Windows.Forms.GroupBox();
             this.formattab = new System.Windows.Forms.TabPage();
+            this.formatlabel = new MaterialSkin.Controls.MaterialLabel();
             this.refreshbutton = new MaterialSkin.Controls.MaterialFlatButton();
             this.helpformatbutton = new MaterialSkin.Controls.MaterialRaisedButton();
             this.formatbuttonquit = new MaterialSkin.Controls.MaterialRaisedButton();
@@ -451,6 +452,7 @@
             // 
             // formattab
             // 
+            this.formattab.Controls.Add(this.formatlabel);
             this.formattab.Controls.Add(this.refreshbutton);
             this.formattab.Controls.Add(this.helpformatbutton);
             this.formattab.Controls.Add(this.formatbuttonquit);
@@ -472,6 +474,18 @@
             this.formattab.Text = "Formatter";
             this.formattab.ToolTipText = "Use this tab to format an external drive for a customer.";
             this.formattab.UseVisualStyleBackColor = true;
+            // 
+            // formatlabel
+            // 
+            this.formatlabel.Depth = 0;
+            this.formatlabel.Font = new System.Drawing.Font("Roboto", 11F);
+            this.formatlabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.formatlabel.Location = new System.Drawing.Point(74, 289);
+            this.formatlabel.MouseState = MaterialSkin.MouseState.HOVER;
+            this.formatlabel.Name = "formatlabel";
+            this.formatlabel.Size = new System.Drawing.Size(271, 20);
+            this.formatlabel.TabIndex = 11;
+            this.formatlabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // refreshbutton
             // 
@@ -585,8 +599,8 @@
             this.NTFSradio.Size = new System.Drawing.Size(63, 30);
             this.NTFSradio.TabIndex = 5;
             this.NTFSradio.Text = "NTFS";
-            this.tooltipcontrol.SetToolTip(this.NTFSradio, "NTFS. Can only be read by Macs, not written to. Best used in Windows only environ" +
-        "ments. ");
+            this.tooltipcontrol.SetToolTip(this.NTFSradio, "NTFS. Best used in Windows only environments. Can only be read by Macs, not writt" +
+        "en to.");
             this.NTFSradio.UseVisualStyleBackColor = true;
             // 
             // fat32radio
@@ -699,6 +713,7 @@
             this.Controls.Add(this.tabselector);
             this.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.Name = "OSIRiSmainwindow";
@@ -706,6 +721,7 @@
             this.Text = "OSIRiS";
             this.Load += new System.EventHandler(this.OSIRiSmainwindow_Load);
             this.Shown += new System.EventHandler(this.OSIRiSmainwindow_Shown);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OSIRiSmainwindow_KeyDown);
             this.tabControl1.ResumeLayout(false);
             this.setuppage.ResumeLayout(false);
             this.setuppage.PerformLayout();
@@ -763,6 +779,7 @@
         private MaterialSkin.Controls.MaterialFlatButton refreshbutton;
         private System.Windows.Forms.Label progresslabel;
         private System.Windows.Forms.Label progresslabelsell;
+        private MaterialSkin.Controls.MaterialLabel formatlabel;
     }
 }
 
