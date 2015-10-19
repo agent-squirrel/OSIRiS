@@ -9,6 +9,16 @@
 
 
 --------------------------------------------------------------------------------
+3.0.0.3:
+You can now check for updates manually with the key combination CTRL+SHIFT+U.
+This is useful if OSIRiS is failing to update itself or in the case of a spotty
+internet connection.
+The formatter will now check for disk sizes in excess of 2TB when working with the
+FAT32 filesystem, this is to prevent Ridgecrop consultants "fat32format" utility
+from presenting an error message and making OSIRiS look like it has hung.
+A dialog box has been added on press of the format button confirming the drive
+name to be formatted.
+
 3.0.0.1:
 Fixed some misc comments in the code that no longer apply.
 Updated ODIN to allow for automatic updates. ODIN will now check for a new version
