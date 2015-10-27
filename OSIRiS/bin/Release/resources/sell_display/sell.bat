@@ -77,13 +77,13 @@ if %OSARC%==32BIT powershell.exe -NonInteractive -executionpolicy Bypass -file "
 DEL userlist.txt > NUL 2>&1
 DEL userlisttrimmed.txt > NUL 2>&1
 
-REM #################################################
-REM #Copy the post-reboot cleanup script to C:\OSACS
+REM ####################################################
+REM #Copy the post-reboot cleanup script to C:\profiles
 REM #and create a scheduled task to run it on
 REM #first boot of the new user.
 REM #Delete the "Airplane Mode" boot check and
 REM #the Auto-Shutdown routine.
-REM #################################################
+REM ####################################################
 @title  Setting Up Cleanup
 
 echo Copying Cleanup Files
@@ -91,14 +91,15 @@ echo Copying Cleanup Files
 :: Copy over a script to facilitate cleanup operations, post reboot.
 :: Schedule a task to run on first boot that launches the cleanup script.
 copy "%~dp0\cleanup.bat" C:\profiles\cleanup.bat > NUL 2>&1
+copy "%~dp0\Remove-UserProfile.ps1" C:\profiles\Remove-UserProfile.ps1 > NUL 2>&1
 schtasks /create /F /tn "Cleanup" /tr C:\profiles\cleanup.bat /sc onlogon /RL HIGHEST /RU "%~2" > NUL 2>&1
 
 echo Deleting Scheduled Tasks
 :: Delete all of the existing scheduled tasks.
-schtasks /delete /F /tn "Computer Shutdown" /f > NUL 2>&1
-schtasks /delete /F /tn "Wi-Fi Check" /f > NUL 2>&1
-schtasks /delete /F /tn "Set Wallpaper" /f > NUL 2>&1
-schtasks /delete /F /tn "Start ODIN" /f > NUL 2>&1
+schtasks /delete /F /tn "Computer Shutdown" > NUL 2>&1
+schtasks /delete /F /tn "Wi-Fi Check" > NUL 2>&1
+schtasks /delete /F /tn "Set Wallpaper" > NUL 2>&1
+schtasks /delete /F /tn "Start ODIN" > NUL 2>&1
 
 REM ###############################################
 REM #Set the balanced power plan as the active plan

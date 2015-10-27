@@ -9,6 +9,17 @@
 
 
 --------------------------------------------------------------------------------
+3.0.0.5:
+Replaced user profile cleanup routine with an off-the-shelf powershell script.
+The script is a product of Andrew Saraceni (saraceni@wharton.upenn.edu) and
+available on Microsoft TechNet.
+This is WAY more thorough and completely cleans the C:\Users directory.
+ROSY is now in sync with OSIRiS sell routine as well.
+
+3.0.0.4:
+Fixed critial bug that caused shutdown tasks to not be removed on "Sell" of 
+display machine. Updated ROSY code to match.
+
 3.0.0.3:
 You can now check for updates manually with the key combination CTRL+SHIFT+U.
 This is useful if OSIRiS is failing to update itself or in the case of a spotty

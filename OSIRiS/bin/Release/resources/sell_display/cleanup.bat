@@ -17,20 +17,18 @@ REM #      Its purpose is to clean up the left over OSIRiS data.         #
 REM #      RUNNING THIS SCRIPT MANUALLY WILL DESTROY USER PROFILES       #
 REM ######################################################################
 mode con: cols=100 lines=12
-echo Cleaning Officeworks left-over data.
+echo Cleaning left-over data.
 echo.
 echo This can take some time, feel free to continue using your new computer.
 echo.
 echo DO NOT close this window, it will close by itself when finished.
 echo.
-echo Preparing...
-TIMEOUT /T 10 /NOBREAK
+echo Working...
 
 REM ###########################################
 REM #Delete the cleanup task so it doesn't try
 REM #to run more than once.
 REM ###########################################
-echo Working...
 
 schtasks /delete /tn Cleanup /f > NUL 2>&1
 
@@ -44,11 +42,11 @@ net stop WMPNetworkSvc > NUL 2>&1
 
 net stop WSearch > NUL 2>&1
 
-:: Take ownership of the old Officeworks and Customer directories and then
-:: delete them.
+:: Perfom a user profile deletion using Remove-UserProfile powershell commandlet.
 
-wmic path win32_UserProfile where LocalPath="c:\\users\\Officeworks" Delete > NUL 2>&1
-wmic path win32_UserProfile where LocalPath="c:\\users\\Customer" Delete > NUL 2>&1
+SET "ThisScriptsDirectory=%~dp0"
+SET "PowerShellScriptPath=%ThisScriptsDirectory%Remove-UserProfile.ps1"
+powershell.exe -NonInteractive -executionpolicy Bypass -file "%PowerShellScriptPath%"  > NUL 2>&1
 
 REM ###########################################
 REM #Restart the Windows Update Service as well
@@ -76,5 +74,6 @@ REM #Self-Destruct the cleanup script
 REM #to leave no trace.
 REM ##################################
 
+del "C:\profiles\Remove-UserProfile.ps1" > NUL 2>&1
 rmdir /s /q C:\profiles > NUL 2>&1
 del "%~f0"&exit /b > NUL 2>&1
