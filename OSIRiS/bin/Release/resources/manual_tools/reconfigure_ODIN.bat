@@ -131,10 +131,10 @@ CLS
 
 echo.
 echo.
-echo Done! Press enter to return to the menu.
+echo Done! Press enter to restart.
 
 pause > nul
-GOTO MENU
+shutdown /r /t 0
 
 :SETCLEAR
 REG DELETE HKLM\Software\Microsoft\Windows\CurrentVersion\Run /v ODIN /f
@@ -143,10 +143,10 @@ CLS
 
 echo.
 echo.
-echo Done! Press enter to return to the menu.
+echo Done! Press enter to restart.
 
 pause > nul
-goto MENU
+shutdown /r /t 0
 
 
 
