@@ -69,39 +69,55 @@ namespace OSIRiS
                         //Get newest version.
                         string url = "https://gnuplusadam.com/OSIRiS/version";
                         string versionstring;
+                        string forceurl = "https://gnuplusadam.com/OSIRiS/force";
+                        string forcestring;
                         using (var wc = new System.Net.WebClient())
                             try
                             {
                                 versionstring = wc.DownloadString(url);
+                                forcestring = wc.DownloadString(forceurl);
                                 Version latestVersion = new Version(versionstring);
                                 //Get current binary version.
                                 Assembly assembly = Assembly.GetExecutingAssembly();
                                 FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
                                 Version currentVersion = new Version(fvi.FileVersion);
                                 //Compare.
-                                if (latestVersion > currentVersion)
+                                if (latestVersion > currentVersion && forcestring == "1")
+                                {
+                                    DialogResult dialogResult = MessageBox.Show(String.Format("This update to OSIRiS is critical." + Environment.NewLine + "Pressing no will terminate the application.", currentVersion, latestVersion), "Update?", MessageBoxButtons.YesNo);
+                                    if (dialogResult == DialogResult.Yes)
+                                    {
+                                        var form = new updater();
+                                        this.Hide();
+                                        form.ShowDialog();
+                                        return;
+                                    }
+                                    if (dialogResult == DialogResult.No)
+                                    {
+                                        Application.Exit();
+                                        return;
+                                    }
+
+                                }
+                                if (latestVersion > currentVersion && forcestring == "0")
                                 {
                                     DialogResult dialogResult = MessageBox.Show(String.Format("You've got version {0} of OSIRiS." + Environment.NewLine + "Would you like to update to version {1}?", currentVersion, latestVersion), "Update?", MessageBoxButtons.YesNo);
                                     if (dialogResult == DialogResult.Yes)
                                     {
                                         var form = new updater();
                                         this.Hide();
-                                        form.Show();
+                                        form.ShowDialog();
+                                        return;
                                     }
                                     else
                                     {
-                                        return;
+                                        break;
                                     }
-
-                                }
-                                else
-                                {
-                                    return;
                                 }
                             }
                             catch (WebException)
                             {
-                                return;
+                                break;
                             }
                     }
 
@@ -289,7 +305,11 @@ namespace OSIRiS
 
         private void quitbutton_Click(object sender, EventArgs e)
         {
-            if (File.Exists(@"resources\config\settings.xml"))
+            if (File.Exists(@"OSIRiS.exe.bak"))
+            {
+                File.Delete(@"OSIRiS.exe.bak");
+            }
+                if (File.Exists(@"resources\config\settings.xml"))
             {
                 Settings v = new Settings();
                 v.shutdowntime = this.shutdowntime.Text;
@@ -414,7 +434,11 @@ namespace OSIRiS
 
         private void sellquitbutton_Click(object sender, EventArgs e)
         {
-            if (File.Exists(@"resources\config\settings.xml"))
+            if (File.Exists(@"OSIRiS.exe.bak"))
+            {
+                File.Delete(@"OSIRiS.exe.bak");
+            }
+                if (File.Exists(@"resources\config\settings.xml"))
             {
                 Settings v = new Settings();
                 v.shutdowntime = this.shutdowntime.Text;
@@ -682,7 +706,11 @@ namespace OSIRiS
 
         private void formatbuttonquit_Click(object sender, EventArgs e)
         {
-            if (File.Exists(@"resources\config\settings.xml"))
+            if (File.Exists(@"OSIRiS.exe.bak"))
+            {
+                File.Delete(@"OSIRiS.exe.bak");
+            }
+                if (File.Exists(@"resources\config\settings.xml"))
             {
                 Settings v = new Settings();
                 v.shutdowntime = this.shutdowntime.Text;

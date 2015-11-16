@@ -31,11 +31,13 @@ namespace OSIRiS
                 
                 Process.Start("OSIRiS.exe");
                 Application.Exit();
+                return;
             }
             else
             {
                 Process.Start("OSIRiS.exe");
                 Application.Exit();
+                return;
             }
 
         }

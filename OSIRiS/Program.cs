@@ -14,13 +14,7 @@ namespace OSIRiS
         [STAThread]
         static void Main()
         {
-            using (Mutex mutex = new Mutex(false, "Global\\" + appGuid))
             {
-                if (!mutex.WaitOne(0, false))
-                {
-                    MessageBox.Show("OSIRiS is already running." + Environment.NewLine + "Only one copy of OSIRiS can run at once.","Already Running");
-                    return;
-                }
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
@@ -56,7 +50,6 @@ namespace OSIRiS
             splash.Dispose();
             splash = null;
         }
-        private static string appGuid = "c0a76b5a-12ab-45c5-b9d9-d693faa6e7b7";
 
     }
 }

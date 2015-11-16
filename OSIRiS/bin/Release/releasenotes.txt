@@ -9,6 +9,13 @@
 
 
 --------------------------------------------------------------------------------
+3.0.0.7:
+Fixed file_integrity checklist.
+
+3.0.0.6:
+Added a forceable update parameter. Set the text file "force" on the server to
+1 to force updates or 0 to cancel the force.
+
 3.0.0.5:
 Replaced user profile cleanup routine with an off-the-shelf powershell script.
 The script is a product of Andrew Saraceni (saraceni@wharton.upenn.edu) and
@@ -17,7 +24,7 @@ This is WAY more thorough and completely cleans the C:\Users directory.
 ROSY is now in sync with OSIRiS sell routine as well.
 
 3.0.0.4:
-Fixed critial bug that caused shutdown tasks to not be removed on "Sell" of 
+Fixed critical bug that caused shutdown tasks to not be removed on "Sell" of
 display machine. Updated ROSY code to match.
 
 3.0.0.3:
@@ -37,8 +44,8 @@ of itself on startup every day. Updating only takes a few seconds and ODIN will
 display it's splash screen while this is happening.
 
 3.0.0.0:
-Complete re-design of the OSIRiS UI. OSIRiS now conforms (loosly) to Google's 
-Material Design language. In addition, the console output boxes are no longer 
+Complete re-design of the OSIRiS UI. OSIRiS now conforms (loosly) to Google's
+Material Design language. In addition, the console output boxes are no longer
 present and a singe line of text has taken their place. This text is updated with
 messages about the running of OSIRiS and better shows if OSIRiS has crashed or
 is struggling.
@@ -58,7 +65,7 @@ Windows will throw an exception if a username exceeds this length and fail to
 create an account, resulting in a machine with no accounts.
 Added ROSY (OSIRiS Recovery System) to the server containing OSIRiS.
 ROSY can reset a customers machine for them, should they find OSIRiS on it when
-they arrive home. Full instructions for it's use will be added to the OSIRiS 
+they arrive home. Full instructions for it's use will be added to the OSIRiS
 landing page at https://gnuplusadam.com/OSIRiS/ soon.
 
 2.8.1.7:
@@ -66,14 +73,14 @@ Added a manual tool, under the "manual_tools" folder to change ODIN's clearance
 banner if it is incorrectly set. This tool can also switch ODIN from scheduled mode
 over to the newer reg called mode.
 (This tool is the only script that should be run manually out of the resources folder)
-Added a REGEX to the computer rename call so that ALL special characters are 
-accounted for. Previously if the model contained spaces they where handled but if 
+Added a REGEX to the computer rename call so that ALL special characters are
+accounted for. Previously if the model contained spaces they where handled but if
 other special characters where present, the rename silently failed.
 
 2.8.1.6:
 Modified the way ODIN is called on login. The previous method was to use a scheduled
 task, however this proved troublesome on newer machines with wonky scheduler settings.
-The improved method is to write a registry entry to 
+The improved method is to write a registry entry to
 HKLM:\Software\Microsoft\Windows\CurrentVersion\Run in the form of "ODIN" pointing to
 the ODIN executable at C:\profiles\ and optionally appending the "clear" argument to
 display the clearance banner.

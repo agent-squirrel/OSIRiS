@@ -78,10 +78,6 @@ namespace OSIRiS
             {
                 File.Delete(@"resources\version.remote.txt");
             }
-            if (File.Exists(@"OSIRiS.exe.bak"))
-            {
-                File.Delete(@"OSIRiS.exe.bak");
-            }
             if (File.Exists(@"gpl.bak.txt"))
             {
                 File.Delete(@"gpl.bak.txt");
