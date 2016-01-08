@@ -297,12 +297,12 @@
             this.shutdownlabel.Depth = 0;
             this.shutdownlabel.Font = new System.Drawing.Font("Roboto", 11F);
             this.shutdownlabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.shutdownlabel.Location = new System.Drawing.Point(136, 44);
+            this.shutdownlabel.Location = new System.Drawing.Point(165, 44);
             this.shutdownlabel.MouseState = MaterialSkin.MouseState.HOVER;
             this.shutdownlabel.Name = "shutdownlabel";
-            this.shutdownlabel.Size = new System.Drawing.Size(98, 19);
+            this.shutdownlabel.Size = new System.Drawing.Size(69, 19);
             this.shutdownlabel.TabIndex = 0;
-            this.shutdownlabel.Text = "Shutdown At:";
+            this.shutdownlabel.Text = "Sleep At:";
             this.tooltipcontrol.SetToolTip(this.shutdownlabel, "Input your desired shutdown time here, take care with AM/PM.");
             // 
             // sellpage
@@ -717,6 +717,7 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.Name = "OSIRiSmainwindow";
+            this.Sizable = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "OSIRiS";
             this.Load += new System.EventHandler(this.OSIRiSmainwindow_Load);

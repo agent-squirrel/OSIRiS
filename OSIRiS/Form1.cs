@@ -800,9 +800,8 @@ namespace OSIRiS
         #region Help Buttons
         private void helpsetupbutton_Click(object sender, EventArgs e)
         {
-            string appPath = Assembly.GetEntryAssembly().Location;
-            string filename = Path.Combine(Path.GetDirectoryName(appPath), @"OSIRiS_Manual.pdf");
-            Process.Start(filename);
+            var form = new AboutBox();
+            form.Show(this);
         }
 
         private void helpsellbutton_Click(object sender, EventArgs e)

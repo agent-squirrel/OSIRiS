@@ -1,10 +1,9 @@
 @ECHO OFF
-@title  Setup Display
 
 REM ######################################################
 REM #             THIS FILE IS PART OF OSIRiS            #
 REM #                  COPYRIGHT NOTICE                  #
-REM #         Copyright Adam Heathcote 2014 - 2015.      #
+REM #         Copyright Adam Heathcote 2014 - 2016.      #
 REM #OSIRiS and associated documentation are distributed #
 REM #       under the GNU General Public License.        #
 REM #Please see gpl.txt in the root of the OSIRiS folder.#
@@ -62,11 +61,13 @@ if /I %3==ACT (tzutil /s "AUS Eastern Standard Time" 1>NUL)
 
 :BREAKLOOP
 
+:: Set the country to Australia in case the user forgot at setup.
+echo Setting the Syetem Locale
+powershell "Set-WinSystemLocale en-AU" > NUL 2>&1
 
 :: Set the time from the first argument passed.
-@title  Setting Time
-time %1 > NUL 2>&1
 echo Setting the Time
+time %1 > NUL 2>&1
 
 
 
@@ -74,7 +75,6 @@ REM ################################################################
 REM #Rename the computer to the machine OEM model extracted from
 REM #Firmware with WMIC.
 REM ################################################################
-@title  Renaming Machine
 echo Renaming the Computer
 
 :: Dump the contents of the 'Model' column to a text file from the WMIC COMPUTERSYSTEM command.
@@ -85,7 +85,7 @@ wmic computersystem get model > tempmodel.txt
 type tempmodel.txt | findstr /v Model > compmodel.txt
 
 :: The computer name cannot contain spaces so we use powershell to run through the file identifying all spaces and remove them.
-powershell "$Host.UI.RawUI.WindowTitle = 'Doing Powershell Stuff'; (Get-Content compmodel.txt) | Foreach-Object {$_ -replace '[^a-zA-Z]', ''} | Set-Content compmodel.txt" > NUL 2>&1
+powershell "(Get-Content compmodel.txt) | Foreach-Object {$_ -replace '[^a-zA-Z]', ''} | Set-Content compmodel.txt" > NUL 2>&1
 
 :: Run a loop through the text file created earlier and load the model name into a variable (%G).
 :: Set the variable %G as the computer name.
@@ -101,7 +101,6 @@ REM #and HomeGroupUser$.
 REM #Create an Officeworks Administrator User and set it's password
 REM #to happy456 with no Expiry.
 REM ################################################################
-@title  Creating and Deleting Accounts
 echo Creating the Officeworks User
 :: Switch guest off.
 net user guest /active:no > NUL 2>&1
@@ -110,7 +109,7 @@ net user guest /active:no > NUL 2>&1
 wmic useraccount get name > userlist.txt
 
 :: Trim the white space from the start and end of User Account strings.
-powershell "$Host.UI.RawUI.WindowTitle = 'Doing Powershell Stuff'; $content = Get-Content .\userlist.txt"; "$content | Foreach {$_.TrimEnd()} | Set-Content .\userlist.txt" > NUL 2>&1
+powershell "$content = Get-Content .\userlist.txt"; "$content | Foreach {$_.TrimEnd()} | Set-Content .\userlist.txt" > NUL 2>&1
 
 :: Remove various junk lines from the text file.
 type userlist.txt | findstr /v Name | findstr /v Administrator | findstr /v Guest | findstr /v HomeGroup | findstr /v DefaultAccount > userlisttrimmed.txt
@@ -150,7 +149,6 @@ REM #Set the high performance plan as the default and rename it
 REM #"Officeworks".
 REM #Reconfigure the plan's defaults to make sure the machine never sleeps.
 REM #######################################################################
-@title  Setting Up the Power Settings
 
 echo Configuring Power Settings
 
@@ -165,12 +163,13 @@ POWERCFG -change -standby-timeout-ac 0 2>&1
 POWERCFG -change -standby-timeout-dc 0 2>&1
 POWERCFG -change -hibernate-timeout-ac 0 2>&1
 POWERCFG -change -hibernate-timeout-dc 0 2>&1
+:: Disables Hybrid sleep so we can wake the machine at 7am.
+powercfg -hibernate off 2>&1
 
 REM ####################################################
 REM #Switch off Windows Update and set it's service to
 REM #not auto-start on boot.
 REM ####################################################
-@title  Disabling Windows Update
 echo Disabling Windows Update
 
 net stop wuauserv > NUL 2>&1
@@ -180,7 +179,6 @@ REM ###################################################
 REM #Create a directory on C: called profiles.
 REM #Connect the wireless radio to the Officeworks WLAN.
 REM ###################################################
-@title  Setting Up the Wireless Network
 echo Configuring Wireless Network
 
 mkdir C:\profiles > NUL 2>&1
@@ -188,20 +186,14 @@ Netsh wlan add profile filename="%~dp0\OFW-Display.xml" > NUL 2>&1
 Netsh wlan connect OFW-Display > NUL 2>&1
 
 REM ######################################################################################
-REM #Create a scheduled task to shutdown the machine based upon the argument %2
-REM #every night, force killing any running software.
-REM #This can be overridden if need be with "shutdown /a" or the shortcut on the Desktop.
+REM #Create a scheduled task to sleep the machine based upon the argument %2 every night.
 REM ######################################################################################
-@title  Setting Up Auto Shutdown
 
-echo Configuring Auto Shutdown
+echo Configuring Auto Sleep
+SCHTASKS /Create /F /RU "Customer" /RL "HIGHEST" /SC "DAILY" /TN "AutoSleep" /TR "rundll32.exe powrprof.dll,SetSuspendState 0,1,0" /ST "%2" > NUL 2>&1
 
-SCHTASKS /Create /F /RU "SYSTEM" /RL "HIGHEST" /SC "DAILY" /TN "Computer Shutdown" /TR "shutdown -s -t 60 -c 'Officeworks Auto-Shutdown In Effect.' -f" /ST "%2" > NUL 2>&1
-
-
-echo Copy over shutdown supressor
-copy "%~dp0\setup_payload\Suspend Auto-Shutdown.bat" C:\profiles\ > NUL 2>&1
-copy "%~dp0\setup_payload\Suspend Auto-Shutdown.lnk" C:\Users\Public\Desktop\ > NUL 2>&1
+echo Configuring Auto Wake
+SCHTASKS /Create /XML "%~dp0\AutoWake.xml" /tn AutoWake > NUL 2>&1
 
 REM #########################################################
 REM #Modifying the wallpaper for the Customer user requires a
@@ -221,7 +213,7 @@ copy "%~dp0\setup_payload\ODIN.exe" C:\profiles\ > NUL 2>&1
 ::Copy a specific wallpaper over to the local disk based upon the CPU
 ::discovered inside cpu.txt.
 
-REM ############### BEGIN PROCESSOR CHECK CODE BLOCK FOR WIN8 ##########################
+REM ################################### BEGIN PROCESSOR CHECK CODE BLOCK ############################################
 
 REM ##INTEL BLOCK##
 find /I "i5" cpu.txt  > NUL 2>&1
@@ -287,7 +279,7 @@ REM ##END AMD##
 :unknown
 copy "%~dp0\setup_payload\generic.bmp" C:\profiles\wallpaper.bmp > NUL 2>&1
 
-REM ################ END PROCESSOR CHECK CODE BLOCK FOR WIN8 ###########################
+REM ################################### END PROCESSOR CHECK CODE BLOCK ############################################
 
 :ENDPROC
 
@@ -302,18 +294,17 @@ SET "PowerShellScriptPath=%ThisScriptsDirectory%powershellreg.ps1"
 if %OSARC%==64BIT C:\windows\sysnative\windowspowershell\v1.0\powershell.exe -NonInteractive -executionpolicy Bypass -file "%PowerShellScriptPath%" %5 > NUL 2>&1
 if %OSARC%==32BIT powershell.exe -NonInteractive -executionpolicy Bypass -file "%PowerShellScriptPath%" %5 > NUL 2>&1
 
-
 ::Delete the cpu.txt file.
 del cpu.txt
 
-
+::Copy over ROSY for use when a machine fails to be sold with OSIRiS.
+copy "%~dp0\setup_payload\ROSY.exe" C:\profiles\ > NUL 2>&1
 
 REM #######################################################
 REM #Here we verify that the various sections of OSIRiS
 REM #have run correctly. This ensures that no weirdness
 REM #happens, such as having no Admin account.
 REM #######################################################
-@title Verifying Successful Run
 
 echo Pinging Localhost for 10 seconds before verification
 echo Beginning Verification
@@ -324,9 +315,13 @@ WMIC USERACCOUNT WHERE "Name='Officeworks'" SET PasswordExpires=FALSE > NUL 2>&1
 net localgroup Administrators Officeworks /add > NUL 2>&1
 net user | find /i "Customer" 1>NUL || Net user Customer /add > NUL 2>&1
 WMIC USERACCOUNT WHERE "Name='Customer'" SET PasswordExpires=FALSE > NUL 2>&1
-SCHTASKS /query /TN "Computer Shutdown" > NUL 2>&1
+SCHTASKS /query /TN "AutoSleep" > NUL 2>&1
 if NOT %errorlevel%==0 (
-SCHTASKS /Create /F /RU "SYSTEM" /RL "HIGHEST" /SC "DAILY" /TN "Computer Shutdown" /TR "shutdown -s -t 60 -c 'Officeworks Auto-Shutdown In Effect.' -f" /ST "%2" > NUL 2>&1
+SCHTASKS /Create /F /RU "Customer" /RL "HIGHEST" /SC "DAILY" /TN "AutoSleep" /TR "rundll32.exe powrprof.dll,SetSuspendState 0,1,0" /ST "%2" > NUL 2>&1
+)
+SCHTASKS /query /TN "AutoWake" > NUL 2>&1
+if NOT %errorlevel%==0 (
+SCHTASKS /Create /XML "%~dp0\AutoWake.xml" /tn AutoWake > NUL 2>&1
 )
 SCHTASKS /query /TN "Wi-Fi Check" > NUL 2>&1
 if NOT %errorlevel%==0 (
@@ -336,7 +331,6 @@ SCHTASKS /create /F /tn "Wi-Fi Check" /tr "powershell 'get-netadapter wi-fi | re
 echo Verification Complete
 
 
-@title  Restarting
 echo Restarting
 
 shutdown -r -t 5 -c "Rebooting to complete setup."

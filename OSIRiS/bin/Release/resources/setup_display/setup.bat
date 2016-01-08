@@ -1,10 +1,9 @@
 @ECHO OFF
-@title  Setup Display
 
 REM ######################################################
 REM #             THIS FILE IS PART OF OSIRiS            #
 REM #                  COPYRIGHT NOTICE                  #
-REM #         Copyright Adam Heathcote 2014 - 2015.      #
+REM #         Copyright Adam Heathcote 2014 - 2016.      #
 REM #OSIRiS and associated documentation are distributed #
 REM #       under the GNU General Public License.        #
 REM #Please see gpl.txt in the root of the OSIRiS folder.#

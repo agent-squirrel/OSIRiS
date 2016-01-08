@@ -29,6 +29,4 @@ resources\setup_display\setup_payload\i5.bmp
 resources\setup_display\setup_payload\i7.bmp
 resources\setup_display\setup_payload\ODIN.exe
 resources\setup_display\setup_payload\pentium.bmp
-resources\setup_display\setup_payload\Suspend Auto-Shutdown.bat
-resources\setup_display\setup_payload\Suspend Auto-Shutdown.lnk
 resources\manual_tools\reconfigure_ODIN.bat

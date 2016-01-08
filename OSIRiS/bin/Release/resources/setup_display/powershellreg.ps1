@@ -1,7 +1,7 @@
 ######################################################
 #             THIS FILE IS PART OF OSIRiS            #
 #                  COPYRIGHT NOTICE                  #
-#         Copyright Adam Heathcote 2014 - 2015.      #
+#         Copyright Adam Heathcote 2014 - 2016.      #
 #OSIRiS and associated documentation are distributed #
 #       under the GNU General Public License.        #
 #Please see gpl.txt in the root of the OSIRiS folder.#

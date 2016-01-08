@@ -1,10 +1,9 @@
 @ECHO OFF
-@title  Sell Display
 
 REM ######################################################
 REM #             THIS FILE IS PART OF OSIRiS            #
 REM #                  COPYRIGHT NOTICE                  #
-REM #         Copyright Adam Heathcote 2014 - 2015.      #
+REM #         Copyright Adam Heathcote 2014 - 2016.      #
 REM #OSIRiS and associated documentation are distributed #
 REM #       under the GNU General Public License.        #
 REM #Please see gpl.txt in the root of the OSIRiS folder.#
@@ -34,9 +33,8 @@ REM #Delete Customer Account.
 REM #Delete Officeworks Account.
 REM #Delete any other accounts with any name.
 REM #Create a new account for buyer based upon argument %2.
-REM #and make it an Admin with no password.
+REM #Make it an Admin with no password.
 REM #######################################################
-@title  Remove and Create Accounts
 
 echo Deleting Accounts
 
@@ -83,8 +81,9 @@ REM #and create a scheduled task to run it on
 REM #first boot of the new user.
 REM #Delete the "Airplane Mode" boot check and
 REM #the Auto-Shutdown routine.
+REM #Remove the AutoWake and AutoSleep tasks if the
+REM #machine is using them.
 REM ####################################################
-@title  Setting Up Cleanup
 
 echo Copying Cleanup Files
 
@@ -97,6 +96,8 @@ schtasks /create /F /tn "Cleanup" /tr C:\profiles\cleanup.bat /sc onlogon /RL HI
 echo Deleting Scheduled Tasks
 :: Delete all of the existing scheduled tasks.
 schtasks /delete /F /tn "Computer Shutdown" > NUL 2>&1
+schtasks /delete /F /tn "AutoSleep" > NUL 2>&1
+schtasks /delete /F /tn "AutoWake" > NUL 2>&1
 schtasks /delete /F /tn "Wi-Fi Check" > NUL 2>&1
 schtasks /delete /F /tn "Set Wallpaper" > NUL 2>&1
 schtasks /delete /F /tn "Start ODIN" > NUL 2>&1
@@ -105,12 +106,11 @@ REM ###############################################
 REM #Set the balanced power plan as the active plan
 REM #and delete the Officeworks plan.
 REM ###############################################
-@title  Fixing Power Plan
 
 echo Restoring Sane Power Settings
 
 POWERCFG -restoredefaultschemes > NUL 2>&1
-
+powercfg -hibernate on 2>&1
 
 
 REM ###################################################
@@ -120,7 +120,6 @@ REM #Delete the Extensible Markup Language file
 REM #containing configuration data for the Officeworks
 REM #WLAN.
 REM ###################################################
-@title  Resetting Wireless
 
 echo Kill The Wireless Radio
 
@@ -136,7 +135,7 @@ REM ###########################################
 
 :: Force reset of the Wi-Fi card to make sure that it disconnects after removing
 :: the OFW-Display profile.
-powershell "$Host.UI.RawUI.WindowTitle = 'Doing Powershell Stuff'; get-netadapter wi-fi | restart-netadapter" > NUL 2>&1
+powershell "get-netadapter wi-fi | restart-netadapter" > NUL 2>&1
 
 echo Deleting the Shutdown Suppressor
 DEL C:\Users\Public\Desktop\"Suspend Auto-Shutdown.lnk" > NUL 2>&1
@@ -146,8 +145,8 @@ goto %1
 
 :Shutdown
 echo Shutting Down
-if %OSARC%==64BIT C:\Windows\sysnative\MSG.exe /w /time:60 Customer Please make "%~2" aware that a cleanup script will run when they first switch on the machine.
-if %OSARC%==32BIT MSG.exe /w /time:60 Customer Please make "%~2" aware that a cleanup script will run when they first switch on the machine.
+if %OSARC%==64BIT C:\Windows\sysnative\MSG.exe /w /time:60 %username% Please make "%~2" aware that a cleanup script will run when they first switch on the machine.
+if %OSARC%==32BIT MSG.exe /w /time:60 %username% Please make "%~2" aware that a cleanup script will run when they first switch on the machine.
 shutdown -s -t 5 /c "Shutting down."
 exit
 
