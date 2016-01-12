@@ -62,7 +62,7 @@ if /I %3==ACT (tzutil /s "AUS Eastern Standard Time" 1>NUL)
 :BREAKLOOP
 
 :: Set the country to Australia in case the user forgot at setup.
-echo Setting the Syetem Locale
+echo Setting the System Locale
 powershell "Set-WinSystemLocale en-AU" > NUL 2>&1
 
 :: Set the time from the first argument passed.
