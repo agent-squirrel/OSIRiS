@@ -51,7 +51,7 @@ When setting up a machine, OSIRiS performs the following actions:
 
 9. Sets the time to whatever the user chose.
 
-10. Configures the machine to automatically shutdown at the user designated time.
+10. Configures the machine to automatically sleep at the user designated time and wake at 7am.
 
 11. Schedules a task to reset the wireless card on every boot of the machine. This prevents the machines being in airplane mode at the start of the day.
 
