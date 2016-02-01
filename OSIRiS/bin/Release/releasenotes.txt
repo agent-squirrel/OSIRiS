@@ -9,13 +9,27 @@
 
 
 --------------------------------------------------------------------------------
+3.1.1.1:
+Reconfigure_ODIN.exe has been modified to support re-launching of ODIN after a
+setting change with limited privileges. Previously ODIN would be launched as a 
+child process of Reconfigure_ODIN with all of it's Admin privileges.
+
+3.1.1.0:
+ODIN has been updated to support reconfiguration right from the application itself
+without the need for a secondary batch file. Simply press the key combo CTRL+SHIFT+R.
+Added the binary to handle ODIN reconfiguration as a payload of OSIRiS so it can live
+in the C:\profiles\ directory with all other on-disk OSIRiS content. 
+OSIRiS now wakes the machines at 6:30 AM instead of 7 and reboots them upon wake up.
+This allows them to be in a clean state for the start of the day and also grants
+them enough time to complete the reboot before customers arrive.
+
 3.1.0.0:
 OSIRiS now sleeps machines at night and wakes them up at 7AM. The machines will
 remain in a low power state until the morning, this was chosen to replace the
 previous shutdown functionality as once a machine is off, it cannot be woken up
 via software.
 Updated all documentation to reflect new copyright/copyleft licensing terms and
-to include and extension into 2016.
+to include an extension into 2016.
  
 3.0.0.8:
 Fixed scaling issues with OSIRiS Main Window.

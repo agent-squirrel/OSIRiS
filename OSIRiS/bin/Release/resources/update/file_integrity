@@ -7,6 +7,7 @@ resources\sell_display\powershellregclean.ps1
 resources\sell_display\sell.bat
 resources\sell_display\Remove-UserProfile.ps1
 resources\setup_display\OFW-Display.xml
+resources\setup_display\AutoWake.xml
 resources\setup_display\powershellreg.ps1
 resources\setup_display\setup.bat
 resources\setup_display\setup10.bat
@@ -27,5 +28,5 @@ resources\setup_display\setup_payload\i3.bmp
 resources\setup_display\setup_payload\i5.bmp
 resources\setup_display\setup_payload\i7.bmp
 resources\setup_display\setup_payload\ODIN.exe
+resources\setup_display\setup_payload\Reconfigure_ODIN.exe
 resources\setup_display\setup_payload\pentium.bmp
-resources\manual_tools\reconfigure_ODIN.bat

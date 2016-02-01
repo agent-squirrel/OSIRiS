@@ -29,7 +29,7 @@ New-ItemProperty $smartscreenpath -Name SmartScreenEnabled -Value 'Off' -Force
 $ODINautostart = 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run'
 if ($a -eq "clearance")
 {
-New-ItemProperty $ODINautostart -Name ODIN -Value "`"C:\profiles\ODIN.exe`" clear" -force
+New-ItemProperty $ODINautostart -Name ODIN -Value "C:\profiles\ODIN.exe clear" -force
 } else {
 New-ItemProperty $ODINautostart -Name ODIN -Value "C:\profiles\ODIN.exe" -force
 }

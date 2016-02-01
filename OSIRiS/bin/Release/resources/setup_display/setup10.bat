@@ -207,6 +207,7 @@ echo Setting up custom wallpaper
 
 wmic cpu get name > cpu.txt
 copy "%~dp0\setup_payload\ODIN.exe" C:\profiles\ > NUL 2>&1
+copy "%~dp0\setup_payload\Reconfigure_ODIN.exe" C:\profiles\ > NUL 2>&1
 
 ::Use 'find' to look through the cpu.txt file and check for specific
 ::strings containing CPU information.

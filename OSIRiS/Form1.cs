@@ -49,26 +49,12 @@ namespace OSIRiS
             //Check file integrity against file list.
             //This is an early attempt at integrity checking, it will be improved.
             else
-            {
-                string[] files = File.ReadAllLines(@"resources\update\file_integrity");
-                foreach (var file in files)
-                {
-                    if (!File.Exists(file))
-                    {
-                        DialogResult corruptedinstall = MessageBox.Show("You have missing components." + Environment.NewLine + "OSIRiS will now download the missing parts.", "Missing Components", MessageBoxButtons.OK);
-                        if (corruptedinstall == DialogResult.OK)
-                        {
-                            var form = new updater();
-                            form.Show(this);
-                            this.Hide();
-                        }
-                    }
-                    else
                     {
                         //Lets check for updates.
                         //Get newest version.
                         string url = "https://gnuplusadam.com/OSIRiS/version";
                         string versionstring;
+                        //Check if this update needs forcing.
                         string forceurl = "https://gnuplusadam.com/OSIRiS/force";
                         string forcestring;
                         using (var wc = new System.Net.WebClient())
@@ -111,18 +97,15 @@ namespace OSIRiS
                                     }
                                     else
                                     {
-                                        break;
+                                        return;
                                     }
                                 }
                             }
                             catch (WebException)
                             {
-                                break;
+                                return;
                             }
                     }
-
-                }
-            }
         }
 
 
@@ -181,100 +164,118 @@ namespace OSIRiS
 
             if (dialogResult == DialogResult.Yes)
             {
-                sellrunbutton.Enabled = false;
-                runbutton.Enabled = false;
-
-                //Set some strings from the various user input controls.
-
-                string currenttime = this.currenttime.Value.ToString("HH:mm");
-                string shutdowntime = this.shutdowntime.Value.ToString("HH:mm");
-                string owuserpw = pwbox.Text;
-                string state = statedropdown.Text;
-                string clearance = "clearance";
-
-                //Perform some checks for invalid inputs.
-                //If invalid, spawn a dialog box and bring the
-                //run button back alive.
-                //Return to the main form performing no further action. 
-
-                if (currenttime == "01:00")
+                progresslabel.Text = "Checking Integrity of OSIRiS";
+                string[] files = File.ReadAllLines(@"resources\update\file_integrity");
+                foreach (var file in files)
                 {
-                    MessageBox.Show("You forgot to enter the current time.",
-                    "Error.", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    runbutton.Enabled = true;
-                    return;
-                }
-                if (shutdowntime == "01:00")
-                {
-                    MessageBox.Show("You forgot to enter a shutdown time.",
-                    "Error.", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    runbutton.Enabled = true;
-                    return;
-                }
-                if (string.IsNullOrWhiteSpace(pwbox.Text))
-                {
-                    MessageBox.Show("You did not enter a password.",
-                    "Error.", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    runbutton.Enabled = true;
-                    return;
-                }
-                if (string.IsNullOrWhiteSpace(statedropdown.Text))
-                {
-                    MessageBox.Show("You did not select a state.",
-                    "Error.", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    runbutton.Enabled = true;
-                    return;
+                    if (!File.Exists(file))
+                    {
+                        DialogResult corruptedinstall = MessageBox.Show("You have missing components." + Environment.NewLine + "OSIRiS will now download the missing parts.", "Missing Components", MessageBoxButtons.OK);
+                        if (corruptedinstall == DialogResult.OK)
+                        {
+                            var form = new updater();
+                            form.Show(this);
+                            this.Hide();
+                        }
+                    }
                 }
 
-                //Serialize the settings to an XML file for later recall.
-                Settings v = new Settings();
-                v.shutdowntime = this.shutdowntime.Text;
-                v.password = this.pwbox.Text;
-                v.state = this.statedropdown.Text;
-                Savesettings(v);
+                        sellrunbutton.Enabled = false;
+                        runbutton.Enabled = false;
 
-                //If all checks pass then use ProcessCaller to call our batch file.
-                //Pass the batch file four arguments based upon the strings created earlier.
-                //Route the Standard Output and Standard Error of the batch file to the
-                //console output richtextbox.
+                        //Set some strings from the various user input controls.
 
-                if (clearancecheckbox.Checked)
-                {
-                    this.Cursor = Cursors.AppStarting;
-                    processCaller = new ProcessCaller(this);
-                    processCaller.FileName = @"resources\setup_display\setup.bat";
-                    processCaller.Arguments = string.Format("{0} {1} {2} \"{3}\" {4}", currenttime, shutdowntime, state, owuserpw, clearance);
-                    processCaller.StdErrReceived += new DataReceivedHandler(writeStreamInfo);
-                    processCaller.StdOutReceived += new DataReceivedHandler(writeStreamInfo);
-                    processCaller.Completed += new EventHandler(processCompletedOrCanceled);
-                    processCaller.Cancelled += new EventHandler(processCompletedOrCanceled);
+                        string currenttime = this.currenttime.Value.ToString("HH:mm");
+                        string shutdowntime = this.shutdowntime.Value.ToString("HH:mm");
+                        string owuserpw = pwbox.Text;
+                        string state = statedropdown.Text;
+                        string clearance = "clearance";
 
-                    //The following function starts a process and returns immediately,
-                    //thus allowing the form to stay responsive.
-                    //Also start the marquee progress bar.
+                        //Perform some checks for invalid inputs.
+                        //If invalid, spawn a dialog box and bring the
+                        //run button back alive.
+                        //Return to the main form performing no further action. 
 
-                    processCaller.Start();
+                        if (currenttime == "01:00")
+                        {
+                            MessageBox.Show("You forgot to enter the current time.",
+                            "Error.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            runbutton.Enabled = true;
+                            return;
+                        }
+                        if (shutdowntime == "01:00")
+                        {
+                            MessageBox.Show("You forgot to enter a shutdown time.",
+                            "Error.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            runbutton.Enabled = true;
+                            return;
+                        }
+                        if (string.IsNullOrWhiteSpace(pwbox.Text))
+                        {
+                            MessageBox.Show("You did not enter a password.",
+                            "Error.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            runbutton.Enabled = true;
+                            return;
+                        }
+                        if (string.IsNullOrWhiteSpace(statedropdown.Text))
+                        {
+                            MessageBox.Show("You did not select a state.",
+                            "Error.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            runbutton.Enabled = true;
+                            return;
+                        }
 
-                }
-                else
-                {
-                    this.Cursor = Cursors.AppStarting;
-                    processCaller = new ProcessCaller(this);
-                    processCaller.FileName = @"resources\setup_display\setup.bat";
-                    processCaller.Arguments = string.Format("{0} {1} {2} \"{3}\"", currenttime, shutdowntime, state, owuserpw);
-                    processCaller.StdErrReceived += new DataReceivedHandler(writeStreamInfo);
-                    processCaller.StdOutReceived += new DataReceivedHandler(writeStreamInfo);
-                    processCaller.Completed += new EventHandler(processCompletedOrCanceled);
-                    processCaller.Cancelled += new EventHandler(processCompletedOrCanceled);
+                        //Serialize the settings to an XML file for later recall.
+                        Settings v = new Settings();
+                        v.shutdowntime = this.shutdowntime.Text;
+                        v.password = this.pwbox.Text;
+                        v.state = this.statedropdown.Text;
+                        Savesettings(v);
 
-                    //The following function starts a process and returns immediately,
-                    //thus allowing the form to stay responsive.
-                    //Also start the marquee progress bar.
+                        //If all checks pass then use ProcessCaller to call our batch file.
+                        //Pass the batch file four arguments based upon the strings created earlier.
+                        //Route the Standard Output and Standard Error of the batch file to the
+                        //console output richtextbox.
 
-                    processCaller.Start();
+                        if (clearancecheckbox.Checked)
+                        {
+                            this.Cursor = Cursors.AppStarting;
+                            processCaller = new ProcessCaller(this);
+                            processCaller.FileName = @"resources\setup_display\setup.bat";
+                            processCaller.Arguments = string.Format("{0} {1} {2} \"{3}\" {4}", currenttime, shutdowntime, state, owuserpw, clearance);
+                            processCaller.StdErrReceived += new DataReceivedHandler(writeStreamInfo);
+                            processCaller.StdOutReceived += new DataReceivedHandler(writeStreamInfo);
+                            processCaller.Completed += new EventHandler(processCompletedOrCanceled);
+                            processCaller.Cancelled += new EventHandler(processCompletedOrCanceled);
 
-                }
-            }
+                            //The following function starts a process and returns immediately,
+                            //thus allowing the form to stay responsive.
+                            //Also start the marquee progress bar.
+
+                            processCaller.Start();
+
+                        }
+                        else
+                        {
+                            this.Cursor = Cursors.AppStarting;
+                            processCaller = new ProcessCaller(this);
+                            processCaller.FileName = @"resources\setup_display\setup.bat";
+                            processCaller.Arguments = string.Format("{0} {1} {2} \"{3}\"", currenttime, shutdowntime, state, owuserpw);
+                            processCaller.StdErrReceived += new DataReceivedHandler(writeStreamInfo);
+                            processCaller.StdOutReceived += new DataReceivedHandler(writeStreamInfo);
+                            processCaller.Completed += new EventHandler(processCompletedOrCanceled);
+                            processCaller.Cancelled += new EventHandler(processCompletedOrCanceled);
+
+                            //The following function starts a process and returns immediately,
+                            //thus allowing the form to stay responsive.
+                            //Also start the marquee progress bar.
+
+                            processCaller.Start();
+
+                        }
+                    }
+
+            
 
             //If we get a no back from the dialog box,
             //re-enable the run button and then return to the form.
