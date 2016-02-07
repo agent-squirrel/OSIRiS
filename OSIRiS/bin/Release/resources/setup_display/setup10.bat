@@ -18,7 +18,7 @@ REM the command line or from the OSIRiS master control program.
 REM Running it manually will likely result in a broken system.
 REM 			    	             YOU HAVE BEEN WARNED.
 REM #########################################################################
-echo We are running in Windows 10 mode now.
+echo We Are Running In Windows 10 Mode Now.
 
 :: Check system Architecture version so we can call the correct version of Powershell.
 echo Finding Architecure
@@ -131,7 +131,7 @@ REM #Configure a standard user account for customer use called
 REM #'Customer' with no password and no password expiry.
 REM ############################################################
 
-echo Configuring Standard User
+echo Creating the Standard Customer User
 
 :: Create the new standard user.
 net user /add Customer > NUL 2>&1
@@ -200,7 +200,7 @@ REM #Modifying the wallpaper for the Customer user requires a
 REM #multi-step approach.
 REM #########################################################
 
-echo Setting up custom wallpaper
+echo Setting Up Custom Wallpaper
 
 ::Here we dump the contents of WMIC CPU to a text file and copy over
 ::OSIRiS Desktop Info to the profiles folder.
@@ -289,7 +289,7 @@ REM ################################### END PROCESSOR CHECK CODE BLOCK #########
 ::on all machines.
 ::Call the powershellreg.ps1 script to disable first sign in animations, disable Windows Update and force 'Customer' account login.
 ::Also set up ODIN on login start.
-echo Call out to PowerShell to set registry values.
+echo Set Registry Entries Via PowerShell.
 SET "ThisScriptsDirectory=%~dp0"
 SET "PowerShellScriptPath=%ThisScriptsDirectory%powershellreg.ps1"
 if %OSARC%==64BIT C:\windows\sysnative\windowspowershell\v1.0\powershell.exe -NonInteractive -executionpolicy Bypass -file "%PowerShellScriptPath%" %5 > NUL 2>&1
@@ -307,7 +307,7 @@ REM #have run correctly. This ensures that no weirdness
 REM #happens, such as having no Admin account.
 REM #######################################################
 
-echo Pinging Localhost for 10 seconds before verification
+echo Pinging Localhost for 10 Seconds Before Verification
 echo Beginning Verification
 PING 127.0.0.1 -n 10 >NUL 2>&1 || PING ^::1 -n 10 >NUL 2>&1
 
