@@ -18,7 +18,7 @@ REM the command line or from the OSIRiS master control program.
 REM Running it manually will likely result in a broken system.
 REM 			    	             YOU HAVE BEEN WARNED.
 REM #########################################################################
-echo We Are Running In Windows 10 Mode Now.
+echo We Are Running In Windows 10 Mode Now
 
 :: Check system Architecture version so we can call the correct version of Powershell.
 echo Finding Architecure
@@ -163,7 +163,7 @@ POWERCFG -change -standby-timeout-ac 0 2>&1
 POWERCFG -change -standby-timeout-dc 0 2>&1
 POWERCFG -change -hibernate-timeout-ac 0 2>&1
 POWERCFG -change -hibernate-timeout-dc 0 2>&1
-:: Disables Hybrid sleep so we can wake the machine at 7am.
+:: Disables Hybrid sleep so we can wake the machine at 6:30am.
 powercfg -hibernate off 2>&1
 
 REM ####################################################
@@ -190,7 +190,9 @@ REM #Create a scheduled task to sleep the machine based upon the argument %2 eve
 REM ######################################################################################
 
 echo Configuring Auto Sleep
-SCHTASKS /Create /F /RU "Customer" /RL "HIGHEST" /SC "DAILY" /TN "AutoSleep" /TR "rundll32.exe powrprof.dll,SetSuspendState 0,1,0" /ST "%2" > NUL 2>&1
+copy "%~dp0\setup_payload\sleep.ps1" C:\profiles\ > NUL 2>&1
+SCHTASKS /Create /XML "%~dp0\AutoSleep.xml" /tn AutoSleep > NUL 2>&1
+SCHTASKS /Change /AutoSleep /ST "%2" > NUL 2>&1
 
 echo Configuring Auto Wake
 SCHTASKS /Create /XML "%~dp0\AutoWake.xml" /tn AutoWake > NUL 2>&1
@@ -205,98 +207,31 @@ echo Setting Up Custom Wallpaper
 ::Here we dump the contents of WMIC CPU to a text file and copy over
 ::OSIRiS Desktop Info to the profiles folder.
 
-wmic cpu get name > cpu.txt
 copy "%~dp0\setup_payload\ODIN.exe" C:\profiles\ > NUL 2>&1
 copy "%~dp0\setup_payload\Reconfigure_ODIN.exe" C:\profiles\ > NUL 2>&1
 
-::Use 'find' to look through the cpu.txt file and check for specific
-::strings containing CPU information.
-::Copy a specific wallpaper over to the local disk based upon the CPU
-::discovered inside cpu.txt.
+wmic cpu get name |more > %TEMP%\tempcpu.txt
 
-REM ################################### BEGIN PROCESSOR CHECK CODE BLOCK ############################################
+::Strip the top line of the file.
+type %TEMP%\tempcpu.txt | findstr /v Name > %TEMP%\cpu.txt
 
-REM ##INTEL BLOCK##
-find /I "i5" cpu.txt  > NUL 2>&1
-if %errorlevel%==0 (copy "%~dp0\setup_payload\i5.bmp" C:\profiles\wallpaper.bmp) ELSE (GOTO i3)  > NUL 2>&1
-GOTO ENDPROC
-:i3
-find /I "i3" cpu.txt  > NUL 2>&1
-if %errorlevel%==0 (copy "%~dp0\setup_payload\i3.bmp" C:\profiles\wallpaper.bmp) ELSE (GOTO i7)  > NUL 2>&1
-GOTO ENDPROC
-:i7
-find /I "i7" cpu.txt  > NUL 2>&1
-if %errorlevel%==0 (copy "%~dp0\setup_payload\i7.bmp" C:\profiles\wallpaper.bmp) ELSE (GOTO pent)  > NUL 2>&1
-GOTO ENDPROC
-:pent
-find /I "pentium" cpu.txt  > NUL 2>&1
-if %errorlevel%==0 (copy "%~dp0\setup_payload\pentium.bmp" C:\profiles\wallpaper.bmp) ELSE (GOTO cel)  > NUL 2>&1
-GOTO ENDPROC
-:cel
-find /I "celeron" cpu.txt  > NUL 2>&1
-if %errorlevel%==0 (copy "%~dp0\setup_payload\celeron.bmp" C:\profiles\wallpaper.bmp) ELSE (GOTO atom)  > NUL 2>&1
-GOTO ENDPROC
-:atom
-find /I "atom" cpu.txt  > NUL 2>&1
-if %errorlevel%==0 (copy "%~dp0\setup_payload\atom.bmp" C:\profiles\wallpaper.bmp) ELSE (GOTO corem)  > NUL 2>&1
-GOTO ENDPROC
-:corem
-find /I "5y" cpu.txt  > NUL 2>&1
-if %errorlevel%==0 (copy "%~dp0\setup_payload\corem.bmp" C:\profiles\wallpaper.bmp) ELSE (GOTO e2)  > NUL 2>&1
-GOTO ENDPROC
-REM ##END INTEL##
-
-REM ##AMD BLOCK##
-:e2
-find /I "e2" cpu.txt  > NUL 2>&1
-if %errorlevel%==0 (copy "%~dp0\setup_payload\e2.bmp" C:\profiles\wallpaper.bmp) ELSE (GOTO e1)  > NUL 2>&1
-GOTO ENDPROC
-:e1
-find /I "e1" cpu.txt  > NUL 2>&1
-if %errorlevel%==0 (copy "%~dp0\setup_payload\e1.bmp" C:\profiles\wallpaper.bmp) ELSE (GOTO a4)  > NUL 2>&1
-GOTO ENDPROC
-:a4
-find /I "a4" cpu.txt  > NUL 2>&1
-if %errorlevel%==0 (copy "%~dp0\setup_payload\a4.bmp" C:\profiles\wallpaper.bmp) ELSE (GOTO a6)  > NUL 2>&1
-GOTO ENDPROC
-:a6
-find /I "a6" cpu.txt  > NUL 2>&1
-if %errorlevel%==0 (copy "%~dp0\setup_payload\a6.bmp" C:\profiles\wallpaper.bmp) ELSE (GOTO a8)  > NUL 2>&1
-GOTO ENDPROC
-:a8
-find /I "a8" cpu.txt  > NUL 2>&1
-if %errorlevel%==0 (copy "%~dp0\setup_payload\a8.bmp" C:\profiles\wallpaper.bmp) ELSE (GOTO a10)  > NUL 2>&1
-GOTO ENDPROC
-:a10
-find /I "a10" cpu.txt  > NUL 2>&1
-if %errorlevel%==0 (copy "%~dp0\setup_payload\a10.bmp" C:\profiles\wallpaper.bmp) ELSE (GOTO fx)  > NUL 2>&1
-GOTO ENDPROC
-:fx
-find /I "fx" cpu.txt > NUL 2>&1
-if %errorlevel%==0 (copy "%~dp0\setup_payload\fx.bmp" C:\profiles\wallpaper.bmp) ELSE (GOTO unknown)  > NUL 2>&1
-GOTO ENDPROC
-REM ##END AMD##
-
-:unknown
-copy "%~dp0\setup_payload\generic.bmp" C:\profiles\wallpaper.bmp > NUL 2>&1
-
-REM ################################### END PROCESSOR CHECK CODE BLOCK ############################################
-
-:ENDPROC
+::Call the prccheck.bat script to determine what wallpaper to use.
+call "%~dp0\proccheck.bat"
 
 ::Start ODIN at logon. The old method was to use a scheduled task which is unreliable on certain machines.
 ::The new approach is to write to the startup section of the registry. This SHOULD (read: might break) work
 ::on all machines.
 ::Call the powershellreg.ps1 script to disable first sign in animations, disable Windows Update and force 'Customer' account login.
 ::Also set up ODIN on login start.
-echo Set Registry Entries Via PowerShell.
+echo Set Registry Entries Via PowerShell
 SET "ThisScriptsDirectory=%~dp0"
 SET "PowerShellScriptPath=%ThisScriptsDirectory%powershellreg.ps1"
 if %OSARC%==64BIT C:\windows\sysnative\windowspowershell\v1.0\powershell.exe -NonInteractive -executionpolicy Bypass -file "%PowerShellScriptPath%" %5 > NUL 2>&1
 if %OSARC%==32BIT powershell.exe -NonInteractive -executionpolicy Bypass -file "%PowerShellScriptPath%" %5 > NUL 2>&1
 
 ::Delete the cpu.txt file.
-del cpu.txt
+del %TEMP%\cpu.txt
+del %TEMP%\tempcpu.txt
 
 ::Copy over ROSY for use when a machine fails to be sold with OSIRiS.
 copy "%~dp0\setup_payload\ROSY.exe" C:\profiles\ > NUL 2>&1
@@ -318,7 +253,8 @@ net user | find /i "Customer" 1>NUL || Net user Customer /add > NUL 2>&1
 WMIC USERACCOUNT WHERE "Name='Customer'" SET PasswordExpires=FALSE > NUL 2>&1
 SCHTASKS /query /TN "AutoSleep" > NUL 2>&1
 if NOT %errorlevel%==0 (
-SCHTASKS /Create /F /RU "Customer" /RL "HIGHEST" /SC "DAILY" /TN "AutoSleep" /TR "rundll32.exe powrprof.dll,SetSuspendState 0,1,0" /ST "%2" > NUL 2>&1
+  SCHTASKS /Create /XML "%~dp0\AutoSleep.xml" /tn AutoSleep > NUL 2>&1
+  SCHTASKS /Change /AutoSleep /ST "%2" > NUL 2>&1
 )
 SCHTASKS /query /TN "AutoWake" > NUL 2>&1
 if NOT %errorlevel%==0 (

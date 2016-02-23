@@ -9,6 +9,23 @@
 
 
 --------------------------------------------------------------------------------
+3.1.1.3:
+OSIRiS now supports detection of Skylake 6th gen Intel CPUs and will set a new
+wallpaper accordingly. Also XEON support has been added in the unlikely event
+that Officeworks decides to sell workstations.
+
+3.1.1.2:
+ODIN now supports forced updates by pressing CTRL+SHIFT+U, it will prompt the user
+first and show the new version number. In addition, CTRL+SHIFT+Q will force ODIN
+to quit, this is useful in the event that a manual re-deployment of ODIN is
+required.
+ODIN no longer attaches to the desktop process. This prevents ODIN crashing at
+odd intervals while the desktop process gets locked up waiting for one of ODIN's
+hotkeys to be pressed. This also has the side effect of ODIN being considered a 
+standard application as opposed to it's original design which was more like a 
+gadget or widget. This means that clicking on ODIN will make it overlap whatever 
+window is currently sitting in the forground. 
+
 3.1.1.1:
 Reconfigure_ODIN.exe has been modified to support re-launching of ODIN after a
 setting change with limited privileges. Previously ODIN would be launched as a 
