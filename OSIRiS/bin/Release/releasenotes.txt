@@ -9,6 +9,10 @@
 
 
 --------------------------------------------------------------------------------
+3.1.1.4:
+Reworked the CPU check code to better support AMD and Skylake CPUs. 
+Tweaked the design of ODIN to include a drop shadow.
+
 3.1.1.3:
 OSIRiS now supports detection of Skylake 6th gen Intel CPUs and will set a new
 wallpaper accordingly. Also XEON support has been added in the unlikely event
