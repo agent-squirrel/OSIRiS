@@ -7,7 +7,6 @@ using System.Windows.Forms;
 using System.IO.Compression;
 using MaterialSkin.Controls;
 using MaterialSkin;
-
 namespace OSIRiS
 {
 
@@ -126,6 +125,30 @@ namespace OSIRiS
                     {
                         Directory.Delete(@"resources", true);
                     }
+                    if (File.Exists(Path.GetTempPath() + @"OSIRiS_Manual.docx"))
+                    {
+                        File.Delete(Path.GetTempPath() + "OSIRiS_Manual.docx");
+                    }
+                    if (File.Exists(Path.GetTempPath() + @"OSIRiS_Manual.pdf"))
+                    {
+                        File.Delete(Path.GetTempPath() + "OSIRiS_Manual.pdf");
+                    }
+                    if (File.Exists(Path.GetTempPath() + @"gpl.txt"))
+                    {
+                        File.Delete(Path.GetTempPath() + "gpl.txt");
+                    }
+                    if (File.Exists(Path.GetTempPath() + @"OSIRiS.exe"))
+                    {
+                        File.Delete(Path.GetTempPath() + "OSIRiS.exe");
+                    }
+                    if (Directory.Exists(Path.GetTempPath() + @"resources"))
+                    {
+                        Directory.Delete(Path.GetTempPath() + @"resources", true);
+                    }
+                    if (File.Exists(Path.GetTempPath() + @"latest.zip"))
+                    {
+                        File.Delete(Path.GetTempPath() + "latest.zip");
+                    }
 
                     File.Move("OSIRiS.exe", "OSIRiS.exe.bak");
                     System.Threading.Thread.Sleep(500);
@@ -147,7 +170,14 @@ namespace OSIRiS
                 {
                     //Unpack to the USB.
                     info.Text = "Extracting";
-                    ZipFile.ExtractToDirectory(Path.GetTempPath() + "latest.zip", ".");
+                    ZipFile.ExtractToDirectory(Path.GetTempPath() + "latest.zip", Path.GetTempPath());
+                    Process process = new Process();
+                    ProcessStartInfo startInfo = new ProcessStartInfo();
+                    startInfo.FileName = "cmd.exe";
+                    startInfo.Arguments = "/C xcopy %TEMP%\\resources %CD%\\resources /E /I&copy %TEMP%\\gpl.txt %CD%&copy %TEMP%\\OSIRiS.exe %CD%&copy %TEMP%\\OSIRiS_Manual.pdf %CD%";
+                    process.StartInfo = startInfo;
+                    process.Start();
+                    process.WaitForExit();
                     System.Threading.Thread.Sleep(500);
                 }
             }

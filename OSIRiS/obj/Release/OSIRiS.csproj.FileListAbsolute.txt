@@ -33,4 +33,3 @@ C:\Users\Adam\Documents\Visual Studio 2015\Projects\OSIRiS\OSIRiS\bin\Release\OS
 C:\Users\Adam\Documents\Visual Studio 2015\Projects\OSIRiS\OSIRiS\bin\Release\MaterialSkin.dll
 C:\Users\Adam\Documents\Visual Studio 2015\Projects\OSIRiS\OSIRiS\obj\Release\OSIRiS.exe
 C:\Users\Adam\Documents\Visual Studio 2015\Projects\OSIRiS\OSIRiS\obj\Release\OSIRiS.pdb
-C:\Users\Adam\Documents\Visual Studio 2015\Projects\OSIRiS\OSIRiS\obj\Release\OSIRiS.csprojResolveAssemblyReference.cache
