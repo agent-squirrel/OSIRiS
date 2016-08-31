@@ -73,7 +73,10 @@ namespace OSIRiS
         {
             UpdateFormDisplay(this.BackgroundImage);
             // Interval of 0,1 seconds
-
+            if (File.Exists(@"OSIRiS.exe.bak"))
+            {
+                File.Delete(@"OSIRiS.exe.bak");
+            }
             if (File.Exists(@"resources\version.remote.txt"))
             {
                 File.Delete(@"resources\version.remote.txt");

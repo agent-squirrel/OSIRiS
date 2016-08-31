@@ -31,9 +31,15 @@ namespace OSIRiS
             Thread.Sleep(2000);
         }
 
-
+        private void tabControl1_Selecting(Object sender, TabControlCancelEventArgs e)
+        {
+            e.Cancel = true;
+        }
         private void OSIRiSmainwindow_Shown(object sender, EventArgs e)
         {
+            //Display OSIRiS final run dialog box to show EOL.
+            MessageBox.Show("OSIRiS is now end of life (EOL)." + Environment.NewLine + "All functions except selling have been disabled.");
+
             //Check for the presence of the file integrity list. If it doesn't exist
             //assume the OSIRiS install is compromised. 
             if (!File.Exists(@"resources\update\file_integrity"))
@@ -47,9 +53,13 @@ namespace OSIRiS
                 }
             }
             //Check file integrity against file list.
-            //This is an early attempt at integrity checking, it will be improved.
+            //This may be upgraded to MD5 sum checking instead of a file list.
             else
                     {
+                //Lock tab control to sell page.
+                tabControl1.SelectedTab = sellpage;
+                tabControl1.Selecting += tabControl1_Selecting;
+
                         //Lets check for updates.
                         //Get newest version.
                         string url = "https://gnuplusadam.com/OSIRiS/version";
@@ -170,12 +180,17 @@ namespace OSIRiS
                 {
                     if (!File.Exists(file))
                     {
-                        DialogResult corruptedinstall = MessageBox.Show("You have missing components." + Environment.NewLine + "OSIRiS will now download the missing parts.", "Missing Components", MessageBoxButtons.OK);
-                        if (corruptedinstall == DialogResult.OK)
+                        progresslabel.Text = "";
+                        DialogResult corruptedinstall = MessageBox.Show("You have missing components." + Environment.NewLine + "Do you wish for OSIRiS to download the missing parts?" + Environment.NewLine + "Pressing no will override the download but setup could behave erratically.", "Missing Components", MessageBoxButtons.YesNo);
+                        if (corruptedinstall == DialogResult.Yes)
                         {
                             var form = new updater();
                             form.Show(this);
                             this.Hide();
+                        }
+                        if (corruptedinstall == DialogResult.No)
+                        {
+                            break;
                         }
                     }
                 }
@@ -282,6 +297,7 @@ namespace OSIRiS
 
             else if (dialogResult == DialogResult.No)
             {
+                progresslabel.Text = "";
                 runbutton.Enabled = true;
                 return;
             }
@@ -341,6 +357,7 @@ namespace OSIRiS
             DialogResult dialogResult = MessageBox.Show("Sell this machine?", "Machine Sell", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
 
+
             //If we get a 'yes' then disable the run buttons on all pages
             //to prevent 'spamming' of the button and creating a 'Zerg Rush'
             //of active asynchronous processes. 
@@ -353,6 +370,27 @@ namespace OSIRiS
 
 
             {
+                progresslabel.Text = "Checking Integrity of OSIRiS";
+                string[] files = File.ReadAllLines(@"resources\update\file_integrity");
+                foreach (var file in files)
+                {
+                    if (!File.Exists(file))
+                    {
+                        progresslabel.Text = "";
+                        DialogResult corruptedinstall = MessageBox.Show("You have missing components." + Environment.NewLine + "Do you wish for OSIRiS to download the missing parts?" + Environment.NewLine + "Pressing no will override the download but setup could behave erratically.", "Missing Components", MessageBoxButtons.YesNo);
+                        if (corruptedinstall == DialogResult.Yes)
+                        {
+                            var form = new updater();
+                            form.Show(this);
+                            this.Hide();
+                        }
+                        if (corruptedinstall == DialogResult.No)
+                        {
+                            break;
+                        }
+                    }
+                }
+
                 sellrunbutton.Enabled = false;
                 runbutton.Enabled = false;
                 if (string.IsNullOrWhiteSpace(usernamebox.Text))
